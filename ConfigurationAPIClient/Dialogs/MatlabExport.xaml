@@ -1,0 +1,21 @@
+﻿<Window x:Class="SystemMonitorConfigurationTest.Dialogs.MatlabExport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation ="CenterScreen"
+        Title="MatlabExport" Height="180" Width="480">
+    <Grid>
+        <Label x:Name="appsLabel" Content="App:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="appList" HorizontalAlignment="Left" Margin="90,15,0,0" VerticalAlignment="Top" Width="250" IsReadOnly="True"/>
+        <Label x:Name="dtvNameLable" Content="DTV Name:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="dtvName" HorizontalAlignment="Left" Margin="90,15,0,0" Text="" VerticalAlignment="Top" Width="250" Height="20"/>
+        <Label x:Name="exportLable" Content="Export File:" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="exportName" HorizontalAlignment="Left" Margin="90,45,0,0" Text="" VerticalAlignment="Top" Width="250" Height="20"/>
+        <CheckBox x:Name="dataOnly" Content="Data Only" HorizontalAlignment="left" Margin="90,77,00,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="type" Margin="350,15,10,45"  SelectionMode="Multiple"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="75,00,0,10" VerticalAlignment="Bottom" Width="50" Click="Cancel_Click"/>
+        <Button Content="Ok" HorizontalAlignment="Right" Margin="0,0,75,10" VerticalAlignment="Bottom" Width="50" Click="Ok_Click"/>
+    </Grid>
+</Window>

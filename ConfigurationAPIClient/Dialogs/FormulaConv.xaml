@@ -1,0 +1,26 @@
+﻿<Window x:Class="SystemMonitorConfigurationTest.Dialogs.FormulaConv"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation ="CenterScreen"
+        Title="Add Formula Conversion" Height="290" Width="350">
+    <Grid>
+        <Label Content="Conversion Id:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="name" HorizontalAlignment="Left" Margin="100,15,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Formula:" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="formula" HorizontalAlignment="Left" Margin="100,50,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Inverse:" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="inverse" HorizontalAlignment="Left" Margin="100,75,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Comment:" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="comment" HorizontalAlignment="Left" Margin="100,105,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Format:" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="format" HorizontalAlignment="Left" Margin="100,130,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Units:" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="units" HorizontalAlignment="Left" Margin="100,155,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <CheckBox x:Name="overwrite"  Content="Overwrite" HorizontalAlignment="Left" Margin="100,190,0,0" VerticalAlignment="Top"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="75,00,0,10" VerticalAlignment="Bottom" Width="50" Click="Cancel_Click"/>
+        <Button Content="Ok" HorizontalAlignment="Right" Margin="0,0,75,10" VerticalAlignment="Bottom" Width="50" Click="Ok_Click"/>
+    </Grid>
+</Window>

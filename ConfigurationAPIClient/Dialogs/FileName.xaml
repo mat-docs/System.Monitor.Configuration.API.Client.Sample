@@ -1,0 +1,17 @@
+﻿<Window x:Class="SystemMonitorConfigurationTest.Dialogs.FileName"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation ="CenterScreen"
+        Title="File Name" Height="150" Width="370">
+    <Grid>
+        <Label Content="Type:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="typeList" HorizontalAlignment="Left" Margin="65,15,0,0" VerticalAlignment="Top" Width="250" IsReadOnly="True" SelectionChanged="Type_SelectionChanged"/>
+        <Label x:Name="slotTxt" Content="Slot:" HorizontalAlignment="Left" Margin="14,45,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="slot" HorizontalAlignment="Left" Margin="65,48,0,0" VerticalAlignment="Top" Width="71"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="75,00,0,10" VerticalAlignment="Bottom" Width="50" Click="Cancel_Click"/>
+        <Button Content="Ok" HorizontalAlignment="Right" Margin="0,0,75,10" VerticalAlignment="Bottom" Width="50" Click="Ok_Click"/>
+    </Grid>
+</Window>

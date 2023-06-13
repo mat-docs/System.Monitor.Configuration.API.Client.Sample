@@ -1,0 +1,268 @@
+﻿<Window x:Class="SystemMonitorConfigurationTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation ="CenterScreen"
+        Title="System Monitor Configuration Test" Height="630" Width="1050" ResizeMode="NoResize">
+    <Grid>
+        <Button Content="Apps" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="22" Width="62" Click="GetApps_Click"/>
+        <ComboBox x:Name="appList" HorizontalAlignment="Left" Margin="90,10,0,0" VerticalAlignment="Top" Width="160" IsReadOnly="True"/>
+        <Label Content="Server Address:" HorizontalAlignment="Left" Margin="270,7,0,0" VerticalAlignment="Top" Height="24"/>
+        <TextBox x:Name="serverAddress"  Text="https://localhost:7000" HorizontalAlignment="Center" Margin="0,8,0,0" VerticalAlignment="Top"  Height="24" Width="300"/>
+        <Button x:Name="AuthSettings" Content="Authentication Settings" HorizontalAlignment="Left" Margin="700,10,0,0" VerticalAlignment="Top" Height="22" Width="148" Click="Settings_Click"/>
+        <Label x:Name="executeTime" Content="0 ms" HorizontalAlignment="Right" Margin="0,10,20,0" VerticalAlignment="Top" Height="24"/>
+        <Button Content="Params" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="22" Width="62" Click="GetParams_Click"/>
+        <Label Content="Meas:" HorizontalAlignment="Left" Margin="85,43,0,0" VerticalAlignment="Top" />
+        <ComboBox x:Name="measurement" HorizontalAlignment="Left" Margin="130,45,0,0" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
+        <Label Content="Scalar:" HorizontalAlignment="Left" Margin="320,43,0,0" VerticalAlignment="Top" />
+        <ComboBox x:Name="scalar" HorizontalAlignment="Left" Margin="370,45,0,0" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
+        <Label Content="1-Axis:" HorizontalAlignment="Left" Margin="560,43,0,0" VerticalAlignment="Top" />
+        <ComboBox x:Name="axis1" HorizontalAlignment="Left" Margin="610,45,0,0" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
+        <Label Content="2-Axis:" HorizontalAlignment="Left" Margin="800,43,0,0" VerticalAlignment="Top" />
+        <ComboBox x:Name="axis2" HorizontalAlignment="Left" Margin="845,45,0,0" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
+        <Label Content="Axis:" HorizontalAlignment="Left" Margin="85,73,0,0" VerticalAlignment="Top" />
+        <ComboBox x:Name="axis" HorizontalAlignment="Left" Margin="130,75,0,0" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
+        <Label Content="Array:" HorizontalAlignment="Left" Margin="320,73,0,0" VerticalAlignment="Top" />
+        <ComboBox x:Name="array" HorizontalAlignment="Left" Margin="370,75,0,0" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
+        <Label Content="String:" HorizontalAlignment="Left" Margin="560,73,0,0" VerticalAlignment="Top" />
+        <ComboBox x:Name="str" HorizontalAlignment="Left" Margin="610,75,0,0" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
+        <Label Content="CAN:" HorizontalAlignment="Left" Margin="85,103,0,0" VerticalAlignment="Top" />
+        <ComboBox x:Name="can" HorizontalAlignment="Left" Margin="130,105,0,0" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
+        <Label Content="Virtual:" HorizontalAlignment="Left" Margin="320,103,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="virt" HorizontalAlignment="Left" Margin="370,105,0,0" VerticalAlignment="Top" Width="180" IsReadOnly="True"/>
+        <Label Content="Conv:" HorizontalAlignment="Left" Margin="560,103,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="conv" HorizontalAlignment="Left" Margin="610,105,0,0" VerticalAlignment="Top" Width="415" IsReadOnly="True"/>
+        <Label Content="Events:" HorizontalAlignment="Left" Margin="85,133,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="evnt" HorizontalAlignment="Left" Margin="130,135,0,0" VerticalAlignment="Top" Width="420" IsReadOnly="True"/>
+        <Label Content="Errors:" HorizontalAlignment="Left" Margin="560,133,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="err" HorizontalAlignment="Left" Margin="610,135,0,0" VerticalAlignment="Top" Width="415" IsReadOnly="True"/>
+        <Label x:Name="resultCode" Content="Result: 0" HorizontalAlignment="Right" Margin="0,180,370,0" VerticalAlignment="Top" Height="24"/>
+        <Label Content="Last Result:" HorizontalAlignment="Right" Margin="0,180,265,0" VerticalAlignment="Top" Height="24"/>
+        <ComboBox x:Name="resultList" HorizontalAlignment="Right" Margin="0,180,10,0" VerticalAlignment="Top" Width="250" IsReadOnly="True"/>
+        <TabControl Margin="10,180,450,10">
+            <TabItem Header="System">
+                <Grid>
+                    <Button x:Name="GetToken" Content="Get Auth Token" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="GetToken_Click"/>
+                    <Button x:Name="NoToken" Content="Auth call - NoToken" HorizontalAlignment="Left" Margin="140,10,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="NoToken_Click"/>
+                    <Button x:Name="InvalidToken" Content="Auth call - InvalidToken" HorizontalAlignment="Left" Margin="270,10,0,0" VerticalAlignment="Top" Height="24" Width="140" Click="InvalidToken_Click"/>
+                    <Button x:Name="GetStatus" Content="GetStatus" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="GetStatus_Click"/>
+                    <Button x:Name="SetOnline" Content="SetOnline" HorizontalAlignment="Left" Margin="120,50,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="SetOnline_Click" IsEnabled="False"/>
+                    <Button x:Name="SetLiveUpdate" Content="SetLiveUpdate" HorizontalAlignment="Left" Margin="230,50,0,0" VerticalAlignment="Top" Height="24" Width="130" Click="SetLiveUpdate_Click" IsEnabled="False"/>
+                    <Button x:Name="GetLicenceDetails" Content="GetLicenceDetails" HorizontalAlignment="Left" Margin="370,50,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="GetLicenceDetails_Click"/>
+                    <Button x:Name="GetUnitName" Content="GetUnitName" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="100" Height="24" Click="GetUnitName_Click"/>
+                    <Button x:Name="GetUnitList" Content="GetUnitList" HorizontalAlignment="Left" Margin="120,90,0,0" VerticalAlignment="Top" Width="100" Height="24" Click="GetUnitList_Click"/>
+                    <Button x:Name="GetUnitByIndex" Content="GetUnitByIndex" HorizontalAlignment="Left" Margin="230,90,0,0" VerticalAlignment="Top" Width="100" Height="24" Click="GetUnitByIndex_Click" IsEnabled="False"/>
+                    <Button x:Name="SetUnitByIndex" Content="SetUnitByIndex" HorizontalAlignment="Left" Margin="340,90,0,0" VerticalAlignment="Top" Width="100" Height="24" Click="SetUnitByIndex_Click" IsEnabled="False"/>
+                    <Button x:Name="GetMultiApplicationBases" Content="GetMultiApplicationBases" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="150" Height="24" Click="GetMultiApplicationBases_Click"/>
+                    <Button x:Name="GetMultiApplicationBase" Content="GetMultiApplicationBase" HorizontalAlignment="Left" Margin="170,130,0,0" VerticalAlignment="Top" Width="150" Height="24" Click="GetMultiApplicationBase_Click"/>
+                    <Button x:Name="SetMultiApplicationBase" Content="SetMultiApplicationBase" HorizontalAlignment="Left" Margin="330,130,0,0" VerticalAlignment="Top" Width="150" Height="24" Click="SetMultiApplicationBase_Click" IsEnabled="False"/>
+                    <Button x:Name="GetDeviceProperties" Content="GetDeviceProperties" HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top" Height="24" Width="150" Click="GetDeviceProperties_Click"/>
+                    <Button x:Name="GetLiveLogging" Content="GetLiveLogging" HorizontalAlignment="Left" Margin="170,170,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="GetLiveLogging_Click"/>
+                    <Button x:Name="SetLiveLogging" Content="SetLiveLogging" HorizontalAlignment="Left" Margin="280,170,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="SetLiveLogging_Click" IsEnabled="False"/>
+                    <Button x:Name="SetBatchMode" Content="SetBatchMode: ON" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="SetBatchMode_Click"/>
+                    <Button Content="GetLogFolder" HorizontalAlignment="Left" Margin="140,210,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="GetLogFolder_Click"/>
+                    <Button Content="GetPPOFileName" HorizontalAlignment="Left" Margin="240,210,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="GetPPOFileName_Click"/>
+                    <Button x:Name="SendMessage" Content="SendMessage" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="SendMessage_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Project">
+                <Grid>
+                    <Button Content="ProjectOpen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="24" Width="85" Click="ProjectOpen_Click"/>
+                    <Button Content="ProjectClose" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" Height="24" Width="85" Click="ProjectClose_Click"/>
+                    <Button Content="ProjectSave" HorizontalAlignment="Left" Margin="200,10,0,0" VerticalAlignment="Top" Height="24" Width="85" Click="ProjectSave_Click"/>
+                    <Button Content="ProjectSaveAs" HorizontalAlignment="Left" Margin="295,10,0,0" VerticalAlignment="Top" Height="24" Width="85" Click="ProjectSaveAs_Click"/>
+                    <Button Content="ProjectImport" HorizontalAlignment="Left" Margin="390,10,0,0" VerticalAlignment="Top" Height="24" Width="85" Click="ProjectImport_Click"/>
+                    <Button Content="ProjectExport" HorizontalAlignment="Left" Margin="485,10,0,0" VerticalAlignment="Top" Height="24" Width="85" Click="ProjectExport_Click"/>
+                    <Button Content="ProjectCreate" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="24" Width="85" Click="ProjectCreate_Click"/>
+                    <Button Content="Reprogram" HorizontalAlignment="Left" Margin="105,45,0,0" VerticalAlignment="Top" Height="24" Width="75" Click="Reprogram_Click"/>
+                    <Button Content="DownloadDataChanges" HorizontalAlignment="Left" Margin="190,45,0,0" VerticalAlignment="Top" Height="24" Width="135" Click="DownloadDataChanges_Click"/>
+                    <Button Content="EditBufferSynced" HorizontalAlignment="Left" Margin="335,45,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="EditBufferSynced_Click"/>
+                    <Button  Content="UploadDataVersion" HorizontalAlignment="Left" Margin="445,45,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="UploadDataVersion_Click"/>
+                    <Button Content="GetDTVVersion" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Height="24" Width="95" Click="GetDTVVersion_Click"/>
+                    <Button Content="GetEcuDTVVersion" HorizontalAlignment="Left" Margin="115,80,0,0" VerticalAlignment="Top" Height="24" Width="105" Click="GetEcuDTVVersion_Click"/>
+                    <Button Content="GetNextDTVVersion" HorizontalAlignment="Left" Margin="230,80,0,0" VerticalAlignment="Top" Height="24" Width="115" Click="GetNextDTVVersion_Click"/>
+                    <Button Content="GetVersionNumber" HorizontalAlignment="Left" Margin="355,80,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="GetVersionNumber_Click"/>
+                    <Button Content="GetDTVNotes" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top" Height="24" Width="85" Click="GetDTVNotes_Click"/>
+                    <Button Content="SetDTVNotes" HorizontalAlignment="Left" Margin="105,115,0,0" VerticalAlignment="Top" Height="24" Width="85" Click="SetDTVNotes_Click"/>
+                    <Button Content="ClearDTVNotes" HorizontalAlignment="Left" Margin="200,115,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="ClearDTVNotes_Click"/>
+                    <Button Content="GetDTVComment" HorizontalAlignment="Left" Margin="300,115,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="GetDTVComment_Click"/>
+                    <Button Content="SetDTVComment" HorizontalAlignment="Left" Margin="410,115,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="SetDTVComment_Click"/>
+                    <Button Content="DTVOpen" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Height="24" Width="80" Click="DTVOpen_Click"/>
+                    <Button Content="DTVSave" HorizontalAlignment="Left" Margin="100,150,0,0" VerticalAlignment="Top" Height="24" Width="80" Click="DTVSave_Click"/>
+                    <Button Content="DTVSaveCopy" HorizontalAlignment="Left" Margin="190,150,0,0" VerticalAlignment="Top" Height="24" Width="80" Click="DTVSaveCopy_Click"/>
+                    <Button Content="DTVSaveIncrement" HorizontalAlignment="Left" Margin="280,150,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="DTVSaveIncrement_Click"/>
+                    <Button Content="GetBuildNumber" HorizontalAlignment="Left" Margin="400,150,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="GetBuildNumber_Click"/>
+                    <Button Content="GetDTVModified" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="24" Width="95" Click="GetDTVModified_Click"/>
+                    <Button Content="GetDTVSavedOn" HorizontalAlignment="Left" Margin="115,185,0,0" VerticalAlignment="Top" Height="24" Width="95" Click="GetDTVSavedOn_Click"/>
+                    <Button x:Name="EnableDTVBackup" Content="EnableDTVBackup: Y" HorizontalAlignment="Left" Margin="220,185,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="EnableDTVBackup_Click"/>
+                    <Button Content="GetPGVVersion" HorizontalAlignment="Left" Margin="350,185,0,0" VerticalAlignment="Top" Height="24" Width="95" Click="GetPGVVersion_Click"/>
+                    <Button Content="GetPGVID" HorizontalAlignment="Left" Margin="455,185,0,0" VerticalAlignment="Top" Height="24" Width="85" Click="GetPGVID_Click"/>
+                    <Button Content="GetActiveApps" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="GetActiveApps_Click"/>
+                    <Button Content="SetActiveApps" HorizontalAlignment="Left" Margin="110,220,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="SetActiveApps_Click"/>
+                    <Button Content="AddApp" HorizontalAlignment="Left" Margin="210,220,0,0" VerticalAlignment="Top" Height="24" Width="70" Click="AddApp_Click"/>
+                    <Button Content="RemoveApp" HorizontalAlignment="Left" Margin="290,220,0,0" VerticalAlignment="Top" Height="24" Width="75" Click="RemoveApp_Click"/>
+                    <Button Content="CompareApp" HorizontalAlignment="Left" Margin="375,220,0,0" VerticalAlignment="Top" Height="24" Width="85" Click="CompareApp_Click"/>
+                    <Button Content="GetAppPULFile" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="GetAppPULFile_Click"/>
+                    <Button Content="SetAppPULFile" HorizontalAlignment="Left" Margin="110,255,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="SetAppPULFile_Click"/>
+                    <Button Content="CreateFFCFromPGV" HorizontalAlignment="Left" Margin="210,255,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="CreateFFCFromPGV_Click"/>
+                    <Button Content="ExportToHexFile" HorizontalAlignment="Left" Margin="330,255,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="ExportToHexFile_Click"/>
+                    <Button Content="FileOpen" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Height="24" Width="70" Click="FileOpen_Click"/>
+                    <Button Content="FileSave" HorizontalAlignment="Left" Margin="90,290,0,0" VerticalAlignment="Top" Height="24" Width="70" Click="FileSave_Click"/>
+                    <Button Content="FileNew" HorizontalAlignment="Left" Margin="170,290,0,0" VerticalAlignment="Top" Height="24" Width="70" Click="FileNew_Click"/>
+                    <Button Content="GetFileName" HorizontalAlignment="Left" Margin="250,290,0,0" VerticalAlignment="Top" Height="24" Width="80" Click="GetFileName_Click"/>
+                    <Button Content="GetFileDetails" HorizontalAlignment="Left" Margin="340,290,0,0" VerticalAlignment="Top" Height="24" Width="80" Click="GetFileDetails_Click"/>
+                    <Button Content="GetActiveLoggingConfig" HorizontalAlignment="Left" Margin="10, 325,0,0" VerticalAlignment="Top" Height="24" Width="140" Click="GetActiveLoggingConfig_Click"/>
+                    <Button Content="SetActiveLoggingConfig" HorizontalAlignment="Left" Margin="160,325,0,0" VerticalAlignment="Top" Height="24" Width="140" Click="SetActiveLoggingConfig_Click"/>
+                    <Button Content="LoggingConfigUnload" HorizontalAlignment="Left" Margin="310,325,0,0" VerticalAlignment="Top" Height="24" Width="130" Click="LoggingConfigUnload_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Project 2">
+                <Grid>
+                    <Button Content="GetActiveCANConfig" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="GetActiveCANConfig_Click"/>
+                    <Button Content="SetActiveCANConfig" HorizontalAlignment="Left" Margin="140,10,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="SetActiveCANConfig_Click"/>
+                    <Button Content="GetFIACANConfig" HorizontalAlignment="Left" Margin="270,10,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="GetFIACANConfig_Click"/>
+                    <Button Content="SetFIACANConfig" HorizontalAlignment="Left" Margin="400,10,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="SetFIACANConfig_Click"/>
+                    <Button Content="CANBuffersExport" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="CANBuffersExport_Click"/>
+                    <Button Content="CANBuffersImport" HorizontalAlignment="Left" Margin="140,45,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="CANBuffersImport_Click"/>
+                    <Button Content="CANMessagesExport" HorizontalAlignment="Left" Margin="270,45,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="CANMessagesExport_Click"/>
+                    <Button Content="CANMessagesImport" HorizontalAlignment="Left" Margin="400,45,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="CANMessagesImport_Click"/>
+                    <Button Content="CANConfigUnload" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="CANConfigUnload_Click"/>
+                    <Button Content="MatlabImport" HorizontalAlignment="Left" Margin="130,80,0,0" VerticalAlignment="Top" Height="24" Width="85" Click="MatlabImport_Click"/>
+                    <Button Content="MatlabExport" HorizontalAlignment="Left" Margin="225,80,0,0" VerticalAlignment="Top" Height="24" Width="85" Click="MatlabExport_Click"/>
+                    <Button Content="MatlabExportDTV" HorizontalAlignment="Left" Margin="320,80,0,0" VerticalAlignment="Top" Height="24" Width="105" Click="MatlabExportDTV_Click"/>
+                    <Button Content="MatlabExportSelected" HorizontalAlignment="Left" Margin="435,80,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="MatlabExportSelected_Click"/>
+                    <Button Content="GenerateParamSet" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="GenerateParamSet_Click"/>
+                    <Button Content="GeneratePULFile" HorizontalAlignment="Left" Margin="130,115,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="GeneratePULFile_Click"/>
+                    <Button Content="GeneratePULFileFromParamSet" HorizontalAlignment="Left" Margin="240,115,0,0" VerticalAlignment="Top" Height="24" Width="180" Click="GeneratePULFileFromParamSet_Click"/>
+                    <Button Content="AddParametersToUnlockList" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Height="24" Width="160" Click="AddParametersToUnlockList_Click"/>
+                    <Button Content="RemoveParameterFromUnlockList" HorizontalAlignment="Left" Margin="180,150,0,0" VerticalAlignment="Top" Height="24" Width="190" Click="RemoveParameterFromUnlockList_Click"/>
+                    <Button Content="ParameterExists" HorizontalAlignment="Left" Margin="380,150,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="ParameterExists_Click"/>
+                    <Button Content="GetAppsHoldingParam" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="24" Width="130" Click="GetAppsHoldingParam_Click"/>
+                    <Button Content="GetAppsHoldingMeasurementParam" HorizontalAlignment="Left" Margin="150,185,0,0" VerticalAlignment="Top" Height="24" Width="210" Click="GetAppsHoldingMeasurementParam_Click"/>
+                    <Button Content="GetAppsHoldingControlParam" HorizontalAlignment="Left" Margin="370,185,0,0" VerticalAlignment="Top" Height="24" Width="170" Click="GetAppsHoldingControlParam_Click"/>
+                    <Button Content="RegisterEnhancedRowParameters" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Height="24" Width="190" Click="RegisterEnhancedRowParameters_Click"/>
+                    <Button Content="ClearEnhancedRowParameters" HorizontalAlignment="Left" Margin="210,220,0,0" VerticalAlignment="Top" Height="24" Width="170" Click="ClearEnhancedRowParameters_Click"/>
+                    <Button Content="RegisterCANEnhancedRowParameters" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" Height="24" Width="210" Click="RegisterCANEnhancedRowParameters_Click"/>
+                    <Button Content="RegisterVirtualEnhancedRowParameters" HorizontalAlignment="Left" Margin="230,255,0,0" VerticalAlignment="Top" Height="24" Width="220" Click="RegisterVirtualEnhancedRowParameters_Click"/>
+                    <Button Content="ActivateEnhancedRowParameters" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Height="24" Width="190" Click="ActivateEnhancedRowParameters_Click"/>
+                    <Button Content="DumpEvents" HorizontalAlignment="Left" Margin="210,290,0,0" VerticalAlignment="Top" Height="24" Width="80" Click="DumpEvents_Click"/>
+                    <Button Content="DumpErrors" HorizontalAlignment="Left" Margin="300,290,0,0" VerticalAlignment="Top" Height="24" Width="80" Click="DumpErrors_Click"/>
+                    <Button Content="DumpRowData" HorizontalAlignment="Left" Margin="390,290,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="DumpRowData_Click"/>
+                    <Button Content="GetEventDetails" HorizontalAlignment="Left" Margin="10,325,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="GetEventDetails_Click"/>
+                    <Button Content="GetErrorDefinitions" HorizontalAlignment="Left" Margin="110,325,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="GetErrorDefinitions_Click"/>
+                    <Button Content="GetErrors" HorizontalAlignment="Left" Margin="230,325,0,0" VerticalAlignment="Top" Height="24" Width="70" Click="GetErrors_Click"/>
+                    <Button Content="DeleteErrors" HorizontalAlignment="Left" Margin="310,325,0,0" VerticalAlignment="Top" Height="24" Width="80" Click="DeleteErrors_Click"/>
+                    <Button Content="ClearEvents" HorizontalAlignment="Left" Margin="400,325,0,0" VerticalAlignment="Top" Height="24" Width="80" Click="ClearEvents_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Parameters">
+                <Grid>
+                    <Button Content="GetParametersAndGroups" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="24" Width="150" Click="GetParametersAndGroups_Click"/>
+                    <Button Content="GetParameterProperties" HorizontalAlignment="Left" Margin="170,10,0,0" VerticalAlignment="Top" Height="24" Width="140" Click="GetParameterProperties_Click"/>
+                    <Button Content="GetMapProperties" HorizontalAlignment="Left" Margin="320,10,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="GetMapProperties_Click"/>
+                    <Button Content="GetRowDetails" HorizontalAlignment="Left" Margin="440,10,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="GetRowDetails_Click"/>
+                    <Button Content="GetCANParameterProperties" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="24" Width="160" Click="GetCANParameterProperties_Click"/>
+                    <Button Content="GetParameterAddress" HorizontalAlignment="Left" Margin="180,45,0,0" VerticalAlignment="Top" Height="24" Width="130" Click="GetParameterAddress_Click"/>
+                    <Button Content="GetParameterBitMask" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="GetParameterBitMask_Click"/>
+                    <Button Content="GetParameterBitShift" HorizontalAlignment="Left" Margin="140,80,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="GetParameterBitShift_Click"/>
+                    <Button Content="GetParameterByteOrder" HorizontalAlignment="Left" Margin="270,80,0,0" VerticalAlignment="Top" Height="24" Width="140" Click="GetParameterByteOrder_Click"/>
+                    <Button Content="ParameterLoggable" HorizontalAlignment="Left" Margin="420,80,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="ParameterLoggable_Click"/>
+                    <Button Content="GetModifiedParameters" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top" Height="24" Width="140" Click="GetModifiedParameters_Click"/>
+                    <Button Content="GetParameterWarningLimits" HorizontalAlignment="Left" Margin="160,115,0,0" VerticalAlignment="Top" Height="24" Width="160" Click="GetParameterWarningLimits_Click"/>
+                    <Button Content="SetParameterWarningLimits" HorizontalAlignment="Left" Margin="330,115,0,0" VerticalAlignment="Top" Height="24" Width="160" Click="SetParameterWarningLimits_Click"/>
+                    <Button Content="DeleteMinMax" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="DeleteMinMax_Click"/>
+                    <Button Content="ExportInputSignals" HorizontalAlignment="Left" Margin="110,150,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="ExportInputSignals_Click"/>
+                    <Button Content="ImportInputSignals" HorizontalAlignment="Left" Margin="230,150,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="ImportInputSignals_Click"/>
+                    <Button Content="RegenerateInputSignalParameters" HorizontalAlignment="Left" Margin="350,150,0,0" VerticalAlignment="Top" Height="24" Width="190" Click="RegenerateInputSignalParameters_Click"/>
+                    <Button Content="UndoDataChanges" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="UndoDataChanges_Click"/>
+                    <Button Content="RestoreValue" HorizontalAlignment="Left" Margin="130,185,0,0" VerticalAlignment="Top" Height="24" Width="80" Click="RestoreValue_Click"/>
+                    <Button Content="GetAxisParameterFromMap" HorizontalAlignment="Left" Margin="220,185,0,0" VerticalAlignment="Top" Height="24" Width="160" Click="GetAxisParameterFromMap_Click"/>
+                    <Button Content="GetConversionUse" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="GetConversionUse_Click"/>
+                    <Button Content="GetConversionType" HorizontalAlignment="Left" Margin="130,220,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="GetConversionType_Click"/>
+                    <Button Content="GetConversion" HorizontalAlignment="Left" Margin="260,220,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="GetConversion_Click"/>
+                    <Button Content="GetAppConversion" HorizontalAlignment="Left" Margin="360,220,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="GetAppConversion_Click"/>
+                    <Button Content="SetRationalConversion" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" Height="24" Width="130" Click="SetRationalConversion_Click"/>
+                    <Button Content="SetTableConversion" HorizontalAlignment="Left" Margin="150,255,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="SetTableConversion_Click"/>
+                    <Button Content="SetTextConversion" HorizontalAlignment="Left" Margin="280,255,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="SetTextConversion_Click"/>
+                    <Button Content="SetFormulaConversion" HorizontalAlignment="Left" Margin="410,255,0,0" VerticalAlignment="Top" Height="24" Width="130" Click="SetFormulaConversion_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Parameters 2">
+                <Grid>
+                    <Button Content="GetValueOffset" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="GetValueOffset_Click"/>
+                    <Button x:Name="setOffset" Content="SetValueOffset: 1" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="SetValueOffset_Click"/>
+                    <Button Content="ZeroLiveValue" HorizontalAlignment="Left" Margin="240,10,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="ZeroLiveValue_Click"/>
+                    <Button Content="GetValueMeasurement" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="24" Width="130" Click="GetValueMeasurement_Click"/>
+                    <Button Content="GetValueScalar" HorizontalAlignment="Left" Margin="150,45,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="GetValueScalar_Click"/>
+                    <Button Content="GetValue1AxisMap" HorizontalAlignment="Left" Margin="250,45,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="GetValue1AxisMap_Click"/>
+                    <Button Content="GetValue2AxisMap" HorizontalAlignment="Left" Margin="380,45,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="GetValue2AxisMap_Click"/>
+                    <Button Content="GetValueAxis" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="GetValueAxis_Click"/>
+                    <Button Content="GetValueArray" HorizontalAlignment="Left" Margin="110,80,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="GetValueArray_Click"/>
+                    <Button Content="GetValueString" HorizontalAlignment="Left" Margin="210,80,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="GetValueString_Click"/>
+                    <Button Content="GetValueCAN" HorizontalAlignment="Left" Margin="310,80,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="GetValueCAN_Click"/>
+                    <Button Content="GetValueVirtual" HorizontalAlignment="Left" Margin="410,80,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="GetValueVirtual_Click"/>
+                    <Button Content="GetDTVValueScalar" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="GetDTVValueScalar_Click"/>
+                    <Button Content="GetDTVValue1AxisMap" HorizontalAlignment="Left" Margin="130,115,0,0" VerticalAlignment="Top" Height="24" Width="130" Click="GetDTVValue1AxisMap_Click"/>
+                    <Button Content="GetDTVValue2AxisMap" HorizontalAlignment="Left" Margin="270,115,0,0" VerticalAlignment="Top" Height="24" Width="130" Click="GetDTVValue2AxisMap_Click"/>
+                    <Button Content="GetDTVValueAxis" HorizontalAlignment="Left" Margin="410,115,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="GetDTVValueAxis_Click"/>
+                    <Button Content="GetDTVValueArray" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="GetDTVValueArray_Click"/>
+                    <Button Content="GetDTVValueString" HorizontalAlignment="Left" Margin="130,150,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="GetDTVValueString_Click"/>
+                    <Button Content="SetValueScalar" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="SetValueScalar_Click"/>
+                    <Button Content="SetValue1AxisMap" HorizontalAlignment="Left" Margin="110,185,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="SetValue1AxisMap_Click"/>
+                    <Button Content="SetValue2AxisMap" HorizontalAlignment="Left" Margin="230,185,0,0" VerticalAlignment="Top" Height="24" Width="110" Click="SetValue2AxisMap_Click"/>
+                    <Button Content="SetValueAxis" HorizontalAlignment="Left" Margin="350,185,0,0" VerticalAlignment="Top" Height="24" Width="80" Click="SetValueAxis_Click"/>
+                    <Button Content="SetValueArray" HorizontalAlignment="Left" Margin="440,185,0,0" VerticalAlignment="Top" Height="24" Width="80" Click="SetValueArray_Click"/>
+                    <Button Content="SetValueString" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="SetValueString_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Config">
+                <Grid>
+                    <Button Content="GetLoggingChannelProperties" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="24" Width="170" Click="GetLoggingChannelProperties_Click"/>
+                    <Button Content="SetLoggingChannelProperties" HorizontalAlignment="Left" Margin="190,10,0,0" VerticalAlignment="Top" Height="24" Width="170" Click="SetLoggingChannelProperties_Click"/>
+                    <Button Content="GetLoggingTriggers" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="GetLoggingTriggers_Click"/>
+                    <Button Content="SetLoggingTrigger" HorizontalAlignment="Left" Margin="140,45,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="SetLoggingTrigger_Click"/>
+                    <Button Content="GetLoggingDuration" HorizontalAlignment="Left" Margin="270,45,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="GetLoggingDuration_Click"/>
+                    <Button Content="GetLoggingWrap" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="GetLoggingWrap_Click"/>
+                    <Button Content="SetLoggingWrap" HorizontalAlignment="Left" Margin="120,80,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="SetLoggingWrap_Click"/>
+                    <Button Content="GetLoggingOffset" HorizontalAlignment="Left" Margin="230,80,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="GetLoggingOffset_Click"/>
+                    <Button Content="SetLoggingOffset" HorizontalAlignment="Left" Margin="340,80,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="SetLoggingOffset_Click"/>
+                    <Button Content="GetLoggingSessionDetails" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top" Height="24" Width="150" Click="GetLoggingSessionDetails_Click"/>
+                    <Button Content="SetLoggingSessionDetails" HorizontalAlignment="Left" Margin="170,115,0,0" VerticalAlignment="Top" Height="24" Width="150" Click="SetLoggingSessionDetails_Click"/>
+                    <Button Content="GetLoggingParameterDetails" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Height="24" Width="170" Click="GetLoggingParameterDetails_Click"/>
+                    <Button Content="LoggingConfigDownload" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="24" Width="150" Click="LoggingConfigDownload_Click"/>
+                    <Button Content="LoggingConfigUpload" HorizontalAlignment="Left" Margin="170,185,0,0" VerticalAlignment="Top" Height="24" Width="150" Click="LoggingConfigUpload_Click"/>
+                    <Button Content="LoggingConfigDownloadInProgress" HorizontalAlignment="Left" Margin="330,185,0,0" VerticalAlignment="Top" Height="24" Width="200" Click="LoggingConfigDownloadInProgress_Click"/>
+                    <Button Content="RemoveLoggingParameter" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Height="24" Width="150" Click="RemoveLoggingParameter_Click"/>
+                    <Button Content="ClearAllLoggingParameters" HorizontalAlignment="Left" Margin="170,220,0,0" VerticalAlignment="Top" Height="24" Width="150" Click="ClearAllLoggingParameters_Click"/>
+                    <Button Content="GetLoggingSlotsUsed" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" Height="24" Width="130" Click="GetLoggingSlotsUsed_Click"/>
+                    <Button Content="GetLoggingSlotPercentage" HorizontalAlignment="Left" Margin="150,255,0,0" VerticalAlignment="Top" Height="24" Width="160" Click="GetLoggingSlotPercentage_Click"/>
+                    <Button Content="GetECULoggingConfig" HorizontalAlignment="Left" Margin="320,255,0,0" VerticalAlignment="Top" Height="24" Width="140" Click="GetECULoggingConfig_Click"/>
+                    <Button Content="AddLoggingParameter" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Height="24" Width="130" Click="AddLoggingParameter_Click"/>
+                    <Button Content="AddVirtualLoggingParameter" HorizontalAlignment="Left" Margin="150,290,0,0" VerticalAlignment="Top" Height="24" Width="170" Click="AddVirtualLoggingParameter_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Virtuals">
+                <Grid>
+                    <Button Content="SetVirtualParameter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="24" Width="120" Click="SetVirtualParameter_Click"/>
+                    <Button Content="GetVirtualParameterProperties" HorizontalAlignment="Left" Margin="140,10,0,0" VerticalAlignment="Top" Height="24" Width="180" Click="GetVirtualParameterProperties_Click"/>
+                    <Button Content="RemoveVirtualParameters" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="24" Width="150" Click="RemoveVirtualParameters_Click"/>
+                    <Button Content="RemoveAllVirtualParameters" HorizontalAlignment="Left" Margin="170,45,0,0" VerticalAlignment="Top" Height="24" Width="170" Click="RemoveAllVirtualParameters_Click"/>
+                    <Button Content="RemoveVirtualConversions" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Height="24" Width="150" Click="RemoveVirtualConversions_Click"/>
+                    <Button Content="RemoveAllVirtualConversions" HorizontalAlignment="Left" Margin="170,80,0,0" VerticalAlignment="Top" Height="24" Width="170" Click="RemoveAllVirtualConversions_Click"/>
+                    <Button Content="GetVirtualParameterGroups" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top" Height="24" Width="160" Click="GetVirtualParameterGroups_Click"/>
+                    <Button Content="GetVirtualParameterGroup" HorizontalAlignment="Left" Margin="180, 115,0,0" VerticalAlignment="Top" Height="24" Width="160" Click="GetVirtualParameterGroup_Click"/>
+                    <Button Content="GetVirtualParametersInGroup" HorizontalAlignment="Left" Margin="350, 115,0,0" VerticalAlignment="Top" Height="24" Width="170" Click="GetVirtualParametersInGroup_Click"/>
+                    <Button Content="VirtualParametersExport" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Height="24" Width="140" Click="VirtualParametersExport_Click"/>
+                    <Button Content="VirtualParametersImport" HorizontalAlignment="Left" Margin="160,150,0,0" VerticalAlignment="Top" Height="24" Width="140" Click="VirtualParametersImport_Click"/>
+                    <Button Content="AddVirtualParameterGroup" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="24" Width="150" Click="AddVirtualParameterGroup_Click"/>
+                    <Button Content="RemoveVirtualParameterGroup" HorizontalAlignment="Left" Margin="170,185,0,0" VerticalAlignment="Top" Height="24" Width="170" Click="RemoveVirtualParameterGroup_Click"/>
+                    <Button Content="RemoveAllVirtualParametersFromGroup" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Height="24" Width="220" Click="RemoveAllVirtualParametersFromGroup_Click"/>
+                    <Button Content="SetVirtualParameterDataType" HorizontalAlignment="Left" Margin="240,220,0,0" VerticalAlignment="Top" Height="24" Width="170" Click="SetVirtualParameterDataType_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <ListBox x:Name="results" Margin="610,203,10,10"/>
+    </Grid>
+</Window>

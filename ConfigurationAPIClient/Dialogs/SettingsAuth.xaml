@@ -1,0 +1,22 @@
+﻿<Window x:Class="SystemMonitorConfigurationTest.Dialogs.SettingsAuth"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation ="CenterScreen"
+        Title="Authentication Settings" Height="220" Width="520">
+    <Grid>
+        <CheckBox x:Name="UseToken" Content="Use Authentication" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
+        <Label Content="Token URI:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tokenUri" HorizontalAlignment="Left" Margin="110,50,30,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
+        <Label Content="Audience:" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="audience" HorizontalAlignment="Left" Margin="110,75,0,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
+        <Label Content="Client Id:" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="clientId" HorizontalAlignment="Left" Margin="110,100,0,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
+        <Label Content="Client Secret:" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="clientSecret" HorizontalAlignment="Left" Margin="110,125,0,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="125,00,0,10" VerticalAlignment="Bottom" Width="50" Click="Cancel_Click"/>
+        <Button Content="Ok" HorizontalAlignment="Right" Margin="0,0,125,10" VerticalAlignment="Bottom" Width="50" Click="Ok_Click"/>
+    </Grid>
+</Window>

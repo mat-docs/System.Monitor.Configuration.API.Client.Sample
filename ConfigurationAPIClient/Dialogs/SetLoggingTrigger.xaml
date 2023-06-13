@@ -1,0 +1,38 @@
+﻿<Window x:Class="SystemMonitorConfigurationTest.Dialogs.SetLoggingTrigger"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation ="CenterScreen"
+        Title="Set Logging Trigger" Height="340" Width="850">
+    <Grid>
+        <Label Content="Channel:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="list" HorizontalAlignment="Left" Margin="125,15,0,0" VerticalAlignment="Top" Width="230" IsReadOnly="True" SelectionChanged="Channel_SelectionChanged"/>
+        <Label Content="Post Trigger: " HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top"/>
+        <Label Content="Start: " HorizontalAlignment="Left" Margin="125,40,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="start" HorizontalAlignment="Left" Margin="170,45,0,0" Text="" VerticalAlignment="Top" Width="50" Height="20"/>
+        <Label Content="Stop: " HorizontalAlignment="Left" Margin="250,40,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="stop" HorizontalAlignment="Left" Margin="295,45,0,0" Text="" VerticalAlignment="Top" Width="50" Height="20"/>
+        <Label Content="Start Cond 1: " HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="c1" HorizontalAlignment="Left" Margin="125,70,0,0" Text="" VerticalAlignment="Top" Width="630" Height="20"/>
+        <Button x:Name="b1" Content="Edit" HorizontalAlignment="Left" Margin="760,70,0,0" VerticalAlignment="Top" Click="B1_Click"/>
+        <Label Content="Start Cond 2: " HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="c2" HorizontalAlignment="Left" Margin="125,100,0,0" Text="" VerticalAlignment="Top" Width="630" Height="20"/>
+        <Button x:Name="b2" Content="Edit" HorizontalAlignment="Left" Margin="760,100,0,0" VerticalAlignment="Top" Click="B2_Click"/>
+        <Label Content="Start Cond 3: " HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="c3" HorizontalAlignment="Left" Margin="125,130,0,0" Text="" VerticalAlignment="Top" Width="630" Height="20"/>
+        <Button x:Name="b3" Content="Edit" HorizontalAlignment="Left" Margin="760,130,0,0" VerticalAlignment="Top" Click="B3_Click"/>
+        <Label Content="Stop Cond 1: " HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="c4" HorizontalAlignment="Left" Margin="125,170,0,0" Text="" VerticalAlignment="Top" Width="630" Height="20"/>
+        <Button x:Name="e1" Content="Edit" HorizontalAlignment="Left" Margin="760,170,0,0" VerticalAlignment="Top" Click="E1_Click"/>
+        <Label Content="Stop Cond 2: " HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="c5" HorizontalAlignment="Left" Margin="125,200,0,0" Text="" VerticalAlignment="Top" Width="630" Height="20"/>
+        <Button x:Name="e2" Content="Edit" HorizontalAlignment="Left" Margin="760,200,0,0" VerticalAlignment="Top" Click="E2_Click"/>
+        <Label Content="Stop Cond 3: " HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="c6" HorizontalAlignment="Left" Margin="125,230,0,0" Text="" VerticalAlignment="Top" Width="630" Height="20"/>
+        <Button x:Name="e3" Content="Edit" HorizontalAlignment="Left" Margin="760,230,0,0" VerticalAlignment="Top" Click="E3_Click"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="75,00,0,10" VerticalAlignment="Bottom" Width="50" Click="Cancel_Click"/>
+        <Button Content="Ok" HorizontalAlignment="Right" Margin="0,0,75,10" VerticalAlignment="Bottom" Width="50" Click="Ok_Click"/>
+    </Grid>
+</Window>

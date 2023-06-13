@@ -1,0 +1,47 @@
+﻿<Window x:Class="SystemMonitorConfigurationTest.Dialogs.AddVirtual"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation ="CenterScreen"
+        Title="Add Virtual Parameter" Height="500" Width="350">
+    <Grid>
+        <Label Content="Virtual Id:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="id" HorizontalAlignment="Left" Margin="100,15,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="name" HorizontalAlignment="Left" Margin="100,45,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Description:" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="description" HorizontalAlignment="Left" Margin="100,75,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Display:" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top"/>
+        <Label Content="Min:" HorizontalAlignment="Left" Margin="100,100,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="min" HorizontalAlignment="Left" Margin="145,105,0,0" Text="" VerticalAlignment="Top" Width="50" Height="20"/>
+        <Label Content="Max:" HorizontalAlignment="Left" Margin="210,100,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="max" HorizontalAlignment="Left" Margin="255,105,0,0" Text="" VerticalAlignment="Top" Width="45" Height="20"/>
+        <Label Content="Warning:" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
+        <Label Content="Lower:" HorizontalAlignment="Left" Margin="100,130,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="lower" HorizontalAlignment="Left" Margin="145,135,0,0" Text="" VerticalAlignment="Top" Width="50" Height="20"/>
+        <Label Content="Upper:" HorizontalAlignment="Left" Margin="210,130,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="upper" HorizontalAlignment="Left" Margin="255,135,0,0" Text="" VerticalAlignment="Top" Width="45" Height="20"/>
+        <Label Content="Min Logging:" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="rate" HorizontalAlignment="Left" Margin="100,165,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Scaling Factor:" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="scaling" HorizontalAlignment="Left" Margin="100,195,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <CheckBox x:Name="minnotdefined"  Content="Min Not Defined" HorizontalAlignment="Left" Margin="100,220,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="overwrite"  Content="Overwrite" HorizontalAlignment="Right" Margin="0,220,50,0" VerticalAlignment="Top"/>
+        <Label Content="Expression:" HorizontalAlignment="Left" Margin="10,240,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="expression" HorizontalAlignment="Left" Margin="100,245,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Conversion:" HorizontalAlignment="Left" Margin="10,270,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="conversion" HorizontalAlignment="Left" Margin="100,275,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Units:" HorizontalAlignment="Left" Margin="10,300,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="units" HorizontalAlignment="Left" Margin="100,305,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Format:" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="format" HorizontalAlignment="Left" Margin="100,335,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Group:" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="group" HorizontalAlignment="Left" Margin="100,365,0,0" VerticalAlignment="Top" Width="200" IsReadOnly="True"/>
+        <Label x:Name="Type" Content="Type:" HorizontalAlignment="Left" Margin="14,395,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="type" HorizontalAlignment="Left" Margin="100,400,0,0" VerticalAlignment="Top" Width="200"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="75,00,0,10" VerticalAlignment="Bottom" Width="50" Click="Cancel_Click"/>
+        <Button Content="Ok" HorizontalAlignment="Right" Margin="0,0,75,10" VerticalAlignment="Bottom" Width="50" Click="Ok_Click"/>
+    </Grid>
+</Window>

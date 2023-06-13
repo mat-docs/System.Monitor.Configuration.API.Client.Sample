@@ -1,0 +1,17 @@
+﻿<Window x:Class="SystemMonitorConfigurationTest.Dialogs.TextEntry"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation ="CenterScreen"
+        Title="Text Entry" Height="150" Width="500">
+    <Grid>
+        <Label x:Name="label" Content="Text:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="text" HorizontalAlignment="Left" Margin="60,15,30,0" Text="" VerticalAlignment="Top" Width="380" Height="20"/>
+        <Label x:Name="label2" Content="Text:" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="text2" HorizontalAlignment="Left" Margin="60,40,30,0" Text="" VerticalAlignment="Top" Width="380" Height="20"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="75,00,0,10" VerticalAlignment="Bottom" Width="50" Click="Cancel_Click"/>
+        <Button Content="Ok" HorizontalAlignment="Right" Margin="0,0,75,10" VerticalAlignment="Bottom" Width="50" Click="Ok_Click"/>
+    </Grid>
+</Window>

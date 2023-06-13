@@ -1,0 +1,31 @@
+﻿<Window x:Class="SystemMonitorConfigurationTest.Dialogs.TableConv"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation ="CenterScreen"
+        Title="Add Table Conversion" Height="360" Width="350">
+    <Grid>
+        <Label Content="Conversion Id:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="name" HorizontalAlignment="Left" Margin="100,15,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Raw:" HorizontalAlignment="Left" Margin="60,45,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="raw" HorizontalAlignment="Left" Margin="100,50,30,0" Text="" VerticalAlignment="Top" Width="30" Height="20"/>
+        <Label Content="Mapped:" HorizontalAlignment="Left" Margin="140,47,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="map" HorizontalAlignment="Left" Margin="200,50,30,0" Text="" VerticalAlignment="Top" Width="30" Height="20"/>
+        <Button x:Name="add" Content="Add" HorizontalAlignment="Left" Margin="260,50,0,0" VerticalAlignment="Top" Width="40" Click="add_Click"/>
+        <ListBox x:Name="list" HorizontalAlignment="Left" Margin="100,80,0,0" VerticalAlignment="Top" Width="200" Height="60"/>
+        <Label Content="Comment:" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="comment" HorizontalAlignment="Left" Margin="100,155,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Format:" HorizontalAlignment="Left" Margin="10,175,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="format" HorizontalAlignment="Left" Margin="100,180,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Units:" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="units" HorizontalAlignment="Left" Margin="100,205,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <Label Content="Default:" HorizontalAlignment="Left" Margin="10,225,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="def" HorizontalAlignment="Left" Margin="100,230,30,0" Text="" VerticalAlignment="Top" Width="200" Height="20"/>
+        <CheckBox x:Name="interpolate"  Content="Interpolate" HorizontalAlignment="Left" Margin="220,260,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="overwrite"  Content="Overwrite" HorizontalAlignment="Left" Margin="100,260,0,0" VerticalAlignment="Top"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="75,00,0,10" VerticalAlignment="Bottom" Width="50" Click="Cancel_Click"/>
+        <Button Content="Ok" HorizontalAlignment="Right" Margin="0,0,75,10" VerticalAlignment="Bottom" Width="50" Click="Ok_Click"/>
+    </Grid>
+</Window>

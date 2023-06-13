@@ -1,0 +1,16 @@
+﻿<Window x:Class="SystemMonitorConfigurationTest.Dialogs.MessageEntry"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SystemMonitorConfigurationTest.Dialogs"
+        mc:Ignorable="d"
+        WindowStartupLocation ="CenterScreen"
+        Title="Message Entry" Height="150" Width="300">
+    <Grid>
+        <Label Content="Enter Single Message:   (XXXX XXXX XXXX)" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="data" HorizontalAlignment="Left" Margin="10,40,10,10" Text="" VerticalAlignment="Top" Width="260" Height="20"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="75,00,0,10" VerticalAlignment="Bottom" Width="50" Click="Cancel_Click"/>
+        <Button Content="Ok" HorizontalAlignment="Right" Margin="0,0,75,10" VerticalAlignment="Bottom" Width="50" Click="Ok_Click"/>
+    </Grid>
+</Window>

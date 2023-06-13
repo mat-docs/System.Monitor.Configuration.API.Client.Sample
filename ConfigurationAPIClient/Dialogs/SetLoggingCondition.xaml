@@ -1,0 +1,28 @@
+﻿<Window x:Class="SystemMonitorConfigurationTest.Dialogs.SetLoggingCondition"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation ="CenterScreen"
+        Title="Set Logging Triggers" Height="300" Width="450">
+    <Grid>
+
+        <Label Content="Condition:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="title" Content="Start Trigger 1" HorizontalAlignment="Left" Margin="125,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Type: " HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="type" HorizontalAlignment="Left" Margin="125,35,0,0" VerticalAlignment="Top" Width="230" IsReadOnly="True"/>
+        <Label Content="Parameter:" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="parameter" HorizontalAlignment="Left" Margin="125,70,0,0" Text="" VerticalAlignment="Top" Width="230" Height="20"/>
+        <Label Content="App:" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="app" HorizontalAlignment="Left" Margin="125,100,0,0" Text="" VerticalAlignment="Top" Width="230" Height="20"/>
+        <Label Content="Operator: " HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="op" HorizontalAlignment="Left" Margin="125,130,0,0" VerticalAlignment="Top" Width="230" IsReadOnly="True"/>
+        <Label Content="Threshold: " HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="threshold" HorizontalAlignment="Left" Margin="125,170,0,0" Text="" VerticalAlignment="Top" Width="230" Height="20"/>
+        <Label Content="RepeatCount:" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="repeat" HorizontalAlignment="Left" Margin="125,200,0,0" Text="" VerticalAlignment="Top" Width="230" Height="20"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="75,00,0,10" VerticalAlignment="Bottom" Width="50" Click="Cancel_Click"/>
+        <Button Content="Ok" HorizontalAlignment="Right" Margin="0,0,75,10" VerticalAlignment="Bottom" Width="50" Click="Ok_Click"/>
+    </Grid>
+</Window>
