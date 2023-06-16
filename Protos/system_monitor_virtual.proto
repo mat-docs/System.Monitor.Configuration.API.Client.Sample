@@ -1,0 +1,119 @@
+﻿// <copyright file="System_Monitor_Virtual.cs" company="McLaren Applied Ltd.">
+// Copyright (c) McLaren Applied Ltd.</copyright>
+
+syntax = "proto3";
+
+option csharp_namespace = "SystemMonitorProtobuf";
+
+package system_monitor_virtual;
+
+import "google/protobuf/empty.proto";
+import "Protos/system_monitor_common.proto";
+
+service SystemMonitorVirtual {
+  rpc SetVirtualParameter (VirtualParameterRequest) returns (system_monitor_common.Return);
+  rpc GetVirtualParameterProperties (system_monitor_common.ParametersRequest) returns (VirtualParameterPropertiesReply);
+  rpc RemoveVirtualParameters (VirtualsRequest) returns (VirtualReply);
+  rpc RemoveAllVirtualParameters (google.protobuf.Empty) returns (system_monitor_common.Return);
+  rpc RemoveVirtualConversions (VirtualsRequest) returns (VirtualReply);
+  rpc RemoveAllVirtualConvertions (google.protobuf.Empty) returns (system_monitor_common.Return);
+  rpc GetVirtualParameterGroups (google.protobuf.Empty) returns (VirtualGroupsReply);
+  rpc GetVirtualParameterGroup (VirtualGroupRequest) returns (VirtualGroupReply);
+  rpc GetVirtualParametersInGroup (VirtualGroupRequest) returns (VirtualGroupsReply);
+  rpc VirtualParametersExport (VirtualExportRequest) returns (system_monitor_common.Return);
+  rpc VirtualParametersImport (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+  rpc AddVirtualParameterGroup (AddGroupRequest) returns (system_monitor_common.Return);
+  rpc RemoveVirtualParameterGroup (VirtualGroupRequest) returns (system_monitor_common.Return);
+  rpc RemoveAllVirtualParametersFromGroup (VirtualGroupRequest) returns (system_monitor_common.Return);
+  rpc SetVirtualParameterDataType (VirtualParameterDataTypeRequest) returns (system_monitor_common.Return);
+}
+
+message VirtualParameterRequest {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+	double min_display = 4;
+	double max_display = 5;							
+	int32  Min_logging_rate = 6;
+	int32  scaling_factor = 7;
+	bool   is_min_not_def = 8;
+	string expression = 9;
+	string conversion_id = 10;
+	bool overwrite = 11;
+	string units = 12;
+	string format_override = 13;
+	string group = 14;
+	system_monitor_common.DataType data_type = 15;
+	double lower_warning = 16;
+	double upper_warning = 17;
+}
+
+message VirtualParameterProperties {
+	string Id = 1;
+    string name = 2;
+	string description = 3;
+	double lower_display_limit = 4;
+	double upper_display_limit = 5;
+	uint32 min_logging_rate = 6;
+	uint32 scaling_factor = 7;
+	bool   min_not_defined = 8;
+    string expression = 9;
+	string units = 10;
+	string format = 11;
+	string group = 12;
+	string conversion_id = 13;
+	system_monitor_common.DataType data_type = 14;
+	system_monitor_common.ErrorCode return_code = 15;
+}
+
+message VirtualParameterPropertiesReply {
+	repeated VirtualParameterProperties parameters = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message VirtualsRequest {
+	repeated string ids = 1;
+}
+
+message VirtualParameter {
+	string id = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message VirtualReply {
+	repeated VirtualParameter ids = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message VirtualGroupsReply {
+	repeated string ids = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message VirtualGroupRequest {
+	string group = 1;
+}
+
+message VirtualGroupReply {
+	string name = 1;
+	string description = 2;
+	bool read_only = 3;
+	system_monitor_common.ErrorCode return_code = 4;
+}
+
+message VirtualExportRequest {
+	string file_path = 1;
+	string group = 2;
+}
+
+message AddGroupRequest {
+	string group_path = 1;
+	string name = 2;
+	string description = 3;
+	bool read_only = 4;
+}
+
+message VirtualParameterDataTypeRequest {
+	string Id = 1;
+	system_monitor_common.DataType data_type = 2;
+}

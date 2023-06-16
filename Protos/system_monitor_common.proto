@@ -1,0 +1,234 @@
+﻿// <copyright file="System_Monitor_Enum.cs" company="McLaren Applied Ltd.">
+// Copyright (c) McLaren Applied Ltd.</copyright>
+
+syntax = "proto3";
+
+option csharp_namespace = "SystemMonitorProtobuf";
+
+package system_monitor_common;
+
+enum ErrorCode {
+    no_error = 0;
+    no_project = -1;
+    no_licence = -2;
+    non_specific = -3;
+    data_version_mismatch = -4;
+    no_data_version = -5;
+    no_program_version = -6;
+    no_ECU = -7;
+    invalid_file = -8;
+    no_appliction = -9;
+    application_inactive = -10;
+    live_updates_on = -11;
+    TAGtronic_onlu = -12;
+    SM_busy = -13;
+    message_argument_mismatch = -20;
+    message_dimension_mismatch = -21;
+    message_lower_bound_non_zero = -22;
+    bounds_error = -23;
+    message_argument_error = -24;
+    message_argument_invalid = -25;
+    fdl_not_parsed = -26;
+    conversion_invalid = -27;
+    parameter_invalid = -28;
+    parameter_override_not_allowed = -29;
+    bad_state = -30;
+    invalid_command = -31;
+    no_data_present = -32;
+    bad_memory_allocation = -33;
+    partially_complete = -34;
+    document_full = -35;
+    parameter_identifier_already_exists = -36;
+    parameter_read_only = -37;
+    parameter_non_live_tuneable = -38;
+    group_not_found = -39;
+    file_requires_saving = -40;
+    frequency_overridden = -41;
+    no_customer_base = -42;
+    parameter_not_found = -100;
+	error_read_only = -101;
+	error_limits = -102;
+	error_monotony = -103;
+	error_axis_pt = -104;
+	error_address = -105;
+	error_non_num = -106;
+	error_size = -107;
+	error_live_tune = -108;
+	error_intp = -109;
+	error_activelayer = -110;
+	error_tolerance = -111;
+	error_axis_change = -112;
+	error_no_live_tune = -113;
+	error_validation = -114;
+	error_live_tune_data_invalid = -115;
+	error_serial_not_found = -116;
+	error_unknown = -117;
+	error_cancel = -118;
+	error_locked_param = -119;
+	error_value_not_matching_entry = -120;
+    detail_unknown = -200;
+    dump_row_data_failed = -201;
+    live_update_failed = -300;
+    online_failed = -301;
+    download_data_failed = -302;
+    system_not_runnning = -303;
+    parameter_locked = -304;
+    comms_base = -1000;
+}
+
+enum FileType {
+    Project       = 0;
+    PGV           = 1;
+    DTV           = 2;
+    desktop       = 3;
+    logging_cofig = 4;
+    virtuals      = 5;
+    CAN           = 6;
+    live_logging  = 7;
+    pot_board     = 8;
+}
+
+enum ParameterType {
+    undefined   = 0;
+    scalar      = 0x00000001;
+    axis_1      = 0x00000002;
+    axis_2      = 0x00000004;
+    array       = 0x00000010;
+    string      = 0x00000020;
+    ecu         = 0x00000080;
+    can         = 0x00000100;
+    tsb         = 0x00000200;
+    virtual     = 0x00000400;
+    axis        = 0x00030000;
+    input       = 0x10000000;
+    measurement = 0x10000780;
+}
+
+enum ConversionType {
+    rational = 0;
+    table    = 1;
+    text     = 2;
+    formula  = 3;
+}
+
+enum DataType { 
+    ubyte   = 0; 
+    byte    = 1;
+    uword   = 2;
+    word    = 3;
+    ulong   = 4;
+    long    = 5;
+	float   = 6;
+	unknown = 7; 
+	qword   = 8;
+	sqword  = 9; 
+	double = 10; 
+}
+
+enum ByteOrder {
+    msb_first = 0;
+    msb_last = 1;
+}
+
+enum BufferType {
+    unit_buffer = 0;
+    edit_buffer = 1;
+    unit_and_edit_buffer = 2;
+}
+
+enum Reason {
+    none                = 0x00000000;
+    absent              = 0x00000001;
+    different           = 0x00000002;
+    equal               = 0x00000004;
+    different_value     = 0x00000008;
+    different_size      = 0x00000010;
+    different_conv      = 0x00000020;
+    different_units     = 0x00000040;
+    different_type      = 0x00000080;
+    different_comment   = 0x00000100;
+    different_def_value = 0x00000200;
+    absent_master	    = 0x00000400;
+    locked		        = 0x10000000;
+}
+
+enum EventPriority {
+    event_high   = 0;
+    event_medium = 1;
+    event_low    = 2;
+    event_debug  = 3;
+}
+
+enum ErrorStatus {
+    status_unknown = 0;
+    status_curent = 1;
+    status_logged = 2;
+}
+
+enum TriggerType {
+    on_data          = 0;
+    driver_push      = 1;
+    ignition_on      = 2;
+    lap_trigger      = 3;
+    no_condition     = 4;
+    external_trigger = 5;
+}
+
+enum TriggerOperator {
+    equals                = 0;
+    less_than             = 1;
+    greater_than          = 2;
+    not_equal_to          = 3;
+    greater_than_or_equal = 4; 
+    less_than_or_equal    = 5;
+}
+
+enum LoggingType {
+	frequency       = 0;
+	cylinder        = 1;
+	cycle           = 2;
+	unknown_logging = 3;
+	edge            = 4;
+}
+
+message Return {
+    ErrorCode return_code = 1;
+}
+
+message AppRequest {
+    uint32 app_id = 1;
+}
+
+message ParameterRequest {
+	uint32 app_id = 1;
+	string parameter_id = 2;
+}
+
+message ConversionRequest {
+	uint32 app_id = 1;
+	string conversion_id = 2;
+}
+
+message ParametersRequest {
+	repeated string parameter_ids = 1;
+}
+
+message AppParametersRequest {
+	uint32 app_id = 1;
+	repeated string parameter_ids = 2;
+}
+
+message ParametersFileRequest {
+    repeated string parameter_ids = 1;
+    string file_path = 2;
+}
+
+message AppParametersFileRequest {
+	uint32 app_id = 1;
+	repeated string parameter_ids = 2;
+	string file_path = 3;
+}
+
+message FileRequest {
+    string file_path = 1;
+}

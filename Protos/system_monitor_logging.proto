@@ -1,0 +1,202 @@
+﻿// <copyright file="System_Monitor_Logging.cs" company="McLaren Applied Ltd.">
+// Copyright (c) McLaren Applied Ltd.</copyright>
+
+syntax = "proto3";
+
+option csharp_namespace = "SystemMonitorProtobuf";
+
+package system_monitor_logging;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/duration.proto";
+import "Protos/system_monitor_common.proto";
+
+service SystemMonitorLogging {
+  rpc GetLoggingChannelProperties (google.protobuf.Empty) returns (ChannelPropertiesReply);
+  rpc SetLoggingChannelProperties (ChannelRequest) returns (system_monitor_common.Return);
+  rpc GetLoggingTriggers (google.protobuf.Empty) returns (TriggersReply);
+  rpc SetLoggingTrigger (TriggerRequest) returns (system_monitor_common.Return);
+  rpc GetLoggingWrap (google.protobuf.Empty) returns (WrapReply);
+  rpc SetLoggingWrap (WrapRequest) returns (system_monitor_common.Return);
+  rpc GetLoggingOffset (google.protobuf.Empty) returns (LoggingOffsetReply);
+  rpc SetLoggingOffset (LoggingOffsetRequest) returns (system_monitor_common.Return);
+  rpc GetLoggingSessionDetails (GetSessionDetailRequest) returns (GetSessionDetailReply);
+  rpc SetLoggingSessionDetails (SetSessionDetailRequest) returns (system_monitor_common.Return);
+  rpc GetLoggingDuration (google.protobuf.Empty) returns (LoggingDurationReply);
+  rpc GetLoggingParameterDetails (google.protobuf.Empty) returns (LoggingParametersReply);
+  rpc LoggingConfigDownloadInProgress (google.protobuf.Empty) returns (DownloadProgressReply);
+  rpc LoggingConfigDownload (DownloadRequest) returns (DownloadReply);
+  rpc LoggingConfigUpload (google.protobuf.Empty) returns (system_monitor_common.Return);
+  rpc RemoveLoggingParameter (system_monitor_common.ParameterRequest) returns (system_monitor_common.Return);
+  rpc ClearAllLoggingParameters (ClearRequest) returns (system_monitor_common.Return);
+  rpc GetLoggingSlotsUsed (google.protobuf.Empty) returns (SlotCountReply);
+  rpc GetLoggingSlotPercentage (system_monitor_common.ParameterRequest) returns (SlotPercentageReply);
+  rpc GetECULoggingConfig (google.protobuf.Empty) returns (ConfigReply);
+  rpc AddLoggingParameter (AddParameterRequest) returns (system_monitor_common.Return);
+  rpc AddVirtualLoggingParameter (AddVirtualParameterRequest) returns (system_monitor_common.Return);
+}
+
+message ChannelProperties {
+    uint32 index = 1;
+    string name = 2;
+    bool log_logging = 3;
+    bool log_telemetry = 4;
+    double logging_rate = 5;
+    double telemetry_rate = 6;
+    bool trigger_rearm = 7;
+    uint32 slot = 8;
+}
+
+message ChannelRequest {
+    uint32 index = 1;
+    string name = 2;
+    bool log_to_unit = 3;
+    bool log_telemetry = 4;
+    bool trigger_rearm = 5;
+}
+
+message TriggerCondition {
+    uint32 index = 1;
+    system_monitor_common.TriggerType type = 2;
+    string parameter_id = 3;
+    uint32 app_id = 4;
+    system_monitor_common.TriggerOperator operator = 5;
+    double threshold = 6;
+    uint32 repeat_count = 7;
+}
+
+message Trigger {
+    uint32 index = 1;
+    repeated TriggerCondition start_conditions = 2;
+    repeated TriggerCondition stop_conditions = 3;
+    int32  start_post_trigger = 4;
+    int32  stop_post_trigger = 5;
+    uint32 slot = 6;
+}
+
+message ChannelPropertiesReply {
+    repeated ChannelProperties channels = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message TriggersReply {
+    repeated Trigger triggers = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message TriggerRequest {
+    uint32 index = 1;
+    repeated TriggerCondition start_conditions = 2;
+    repeated TriggerCondition stop_conditions = 3;
+    int32  start_post_trigger = 4;
+    int32  stop_post_trigger = 5;
+}
+
+message WrapReply {
+    bool wrap = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message WrapRequest {
+    bool wrap = 1;
+}
+
+message LoggingOffsetReply {
+    uint32 offset = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message LoggingOffsetRequest {
+    uint32 offset = 1;
+}
+
+message GetSessionDetailRequest {
+    string name = 1;
+}
+
+message SetSessionDetailRequest {
+    string name = 1;
+    string value = 2;
+}
+
+message GetSessionDetailReply {
+    string name = 1;
+    string value = 2;
+    system_monitor_common.ErrorCode return_code = 3;
+}
+
+message LoggingDurationReply {
+    google.protobuf.Duration estimated_time = 1;
+    double estimated_laps = 2;
+    system_monitor_common.ErrorCode return_code = 3;
+}
+
+message LoggingChannelValue {
+    uint32 channel_id = 1;
+    system_monitor_common.LoggingType type = 2;
+    uint32 value = 3;
+}
+
+message LoggingParameter {
+    uint32 app_id = 1;
+    string parameter_id = 2;
+    string parameter_name = 3;
+    string parameter_description = 4;  
+    uint32 data_size = 5;
+    repeated LoggingChannelValue values = 6;
+    uint32 slot = 7;
+}
+
+message LoggingParametersReply {
+    repeated LoggingParameter parameters = 1;
+    repeated string channel_names = 2;
+    system_monitor_common.ErrorCode return_code = 3;
+}
+
+message DownloadProgressReply {
+    bool in_progress = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message DownloadRequest {
+    uint32 optional_app_id = 1;
+    string optional_parameter_id = 2;
+    uint32 optional_delay_ms = 3;
+}
+
+message DownloadReply {
+    string optional_value = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message ClearRequest {
+    bool remove_triggers = 1;
+}
+
+message SlotCountReply {
+    uint32 slot_count = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message SlotPercentageReply {
+    uint32 app_id = 1;
+    string parameter_id = 2;
+    double slot_percentage = 3;
+    system_monitor_common.ErrorCode return_code = 4;
+}
+
+message ConfigReply {
+    string config_name = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message AddParameterRequest {
+    uint32 app_id = 1;
+    string parameter_id = 2;
+    repeated LoggingChannelValue logging_rate = 3;
+}
+
+message AddVirtualParameterRequest {
+    string parameter_id = 1;
+    repeated LoggingChannelValue logging_rate = 2;
+}

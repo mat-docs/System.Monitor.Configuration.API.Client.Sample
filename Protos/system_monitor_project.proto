@@ -1,0 +1,425 @@
+﻿// <copyright file="System_Monitor_Project.cs" company="McLaren Applied Ltd.">
+// Copyright (c) McLaren Applied Ltd.</copyright>
+
+syntax = "proto3";
+
+option csharp_namespace = "SystemMonitorProtobuf";
+
+package system_monitor_project;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "Protos/system_monitor_common.proto";
+
+service SystemMonitorProject {
+  rpc ProjectOpen (system_monitor_common.FileRequest) returns (system_monitor_common.Return); 
+  rpc ProjectClose (ProjectCloseRequest) returns (system_monitor_common.Return); 
+  rpc ProjectCreate (ProjectCreateRequest) returns (system_monitor_common.Return); 
+  rpc ProjectSave (ProjectSaveRequest) returns (system_monitor_common.Return);
+  rpc ProjectSaveAs (ProjectSaveAsRequest) returns (system_monitor_common.Return);
+  rpc ProjectImport (ProjectImportRequest) returns (system_monitor_common.Return);
+  rpc ProjectExport (ProjectExportRequest) returns (system_monitor_common.Return);
+  rpc Reprogram (ReprogramRequest) returns (system_monitor_common.Return);
+  rpc DownloadDataChanges (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
+  rpc EditBufferSynced (system_monitor_common.AppRequest) returns (SyncedReply);
+  rpc UploadDataVersion (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
+  rpc GetVersionNumber (google.protobuf.Empty) returns (GetVersionNumberReply);
+  rpc GetPGVVersion (system_monitor_common.AppRequest) returns (AppReply);
+  rpc GetPGVID (system_monitor_common.AppRequest) returns (PGVIDReply);
+  rpc GetDTVVersion (system_monitor_common.AppRequest) returns (AppReply);
+  rpc GetEcuDTVVersion (system_monitor_common.AppRequest) returns (AppReply);
+  rpc GetNextDTVVersion (system_monitor_common.AppRequest) returns (AppReply);
+  rpc GetDTVModified (system_monitor_common.AppRequest) returns (DTVModifiedReply);
+  rpc GetDTVSavedOn (system_monitor_common.AppRequest) returns (DTVSavedOnReply);
+  rpc GetDTVNotes (system_monitor_common.AppRequest) returns (AppReply);
+  rpc SetDTVNotes (DetailsRequest) returns (system_monitor_common.Return);
+  rpc ClearDTVNotes (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
+  rpc GetDTVComment (system_monitor_common.AppRequest) returns (AppReply);
+  rpc SetDTVComment (DetailsRequest) returns (system_monitor_common.Return);
+  rpc EnableDTVBackup (EnableRequest) returns (system_monitor_common.Return);
+  rpc DTVOpen (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+  rpc DTVSave (DTVSaveRequest) returns (system_monitor_common.Return);
+  rpc DTVSaveCopy (DTVSaveCopyRequest) returns (system_monitor_common.Return);
+  rpc DTVSaveIncrement (DTVSaveIncrementRequest) returns (system_monitor_common.Return);
+  rpc GetBuildNumber (google.protobuf.Empty) returns (GetBuildNumberReply);
+  rpc GetAppDetails (google.protobuf.Empty) returns (GetAppDetailsReply);
+  rpc GetActiveApps (google.protobuf.Empty) returns (ActiveAppReply);
+  rpc SetActiveApps (MultiAppRequest) returns (system_monitor_common.Return);
+  rpc AddApp (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+  rpc RemoveApp (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
+  rpc CompareApp (CompareAppRequest) returns (CompareAppReply);
+  rpc GetAppPULFile (system_monitor_common.AppRequest) returns (FileReply);
+  rpc SetAppPULFile (AppFileRequest) returns (system_monitor_common.Return);
+  rpc GenerateParamSet (system_monitor_common.ParametersFileRequest) returns (system_monitor_common.Return);
+  rpc GeneratePULFile (system_monitor_common.AppParametersFileRequest) returns (system_monitor_common.Return);
+  rpc GeneratePULFileFromParamSet (AppFileRequest) returns (FileReply);
+  rpc ChangeSensorSerialNumber (SensorRequest) returns (system_monitor_common.Return);
+  rpc FileOpen(FileOpenRequest) returns (system_monitor_common.Return);
+  rpc FileSave(FileSaveRequest) returns (system_monitor_common.Return);
+  rpc FileNew(FileNewRequest) returns (system_monitor_common.Return);
+  rpc GetFileName(FileNameRequest) returns (FileReply);
+  rpc GetFileDetails(system_monitor_common.FileRequest) returns (FileDetailsReply);
+  rpc CreateFFCFromPGV (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+  rpc ExportToHexFile (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
+  rpc GetActiveCANConfig (SlotRequest) returns (SlotReply);
+  rpc SetActiveCANConfig (SlotActiveRequest) returns (system_monitor_common.Return);
+  rpc GetFIACANConfig (SlotRequest) returns (SlotReply);
+  rpc SetFIACANConfig (SlotActiveRequest) returns (system_monitor_common.Return);
+  rpc CANBuffersExport (CANRequest) returns (system_monitor_common.Return);
+  rpc CANBuffersImport (CANRequest) returns (system_monitor_common.Return);
+  rpc CANMessagesExport (CANRequest) returns (system_monitor_common.Return);
+  rpc CANMessagesImport (CANMergeRequest) returns (system_monitor_common.Return);
+  rpc CANConfigUnload (SlotRequest) returns (system_monitor_common.Return);
+  rpc GetActiveLoggingConfig (SlotRequest) returns (SlotReply);
+  rpc SetActiveLoggingConfig (SlotActiveRequest) returns (system_monitor_common.Return);
+  rpc LoggingConfigUnload (SlotRequest) returns (system_monitor_common.Return);
+  rpc MatlabImport (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+  rpc MatlabExport (MatlabRequest) returns (system_monitor_common.Return);
+  rpc MatlabExportDTV (MatlabDTVRequest) returns (system_monitor_common.Return);
+  rpc MatlabExportSelected (MatlabSelectedRequest) returns (system_monitor_common.Return);
+  rpc AddParametersToUnlockList (system_monitor_common.AppParametersFileRequest) returns (FileReply);
+  rpc RemoveParametersFromUnlockList (system_monitor_common.AppParametersFileRequest) returns (FileReply);
+  rpc GetAppsHoldingParam (ParameterIdRequest) returns (MultiAppReply);
+  rpc GetAppsHoldingMeasurementParam (ParameterIdRequest) returns (MultiAppReply);
+  rpc GetAppsHoldingControlParam (ParameterIdRequest) returns (MultiAppReply);
+  rpc ParameterExists (ExistsRequest) returns (ExistsReply);
+  rpc RegisterEnhancedRowParameters (system_monitor_common.AppParametersRequest) returns (system_monitor_common.Return);
+  rpc ClearEnhancedRowParameters (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
+  rpc RegisterCANEnhancedRowParameters (system_monitor_common.ParametersRequest) returns (system_monitor_common.Return);
+  rpc RegisterVirtualEnhancedRowParameters (system_monitor_common.ParametersRequest) returns (system_monitor_common.Return);
+  rpc ActivateEnhancedRowParameters (google.protobuf.Empty) returns (system_monitor_common.Return);
+  rpc DumpEvents (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+  rpc DumpErrors (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+  rpc DumpRowData (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+  rpc ClearEvents (google.protobuf.Empty) returns (system_monitor_common.Return);
+  rpc GetEvents (system_monitor_common.AppRequest) returns (EventsReply);
+  rpc GetEventDetails (EventRequest) returns (EventReply);
+  rpc GetErrorDefinitions (system_monitor_common.AppRequest) returns (ErrorDefinitionsReply);
+  rpc GetErrors (google.protobuf.Empty) returns (ErrorReply);
+  rpc DeleteErrors (google.protobuf.Empty) returns (system_monitor_common.Return);
+ }
+
+message FileReply {
+    string file_path = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message ParameterIdRequest {
+    string parameter_id = 1;
+}
+
+message MultiAppRequest {
+    repeated uint32 app_ids = 1;
+}
+
+message MultiAppReply {
+    repeated uint32 app_ids = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message AppFileRequest {
+    uint32 app_id = 1;
+    string file_path = 2;
+}
+
+message ProjectCloseRequest {
+    int32 action = 1;
+}
+
+message ProjectCreateRequest {
+    string project_path = 1; 
+    repeated string app_paths = 2;
+    string desktop_path = 3;
+    string virtuals_path = 4;
+    string can_path = 5; 
+    string logging_config_path = 6;
+}
+
+message ProjectSaveRequest {
+    bool save_all = 1;
+}
+
+message ProjectSaveAsRequest {
+    string project_name = 1;
+    bool save_all = 2;
+    string comments = 3;
+    string notes = 4;
+}
+
+message ProjectImportRequest {
+    string project_path = 1;
+    string base = 2;
+}
+
+message ProjectExportRequest {
+    bool save_modified = 1;
+}
+
+message MatlabRequest {
+    uint32 app_id = 1;
+    string export_path = 2;
+    bool data_only = 3;
+    repeated system_monitor_common.ParameterType data_types = 4;
+}
+
+message MatlabDTVRequest {
+    string dtv_path = 1;
+    string export_path = 2;
+    bool data_only = 3;
+    repeated system_monitor_common.ParameterType data_types = 4;
+}
+
+message MatlabSelectedRequest {
+    uint32 app_id = 1;
+    string export_path = 2;
+    bool data_only = 3;
+    repeated string parameter_ids = 4;
+}
+
+message GetBuildNumberReply {
+    uint32 build_number = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message GetVersionNumberReply {
+    uint32 major_version = 1;
+    uint32 minor_version = 2;
+    uint32 build_version = 3;
+    system_monitor_common.ErrorCode return_code = 4;
+}
+
+message PGVIDReply {
+    uint32 pgv_id = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message DetailsRequest {
+    uint32 app_id = 1;
+    string text = 2;
+}
+
+message AppReply {
+    string text = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message DTVModifiedReply {
+    bool modified = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message DTVSavedOnReply {
+    string saved_on = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message EnableRequest {
+    bool enable = 1;
+}
+
+message DTVSaveRequest {
+    uint32 app_id = 1;
+    string save_path = 2;
+    string comment = 3;
+    string notes = 4;
+}
+
+message DTVSaveCopyRequest {
+    uint32 app_id = 1;
+    string save_path = 2;
+    string comment = 3;
+    string notes = 4;
+    string consortium = 5;
+}
+
+message DTVSaveIncrementRequest {
+    uint32 app_id = 1;
+    string comment = 2;
+    string notes = 3;
+}
+
+message Application {
+    uint32 app_id = 1;
+    string app_name = 2;
+    system_monitor_common.ErrorCode return_code = 3;
+}
+
+message GetAppDetailsReply {
+    repeated Application apps = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+
+message ActiveAppReply {
+    repeated uint32 app_ids = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message CompareAppRequest {
+    uint32 app_id = 1;
+    string dtv1_path = 2;
+    string dtv2_path = 3;
+}
+
+message ReasonCode {
+    repeated system_monitor_common.Reason reasons = 3;
+}
+
+message CompareParameter
+{
+    string parameter_id = 1;
+    system_monitor_common.ParameterType type = 2;
+    ReasonCode reason1 = 3;
+    ReasonCode reason2 = 4;
+}
+
+message CompareAppReply
+{
+    repeated CompareParameter parameters = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message FileOpenRequest {
+    system_monitor_common.FileType file_type = 1;
+    string file_path = 2;
+    uint32 slot = 3;
+    bool activate = 4;
+}
+
+message FileSaveRequest {
+    system_monitor_common.FileType file_type = 1;
+    string file_path = 2;
+    string comment = 3;
+    string notes = 4;
+    string consortium =5;
+    bool save_copy_as = 6;
+}
+
+message FileNewRequest {
+    system_monitor_common.FileType file_type = 1;
+    string file_path = 2;
+    bool save_existing = 3;
+    bool overwrite = 4;
+}
+
+message FileNameRequest {
+    system_monitor_common.FileType file_type = 1;
+    uint32 slot = 2;
+}
+
+message FileDetailsReply {
+    string saved_by = 1;
+    google.protobuf.Timestamp saved_on = 2;
+    string comment = 3;
+    string notes = 4;
+    uint32 build = 5;
+    string consortium = 6;
+    string owner = 7;
+    string rda = 8;
+    system_monitor_common.ErrorCode return_code = 9;
+}
+
+message SlotRequest {
+    uint32 slot = 1;
+}
+
+message SlotActiveRequest {
+    uint32 slot = 1;
+    bool active = 2;
+}
+
+message SlotReply {
+    bool active = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message ReprogramRequest {
+    repeated uint32 app_ids = 1;
+    bool force = 2;
+}
+
+message SyncedReply {
+    bool synced = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message SensorRequest {
+    uint32 app_id = 1;
+    string sensor = 2;
+    int32 serial_number = 3;
+}
+
+message ExistsRequest {
+	uint32 app_id = 1;
+	string parameter_id = 2;
+    system_monitor_common.ParameterType data_type = 3;
+    system_monitor_common.ErrorCode return_code = 4;
+}
+
+message ExistsReply {
+    bool exists = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message CANRequest {
+    uint32 index = 1;
+    string file_path = 2;
+}
+
+message CANMergeRequest {
+    uint32 index = 1;
+    string file_path = 2;
+    bool merge = 3;
+}
+
+message EventRequest {
+    uint32 app_id = 1;
+    uint32 event_id = 2;
+}
+
+message Event {
+    uint32 id = 1;
+    string name = 2;
+    system_monitor_common.EventPriority priority = 3;
+}
+
+message EventsReply {
+    repeated Event events = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message EventReply {
+    uint32 event_id = 1;
+    string description = 2;
+    string conversion_id1 = 3;
+    string conversion_id2 = 4;
+    string conversion_id3 = 5;
+    system_monitor_common.EventPriority priority = 6;
+    system_monitor_common.ErrorCode return_code = 7;
+}
+
+message ErrorDefinition {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    string group = 4;
+    uint32 bit_number = 5;
+    string current = 6;
+    string logged = 7;
+}
+
+message ErrorInstance {
+    string name = 1;
+    string description = 2;
+    system_monitor_common.ErrorStatus status = 3;
+}
+
+message ErrorDefinitionsReply {
+    repeated ErrorDefinition error_definitions = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}
+
+message ErrorReply {
+    repeated ErrorInstance error_instances = 1;
+    system_monitor_common.ErrorCode return_code = 2;
+}

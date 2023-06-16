@@ -1,0 +1,514 @@
+﻿// <copyright file="System_Monitor_Parameter.cs" company="McLaren Applied Ltd.">
+// Copyright (c) McLaren Applied Ltd.</copyright>
+
+syntax = "proto3";
+
+option csharp_namespace = "SystemMonitorProtobuf";
+
+package system_monitor_parameter;
+
+import "google/protobuf/empty.proto";
+import "Protos/system_monitor_common.proto";
+
+service SystemMonitorParameter {
+  rpc GetParameters (AppTypeRequest) returns (ParameterListReply);
+  rpc GetConversions (system_monitor_common.AppRequest) returns (ConversionListReply);
+  rpc GetParameterAndGroups (system_monitor_common.AppRequest) returns (ParameterGroupsReply);
+  rpc GetParameterProperties (AppTypeRequest) returns (ParameterPropertiesReply);
+  rpc GetCANParameterProperties (system_monitor_common.ParametersRequest) returns (CANParameterPropertiesReply);
+  rpc GetMapProperties (system_monitor_common.ParameterRequest) returns (MapPropertiesReply);
+  rpc GetRowDetails (system_monitor_common.ParameterRequest) returns (RowDetailsReply);
+  rpc GetParameterBitMask (system_monitor_common.ParameterRequest) returns (BitMaskReply);
+  rpc GetParameterBitShift (system_monitor_common.ParameterRequest) returns (BitShiftReply);
+  rpc GetParameterAddress (ParameterTypeRequest) returns (AddressReply);
+  rpc GetParameterByteOrder (system_monitor_common.ParameterRequest) returns (ByteOrderReply);
+  rpc ParameterLoggable (system_monitor_common.ParameterRequest) returns (LoggableReply);
+  rpc GetExternalInputGainOffset (ExternalParameterRequest) returns (ExternalReply);
+  rpc SetExternalInputGainOffset (ExternalRequest) returns (system_monitor_common.Return);
+  rpc GetModifiedParameters (system_monitor_common.AppRequest) returns (ParameterListReply);
+  rpc GetParameterWarningLimits (system_monitor_common.ParameterRequest) returns (WarningLimitsReply);
+  rpc SetParameterWarningLimits (WarningLimitsRequest) returns (system_monitor_common.Return);
+  rpc DeleteMinMax (google.protobuf.Empty) returns (system_monitor_common.Return);
+  rpc ExportInputSignals (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+  rpc ImportInputSignals (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+  rpc RegenerateInputSignalParameters (google.protobuf.Empty) returns (system_monitor_common.Return);
+  rpc UndoDataChanges (UndoRequest) returns (system_monitor_common.Return);
+  rpc RestoreValue (system_monitor_common.ParameterRequest) returns (system_monitor_common.Return);
+  rpc GetAxisParameterFromMap (system_monitor_common.ParameterRequest) returns (AxisParametersReply);
+  rpc GetConversionUse (system_monitor_common.ConversionRequest) returns (ParametersReply);
+  rpc GetConversionType (ConversionNoAppRequest) returns (ConversionTypeReply);
+  rpc GetRationalConversion (ConversionNoAppRequest) returns (RationalConversionReply);
+  rpc GetTableConversion (ConversionNoAppRequest) returns (TableConversionReply);
+  rpc GetTextConversion (ConversionNoAppRequest) returns (TextConversionReply);
+  rpc GetFormulaConversion (ConversionNoAppRequest) returns (FormulaConversionReply);
+  rpc GetAppRationalConversion (system_monitor_common.ConversionRequest) returns (RationalConversionReply);
+  rpc GetAppTableConversion (system_monitor_common.ConversionRequest) returns (TableConversionReply);
+  rpc SetRationalConversion (RationalConversionRequest) returns (system_monitor_common.Return);
+  rpc SetTableConversion (TableConversionRequest) returns (system_monitor_common.Return);
+  rpc SetTextConversion (TextConversionRequest) returns (system_monitor_common.Return);
+  rpc SetFormulaConversion (FormulaConversionRequest) returns (system_monitor_common.Return);
+  rpc GetValueOffset (system_monitor_common.ParameterRequest) returns (OffsetReply);
+  rpc SetValueOffset (OffsetRequest) returns (system_monitor_common.Return);
+  rpc ZeroLiveValue (system_monitor_common.ParameterRequest) returns (system_monitor_common.Return);
+  rpc GetValueMeasurement (system_monitor_common.AppParametersRequest) returns (ValueReply);
+  rpc GetValueScalar (system_monitor_common.AppParametersRequest) returns (ValueReply);
+  rpc GetValue1AxisMap (system_monitor_common.AppParametersRequest) returns (Array1dValueReply);
+  rpc GetValue2AxisMap (system_monitor_common.AppParametersRequest) returns (Array2dValueReply);
+  rpc GetValueAxis (system_monitor_common.AppParametersRequest) returns (Array1dValueReply);
+  rpc GetValueArray (system_monitor_common.AppParametersRequest) returns (Array1dValueReply);
+  rpc GetValueString (system_monitor_common.AppParametersRequest) returns (StringValueReply);
+  rpc GetValueCAN (system_monitor_common.ParametersRequest) returns (ValueReply);
+  rpc GetValueVirtual (system_monitor_common.ParametersRequest) returns (ValueReply);
+  rpc GetDTVValueScalar (system_monitor_common.ParametersFileRequest) returns (ValueReply);
+  rpc GetDTVValue1AxisMap (system_monitor_common.ParametersFileRequest) returns (Array1dValueReply);
+  rpc GetDTVValue2AxisMap (system_monitor_common.ParametersFileRequest) returns (Array2dValueReply);
+  rpc GetDTVValueAxis (system_monitor_common.ParametersFileRequest) returns (Array1dValueReply);
+  rpc GetDTVValueArray (system_monitor_common.ParametersFileRequest) returns (Array1dValueReply);
+  rpc GetDTVValueString (system_monitor_common.ParametersFileRequest) returns (StringValueReply);
+  rpc SetValueScalar (AppParameterValuesRequest) returns (ParameterErrorsReply);
+  rpc SetValue1AxisMap (AppArray1dParameterValuesRequest) returns (Array1dParameterErrorsReply);
+  rpc SetValue2AxisMap (AppArray2dParameterValuesRequest) returns (Array2dParameterErrorsReply);
+  rpc SetValueAxis (AppArray1dParameterValuesRequest) returns (Array1dParameterErrorsReply);
+  rpc SetValueArray (AppArray1dParameterValuesRequest) returns (Array1dParameterErrorsReply);
+  rpc SetValueString (AppStringParameterValuesRequest) returns (StringParameterErrorsReply);
+}
+
+message Parameter {
+	string id = 1;
+	string name = 2;
+}
+
+message Conversion {
+	string id = 1;
+	system_monitor_common.ConversionType type = 2;
+}
+
+message ConversionNoAppRequest {
+	string conversion_id = 1;
+}
+
+message ParameterProperties {
+	string Id = 1;
+    string name = 2;
+	string description = 3;
+	system_monitor_common.ParameterType type = 4;
+	string units = 5;
+	string format = 6;
+	string conversion_id = 7;
+	repeated string groups = 8;
+	system_monitor_common.DataType data_type = 9;
+    uint32 data_size = 10;
+	double lower_engineering_limit = 11;
+	double upper_engineering_limit = 12;
+	uint32 max_logging_rate = 13;
+	bool   prime = 14;
+	bool   read_only = 15;
+	bool   tuneable = 16;
+	repeated string multiplexed_ids = 17;
+}
+
+message CANParameterProperties {
+	string Id = 1;
+    string name = 2;
+	string description = 3;
+	double lower_display_limit = 4;
+	double upper_display_limit = 5;
+	uint32 min_logging_rate = 6;
+	uint32 scaling_factor = 7;
+	bool   min_not_defined = 8;
+	string conversion_id = 9;
+	bool   rx = 10;
+	system_monitor_common.DataType data_type = 11;
+	string can_bus = 12;
+	string can_message = 13;
+	uint32 can_start_bit = 14;
+	uint32 can_bit_length = 15;
+	double can_gain = 16;
+	double can_offset = 17;
+	string can_mux_id = 18;
+	system_monitor_common.ByteOrder can_byte_order = 19;
+	system_monitor_common.ErrorCode return_code = 20;
+}
+
+message ParameterPropertiesReply {
+	repeated ParameterProperties parameters = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message CANParameterPropertiesReply {
+	repeated CANParameterProperties parameters = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message ParameterListReply {
+	repeated Parameter parameters = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message ParametersReply {
+	repeated string parameter_ids = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message ConversionListReply {
+	repeated Conversion conversions = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message TypeRequest {
+    system_monitor_common.ParameterType data_type = 1;
+}
+
+message AppTypeRequest {
+    uint32 app_id = 1;								
+    system_monitor_common.ParameterType data_type = 2;   // Optional: Use ParameterType.Undefined for ALL
+}
+
+message ParameterTypeRequest {
+	uint32 app_id = 1;
+	string parameter_id = 2;
+	system_monitor_common.ParameterType data_type = 3;
+}
+
+
+message ParameterGroup {
+	string id = 1;
+	string group = 2;
+}
+
+message ParameterGroupsReply {
+	repeated ParameterGroup parameters = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message OffsetRequest {
+	uint32 app_id = 1;
+	string parameter_id = 2;
+	double offset = 3;
+}
+
+message OffsetReply {
+	uint32 app_id = 1;
+	string parameter_id = 2;
+	double offset = 3;
+	system_monitor_common.ErrorCode return_code = 4;
+}
+
+message MapPropertiesReply {
+	uint32 app_id = 1;
+	string parameter_id = 2;
+	string x_axis_id = 3;
+	string y_axis_id = 4;
+	uint32 x_points = 5;
+	uint32 y_points = 6;
+	system_monitor_common.ErrorCode return_code = 7;
+}
+
+message RowDetailsReply {
+	uint32 row_id = 1;
+	int32  ident_offset = 2;
+	system_monitor_common.ErrorCode return_code = 3;
+}
+
+message BitMaskReply {
+	uint32 app_id = 1;
+	string parameter_id = 2;
+	int32 mask = 3;
+	system_monitor_common.ErrorCode return_code = 4;
+}
+
+message BitShiftReply {
+	uint32 app_id = 1;
+	string parameter_id = 2;
+	int32 shift = 3;
+	system_monitor_common.ErrorCode return_code = 4;
+}
+
+message AddressReply {
+	uint32 app_id = 1;
+	string parameter_id = 2;
+	uint32 address = 3;
+	uint32 ident = 4;
+	system_monitor_common.ErrorCode return_code = 5;
+}
+
+message ByteOrderReply {
+	uint32 app_id = 1;
+	string parameter_id = 2;
+	system_monitor_common.ByteOrder byte_order = 3;
+	system_monitor_common.ErrorCode return_code = 4;
+}
+
+message LoggableReply {
+	uint32 app_id = 1;
+	string parameter_id = 2;
+    bool loggable = 3;
+    system_monitor_common.ErrorCode return_code = 4;
+}
+
+message ExternalParameterRequest {
+	string parameter_id = 1;
+}
+
+message ExternalRequest {
+    string parameter_id = 1;
+    double gain = 2;
+	double offset = 3;
+}
+
+message ExternalReply {
+	string parameter_id = 1;
+    double gain = 2;
+	double offset = 3;
+	system_monitor_common.ErrorCode return_code = 4;
+}
+
+message WarningLimitsRequest {
+	uint32 app_id = 1;
+	string parameter_id = 2;
+    double low = 3;
+	double high = 4;
+}
+
+message WarningLimitsReply {
+	uint32 app_id = 1;
+	string parameter_id = 2;
+    double low = 3;
+	double high = 4;
+	system_monitor_common.ErrorCode return_code = 5;
+}
+
+message UndoRequest {
+	system_monitor_common.BufferType buffer_type = 1;
+}
+
+message AxisParametersReply {
+	repeated string parameter_ids = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message ConversionTypeReply {
+	string conversion_id = 1;
+	system_monitor_common.ConversionType type = 2;
+	system_monitor_common.ErrorCode return_code = 3;
+}
+
+message RationalConversionReply {
+	string conversion_id = 1;
+	double coefficient1 = 2;
+	double coefficient2 = 3;
+	double coefficient3 = 4;
+	double coefficient4 = 5;
+	double coefficient5 = 6;
+	double coefficient6 = 7;
+	string comment = 8;
+	string format = 9;
+	string units = 10;
+	string default = 11;
+	system_monitor_common.ErrorCode return_code = 12;
+}
+
+message TextConversion {
+	double raw = 1;
+	string mapped = 2;
+}
+
+message TableConversion {
+	double raw = 1;
+	double mapped = 2;
+}
+
+message TextConversionReply {
+	string conversion_id = 1;
+	string format = 2;
+	string units = 3;
+	string default = 4;
+	repeated TextConversion values = 5;
+	system_monitor_common.ErrorCode return_code = 6;
+}
+
+message TableConversionReply {
+	string conversion_id = 1;
+	string comment = 2;
+	string format = 3;
+	string units = 4;
+	string default = 5;
+	bool interpolate = 6;
+	repeated TableConversion values = 7; 
+	system_monitor_common.ErrorCode return_code = 8;
+}
+
+message FormulaConversionReply {
+	string conversion_id = 1;
+	string comment = 2;
+	string format = 3;
+	string units = 4;
+	string formula = 5;
+	string inverse = 6;
+	system_monitor_common.ErrorCode return_code = 7;
+}
+
+message RationalConversionRequest {
+	string conversion_id = 1;
+	double coefficient1 = 2;
+	double coefficient2 = 3;
+	double coefficient3 = 4;
+	double coefficient4 = 5;
+	double coefficient5 = 6;
+	double coefficient6 = 7;
+	string comment = 8;
+	string format = 9;
+	string units = 10;
+	string default = 11;
+	bool overwrite = 12;
+}
+
+message TextConversionRequest {
+	string conversion_id = 1;
+	string format = 2;
+	string units = 3;
+	string default = 4;
+	repeated TextConversion values = 5;
+	bool overwrite = 6;
+}
+
+message TableConversionRequest {
+	string conversion_id = 1;
+	string comment = 2;
+	string format = 3;
+	string units = 4;
+	string default = 5;
+	bool interpolate = 6;
+	repeated TableConversion values = 7; 
+	bool overwrite = 8;
+}
+
+message FormulaConversionRequest {
+	string conversion_id = 1;
+	string comment = 2;
+	string format = 3;
+	string units = 4;
+	string formula = 5;
+	string inverse = 6;
+	bool overwrite = 7;
+}
+
+message ParameterValue {
+	string parameter_id = 1;
+	double value = 2;
+	system_monitor_common.ErrorCode return_code = 3;
+} 
+
+message ParameterSetValue {
+	string parameter_id = 1;
+	double value = 2;
+}
+
+message StringParameterSetValue {
+	string parameter_id = 1;
+	string value = 2;
+}
+
+message StringParameterValue {
+	string parameter_id = 1;
+	string value = 2;
+	system_monitor_common.ErrorCode return_code = 3;
+} 
+
+message Array1dParameterSetValue {
+	string parameter_id = 1;
+	repeated double values = 2;
+}
+
+message Array1dParameterValue {
+	string parameter_id = 1;
+	repeated double values = 2;
+	system_monitor_common.ErrorCode return_code= 3;
+} 
+
+message Array2dParameterSetValue {
+	string parameter_id = 1;
+	repeated RowValues rows = 2;
+}
+
+message Array2dParameterValue {
+	string parameter_id = 1;
+	repeated RowValues rows = 2;
+	system_monitor_common.ErrorCode return_code = 3;
+} 
+
+message Array1dValues {
+	string parameter_id = 1;
+	repeated double values = 2;
+	system_monitor_common.ErrorCode return_code = 3;
+} 
+
+message RowValues {
+	repeated double values = 1;
+}
+
+message Array2dValues {
+	string parameter_id = 1;
+	repeated RowValues rows = 2;
+	system_monitor_common.ErrorCode return_code = 3;
+}
+
+message ValueReply {
+	repeated ParameterValue values = 1; 
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message StringValueReply {
+	repeated StringParameterValue values = 1; 
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message Array1dValueReply {
+	repeated Array1dValues values = 1; 
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message Array2dValueReply {
+	repeated Array2dValues values = 1; 
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message AppParameterValuesRequest {
+	uint32 app_id = 1;
+	repeated ParameterSetValue parameters = 2;
+}
+
+message AppStringParameterValuesRequest {
+	uint32 app_id = 1;
+	repeated StringParameterSetValue parameters = 2;
+}
+
+message AppArray1dParameterValuesRequest {
+	uint32 app_id = 1;
+	repeated Array1dParameterSetValue parameters = 2;
+}
+
+message AppArray2dParameterValuesRequest {
+	uint32 app_id = 1;
+	repeated Array2dParameterSetValue parameters = 2;
+}
+
+message ParameterErrorsReply {
+	repeated ParameterValue parameters = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message StringParameterErrorsReply {
+	repeated StringParameterValue parameters = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message Array1dParameterErrorsReply {
+	repeated Array1dParameterValue parameters = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
+
+message Array2dParameterErrorsReply {
+	repeated Array2dParameterValue parameters = 1;
+	system_monitor_common.ErrorCode return_code = 2;
+}
