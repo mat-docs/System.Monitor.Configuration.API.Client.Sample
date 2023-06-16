@@ -15,6 +15,8 @@ namespace SystemMonitorConfigurationTest.Dialogs
     public partial class SetLoggingTrigger
     {
         public readonly TriggersReply triggers;
+
+        private readonly Metadata header;
         private readonly SystemMonitorLogging.SystemMonitorLoggingClient client;
 
         public SetLoggingTrigger(SystemMonitorLogging.SystemMonitorLoggingClient client, Metadata header)
@@ -22,6 +24,7 @@ namespace SystemMonitorConfigurationTest.Dialogs
             this.InitializeComponent();
 
             this.client = client;
+            this.header = header;
             this.triggers = client.GetLoggingTriggers(new Empty(), header);
 
             if (this.triggers.Triggers.Count > 0)
@@ -77,7 +80,7 @@ namespace SystemMonitorConfigurationTest.Dialogs
         {
             var index = (int)(uint)((DataRowView)this.list.SelectedItem).Row.ItemArray[0]! - 1;
             var trigger = this.triggers.Triggers[index];
-            var dialog = new SetLoggingCondition(this.client, trigger.StartConditions[0]);
+            var dialog = new SetLoggingCondition(this.client, trigger.StartConditions[0], this.header);
             if (dialog.ShowDialog() == true)
             {
                 var condition = new TriggerCondition
@@ -100,7 +103,7 @@ namespace SystemMonitorConfigurationTest.Dialogs
         {
             var index = (int)(uint)((DataRowView)this.list.SelectedItem).Row.ItemArray[0]! - 1;
             var trigger = this.triggers.Triggers[index];
-            var dialog = new SetLoggingCondition(this.client, trigger.StartConditions[1]);
+            var dialog = new SetLoggingCondition(this.client, trigger.StartConditions[1], this.header);
             if (dialog.ShowDialog() == true)
             {
                 var condition = new TriggerCondition
@@ -123,7 +126,7 @@ namespace SystemMonitorConfigurationTest.Dialogs
         {
             var index = (int)(uint)((DataRowView)this.list.SelectedItem).Row.ItemArray[0]! - 1;
             var trigger = this.triggers.Triggers[index];
-            var dialog = new SetLoggingCondition(this.client, trigger.StartConditions[2]);
+            var dialog = new SetLoggingCondition(this.client, trigger.StartConditions[2], this.header);
             if (dialog.ShowDialog() == true)
             {
                 var condition = new TriggerCondition
@@ -146,7 +149,7 @@ namespace SystemMonitorConfigurationTest.Dialogs
         {
             var index = (int)(uint)((DataRowView)this.list.SelectedItem).Row.ItemArray[0]! - 1;
             var trigger = this.triggers.Triggers[index];
-            var dialog = new SetLoggingCondition(this.client, trigger.StopConditions[0]);
+            var dialog = new SetLoggingCondition(this.client, trigger.StopConditions[0], this.header);
             if (dialog.ShowDialog() == true)
             {
                 var condition = new TriggerCondition
@@ -169,7 +172,7 @@ namespace SystemMonitorConfigurationTest.Dialogs
         {
             var index = (int)(uint)((DataRowView)this.list.SelectedItem).Row.ItemArray[0]! - 1;
             var trigger = this.triggers.Triggers[index];
-            var dialog = new SetLoggingCondition(this.client, trigger.StopConditions[1]);
+            var dialog = new SetLoggingCondition(this.client, trigger.StopConditions[1], this.header);
             if (dialog.ShowDialog() == true)
             {
                 var condition = new TriggerCondition
@@ -192,7 +195,7 @@ namespace SystemMonitorConfigurationTest.Dialogs
         {
             var index = (int)(uint)((DataRowView)this.list.SelectedItem).Row.ItemArray[0]! - 1;
             var trigger = this.triggers.Triggers[index];
-            var dialog = new SetLoggingCondition(this.client, trigger.StopConditions[2]);
+            var dialog = new SetLoggingCondition(this.client, trigger.StopConditions[2], this.header);
             if (dialog.ShowDialog() == true)
             {
                 var condition = new TriggerCondition

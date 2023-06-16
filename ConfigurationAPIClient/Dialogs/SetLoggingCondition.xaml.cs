@@ -2,6 +2,7 @@
 // Copyright (c) McLaren Applied Ltd.</copyright>
 
 using Google.Protobuf.WellKnownTypes;
+using Grpc.Core;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,11 +15,11 @@ namespace SystemMonitorConfigurationTest.Dialogs
     {
         private readonly TriggersReply triggers;
 
-        public SetLoggingCondition(SystemMonitorLogging.SystemMonitorLoggingClient client, TriggerCondition condition)
+        public SetLoggingCondition(SystemMonitorLogging.SystemMonitorLoggingClient client, TriggerCondition condition, Metadata header)
         {
             this.InitializeComponent();
 
-            this.triggers = client.GetLoggingTriggers(new Empty());
+            this.triggers = client.GetLoggingTriggers(new Empty(), header);
 
             if (this.triggers.Triggers.Count > 0)
             {
