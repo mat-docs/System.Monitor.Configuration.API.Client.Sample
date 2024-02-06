@@ -29,6 +29,7 @@ service SystemMonitorSystem {
   rpc SendMessage (SendMessageRequest) returns (SendMessageReply);
   rpc GetLogFolder (google.protobuf.Empty) returns (FolderReply);
   rpc GetPPOFileName (google.protobuf.Empty) returns (FolderReply);
+  rpc CreatePGV (CreatePGVRequest) returns (CreatePGVReply);
   }
 
 enum LinkStatus {
@@ -149,3 +150,24 @@ message FolderReply {
     system_monitor_common.ErrorCode return_code = 2;
 }
 
+message CreatePGVRequest {
+    string location = 1;
+    string asap2_file_path = 2;
+    string hex_file_path = 3;
+    string controllers_file_path = 4;
+    string errors_file_path = 5;
+    string events_file_path = 6;
+    string adjustment_file_path = 7;
+    string sensors_file_path = 8;
+    string injector_file_path = 9;
+    string sensor_enable_file_path = 10;
+    string live_auto_tune_file_path = 11;
+    string comments = 12;
+    string notes = 13;
+}
+
+message CreatePGVReply {
+    string pgv_file_path = 1;
+    string dtv_file_path = 2;
+    system_monitor_common.ErrorCode return_code = 3;
+}

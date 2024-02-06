@@ -6,6 +6,7 @@ using Grpc.Core;
 using System;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -726,6 +727,69 @@ public partial class MainWindow
             this.SetErrorCode(reply.ReturnCode);
 
             this.executeTime.Content = $"{stopwatch.ElapsedMilliseconds}ms";
+        }
+        catch (RpcException)
+        {
+            this.results.Items.Add("Server connection FAILED");
+        }
+        catch
+        {
+            this.results.Items.Add("Unknown Client ERROR");
+        }
+        finally
+        {
+            Mouse.OverrideCursor = null;
+        }
+    }
+
+    private void CreatePGV_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var dialog = new PGVCreate();
+            if (dialog.ShowDialog() == true)
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+
+                this.ClearResults();
+                var stopwatch = Stopwatch.StartNew();
+
+                if (Directory.Exists(dialog.location.Text))
+                {
+                    var request = new CreatePGVRequest
+                    {
+                        Location = dialog.location.Text,
+                        Asap2FilePath = dialog.asap.Text,
+                        HexFilePath = dialog.hex.Text,
+                        ControllersFilePath = dialog.controllers.Text,
+                        ErrorsFilePath = dialog.errors.Text,
+                        EventsFilePath = dialog.events.Text,
+                        Comments = dialog.comments.Text,
+                        Notes = dialog.notes.Text
+                    };
+
+                    var reply = this.systemClient.CreatePGV(request, this.header);
+                    if (reply.ReturnCode == 0)
+                    {
+                        this.results.Items.Add($"Files Created: '{request.Location}'");
+                        this.results.Items.Add($"PGV: '{reply.PgvFilePath}'");
+                        this.results.Items.Add($"DTV: '{reply.DtvFilePath}'");
+                    }
+                    else
+                    {
+                        this.results.Items.Add($"PGV Creation FAILED");
+
+                    }
+
+                    this.SetErrorCode(reply.ReturnCode);
+                }
+                else
+                {
+                    this.results.Items.Add($"Location '{dialog.location.Text}' INVALID");
+                }
+
+                this.executeTime.Content = $"{stopwatch.ElapsedMilliseconds}ms";
+            }
         }
         catch (RpcException)
         {

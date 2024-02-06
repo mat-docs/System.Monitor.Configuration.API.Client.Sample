@@ -5,17 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         WindowStartupLocation ="CenterScreen"
-        Title="Authentication Settings" Height="220" Width="520">
+        Title="Authentication Settings" Height="280" Width="520">
     <Grid>
-        <CheckBox x:Name="UseToken" Content="Use Authentication" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
-        <Label Content="Token URI:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tokenUri" HorizontalAlignment="Left" Margin="110,50,30,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
-        <Label Content="Audience:" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="audience" HorizontalAlignment="Left" Margin="110,75,0,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
-        <Label Content="Client Id:" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="clientId" HorizontalAlignment="Left" Margin="110,100,0,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
-        <Label Content="Client Secret:" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="clientSecret" HorizontalAlignment="Left" Margin="110,125,0,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
+        <Label Content="Certificate:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="certificate" HorizontalAlignment="Left" Margin="110,14,0,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
+        <Label Content="Key:" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="key" HorizontalAlignment="Left" Margin="110,40,0,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
+        <CheckBox x:Name="UseToken" Content="Use Authentication" HorizontalAlignment="Left" Margin="10,78,0,0" VerticalAlignment="Top"/>
+        <Label Content="Token URI:" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tokenUri" HorizontalAlignment="Left" Margin="110,110,30,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
+        <Label Content="Audience:" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="audience" HorizontalAlignment="Left" Margin="110,135,0,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
+        <Label Content="Client Id:" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="clientId" HorizontalAlignment="Left" Margin="110,160,0,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
+        <Label Content="Client Secret:" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="clientSecret" HorizontalAlignment="Left" Margin="110,185,0,0" Text="" VerticalAlignment="Top" Width="360" Height="20"/>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="125,00,0,10" VerticalAlignment="Bottom" Width="50" Click="Cancel_Click"/>
         <Button Content="Ok" HorizontalAlignment="Right" Margin="0,0,125,10" VerticalAlignment="Bottom" Width="50" Click="Ok_Click"/>
     </Grid>

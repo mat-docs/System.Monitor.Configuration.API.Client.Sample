@@ -18,6 +18,9 @@ using Grpc.Core;
 using SystemMonitorConfigurationTest.Dialogs;
 using SystemMonitorProtobuf;
 using ParameterType = SystemMonitorProtobuf.ParameterType;
+using System.Net.Http;
+using System.Security.Authentication;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SystemMonitorConfigurationTest
 {
@@ -114,7 +117,15 @@ namespace SystemMonitorConfigurationTest
                 }
             }
 
-            var channel = GrpcChannel.ForAddress(this.serverAddress.Text);
+            var cert = new X509Certificate2(this.settings.Certificate, this.settings.Key);
+            var httpHandler = new HttpClientHandler();
+            httpHandler.ClientCertificates.Add(cert);
+            var httpClient = new HttpClient(httpHandler);
+            var channel = GrpcChannel.ForAddress(this.serverAddress.Text, new GrpcChannelOptions
+            {
+                HttpClient = httpClient,
+            });
+
             this.systemClient = new SystemMonitorSystem.SystemMonitorSystemClient(channel);
             this.projectClient = new SystemMonitorProject.SystemMonitorProjectClient(channel);
             this.virtualClient = new SystemMonitorVirtual.SystemMonitorVirtualClient(channel);
@@ -172,6 +183,10 @@ namespace SystemMonitorConfigurationTest
                 {
                     { "Authorization", $"{this.token.Type} {this.token.Token}" }
                 };
+            }
+            else
+            {
+                this.results.Items.Add($"Authorization FAILED: '{response.StatusCode}' - '{response.Content}'");
             }
 
             return response.StatusCode;

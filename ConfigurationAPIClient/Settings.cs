@@ -24,5 +24,11 @@ namespace SystemMonitorConfigurationTest
 
         [JsonProperty("audience")]
         public string Audience { get; set; }
+
+        [JsonProperty("certifiate")]
+        public string Certificate { get; set; }
+        
+        [JsonProperty("key")]
+        public string Key { get; set; }
     }
 }

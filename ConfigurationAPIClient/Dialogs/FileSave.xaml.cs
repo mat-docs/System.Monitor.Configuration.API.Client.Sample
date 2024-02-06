@@ -43,7 +43,7 @@ namespace SystemMonitorConfigurationTest.Dialogs
         private void Type_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var type = (FileType)((DataRowView)this.typeList.SelectedItem).Row.ItemArray[0];
-            if (type == FileType.LoggingCofig)
+            if (type == FileType.LoggingCofig || type == FileType.Desktop)
             {
                 this.consortium.Visibility = Visibility.Visible;
                 this.consortiumLabel.Visibility = Visibility.Visible;
