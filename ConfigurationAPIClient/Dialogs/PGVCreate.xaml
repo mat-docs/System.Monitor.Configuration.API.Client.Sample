@@ -1,0 +1,35 @@
+﻿<Window x:Class="SystemMonitorConfigurationTest.Dialogs.PGVCreate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation ="CenterScreen"
+        Title="Project Create" Height="370" Width="500">
+    <Grid>
+        <Label Content="PGV Location:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="location" HorizontalAlignment="Left" Margin="155,17,0,0" Text="c:\temp" VerticalAlignment="Top" Width="290" Height="20"/>
+        <Button Content="..." HorizontalAlignment="Right" Margin="0,17,10,0" VerticalAlignment="Top" Width="25" Click="Select_Click"/>
+        <Label Content="ASAP2 File:" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="asap" HorizontalAlignment="Left" Margin="155,45,0,0" Text="" VerticalAlignment="Top" Width="290" Height="20"/>
+        <Button Content="..." HorizontalAlignment="Right" Margin="0,44,10,0" VerticalAlignment="Top" Width="25" Click="SelectASAP_Click"/>
+        <Label Content="Hex File:" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="hex" HorizontalAlignment="Left" Margin="155,75,0,0" Text="" VerticalAlignment="Top" Width="290" Height="20"/>
+        <Button Content="..." HorizontalAlignment="Right" Margin="0,74,10,0" VerticalAlignment="Top" Width="25" Click="SelectHex_Click"/>
+        <Label Content="Controllers File:" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="controllers" HorizontalAlignment="Left" Margin="155,105,0,0" Text="" VerticalAlignment="Top" Width="290" Height="20"/>
+        <Button Content="..." HorizontalAlignment="Right" Margin="0,104,10,0" VerticalAlignment="Top" Width="25" Click="SelectCont_Click"/>
+        <Label Content="Errors: (optional)" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="errors" HorizontalAlignment="Left" Margin="155,135,0,0" Text="" VerticalAlignment="Top" Width="290" Height="20"/>
+        <Button Content="..." HorizontalAlignment="Right" Margin="0,134,10,0" VerticalAlignment="Top" Width="25" Click="SelectErrors_Click"/>
+        <Label Content="Events: (optional)" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="events" HorizontalAlignment="Left" Margin="155,165,0,0" Text="" VerticalAlignment="Top" Width="290" Height="20"/>
+        <Button Content="..." HorizontalAlignment="Right" Margin="0,164,10,0" VerticalAlignment="Top" Width="25" Click="SelectEvents_Click"/>
+        <Label Content="Comments: (optional)" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="comments" HorizontalAlignment="Left" Margin="155,195,0,0" Text="" VerticalAlignment="Top" Width="290" Height="40"/>
+        <Label Content="Notes: (optional)" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="notes" HorizontalAlignment="Left" Margin="155,255,0,0" Text="" VerticalAlignment="Top" Width="290" Height="40"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="75,00,0,10" VerticalAlignment="Bottom" Width="50" Click="Cancel_Click"/>
+        <Button Content="Ok" HorizontalAlignment="Right" Margin="0,0,75,10" VerticalAlignment="Bottom" Width="50" Click="Ok_Click"/>
+    </Grid>
+</Window>

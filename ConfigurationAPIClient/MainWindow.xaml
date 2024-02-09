@@ -65,6 +65,7 @@
                     <Button Content="GetLogFolder" HorizontalAlignment="Left" Margin="140,210,0,0" VerticalAlignment="Top" Height="24" Width="90" Click="GetLogFolder_Click"/>
                     <Button Content="GetPPOFileName" HorizontalAlignment="Left" Margin="240,210,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="GetPPOFileName_Click"/>
                     <Button x:Name="SendMessage" Content="SendMessage" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="SendMessage_Click"/>
+                    <Button x:Name="CreatePGV" Content="CreatePGV" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Height="24" Width="100" Click="CreatePGV_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Project">
