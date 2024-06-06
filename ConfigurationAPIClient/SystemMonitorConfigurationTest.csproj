@@ -13,7 +13,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
-    <PackageReference Include="SystemMonitorConfigurationAPI" Version="8.84.3.11" />
+    <PackageReference Include="SystemMonitorConfigurationAPI" Version="*" />
   </ItemGroup>
 
   <ItemGroup>
