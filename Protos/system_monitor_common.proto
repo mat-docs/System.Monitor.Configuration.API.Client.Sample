@@ -1,4 +1,4 @@
-// <copyright file="System_Monitor_Enum.cs" company="McLaren Applied Ltd.">
+﻿// <copyright file="System_Monitor_Enum.cs" company="McLaren Applied Ltd.">
 // Copyright (c) McLaren Applied Ltd.</copyright>
 
 syntax = "proto3";
@@ -28,7 +28,7 @@ enum ErrorCode {
     // Invalid file specified
     invalid_file = -8;
     // The open project does not cover the specified application
-    no_appliction = -9;
+    no_application = -9;
     // Application must be active in order to support this operation
     application_inactive = -10;
     // Operation not allowed while live updates are on
@@ -136,7 +136,7 @@ enum ErrorCode {
     // Failed to download data
     download_data_failed = -302;
     // System monitor is only running in OLE mode, hence can't perform requested action
-    system_not_runnning = -303;
+    system_not_running = -303;
     // Attempt to access a locked parameter
     parameter_locked = -304;
     // Communications base error
@@ -154,7 +154,7 @@ enum FileType {
     // Desktop file
     desktop       = 3;
     // Logging config file
-    logging_cofig = 4;
+    logging_config = 4;
     // Virtual parameter file
     virtuals      = 5;
     // Can parameter file
@@ -298,7 +298,7 @@ enum ErrorStatus {
     // Unknown error status.
     status_unknown = 0;
     // Current error status.
-    status_curent = 1;
+    status_current = 1;
     // Logged error status.
     status_logged = 2;
 }

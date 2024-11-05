@@ -1,4 +1,4 @@
-// <copyright file="System_Monitor_Virtual.cs" company="McLaren Applied Ltd.">
+﻿// <copyright file="System_Monitor_Virtual.cs" company="McLaren Applied Ltd.">
 // Copyright (c) McLaren Applied Ltd.</copyright>
 
 syntax = "proto3";
@@ -22,7 +22,7 @@ service SystemMonitorVirtual {
     // Removes virtual parameter conversion rules.
     rpc RemoveVirtualConversions (VirtualsRequest) returns (VirtualReply);
     // Removes all virtual parameter conversion rules.
-    rpc RemoveAllVirtualConvertions (google.protobuf.Empty) returns (system_monitor_common.Return);
+    rpc RemoveAllVirtualConversions (google.protobuf.Empty) returns (system_monitor_common.Return);
     // Gets the virtual parameter groups.
     rpc GetVirtualParameterGroups (google.protobuf.Empty) returns (VirtualGroupsReply);
     // Gets a virtual parameter group.
