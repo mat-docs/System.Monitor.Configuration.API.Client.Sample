@@ -11,109 +11,178 @@ import "google/protobuf/empty.proto";
 import "Protos/system_monitor_common.proto";
 
 service SystemMonitorVirtual {
-  rpc SetVirtualParameter (VirtualParameterRequest) returns (system_monitor_common.Return);
-  rpc GetVirtualParameterProperties (system_monitor_common.ParametersRequest) returns (VirtualParameterPropertiesReply);
-  rpc RemoveVirtualParameters (VirtualsRequest) returns (VirtualReply);
-  rpc RemoveAllVirtualParameters (google.protobuf.Empty) returns (system_monitor_common.Return);
-  rpc RemoveVirtualConversions (VirtualsRequest) returns (VirtualReply);
-  rpc RemoveAllVirtualConvertions (google.protobuf.Empty) returns (system_monitor_common.Return);
-  rpc GetVirtualParameterGroups (google.protobuf.Empty) returns (VirtualGroupsReply);
-  rpc GetVirtualParameterGroup (VirtualGroupRequest) returns (VirtualGroupReply);
-  rpc GetVirtualParametersInGroup (VirtualGroupRequest) returns (VirtualGroupsReply);
-  rpc VirtualParametersExport (VirtualExportRequest) returns (system_monitor_common.Return);
-  rpc VirtualParametersImport (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
-  rpc AddVirtualParameterGroup (AddGroupRequest) returns (system_monitor_common.Return);
-  rpc RemoveVirtualParameterGroup (VirtualGroupRequest) returns (system_monitor_common.Return);
-  rpc RemoveAllVirtualParametersFromGroup (VirtualGroupRequest) returns (system_monitor_common.Return);
-  rpc SetVirtualParameterDataType (VirtualParameterDataTypeRequest) returns (system_monitor_common.Return);
+    // Modify or Create a Virtual Parameter.
+    rpc SetVirtualParameter (VirtualParameterRequest) returns (system_monitor_common.Return);
+    // Gets the properties of the given virtual parameters
+    rpc GetVirtualParameterProperties (system_monitor_common.ParametersRequest) returns (VirtualParameterPropertiesReply);
+    // Removes virtual parameters.
+    rpc RemoveVirtualParameters (VirtualsRequest) returns (VirtualReply);
+    // Removes all virtual parameters.
+    rpc RemoveAllVirtualParameters (google.protobuf.Empty) returns (system_monitor_common.Return);
+    // Removes virtual parameter conversion rules.
+    rpc RemoveVirtualConversions (VirtualsRequest) returns (VirtualReply);
+    // Removes all virtual parameter conversion rules.
+    rpc RemoveAllVirtualConvertions (google.protobuf.Empty) returns (system_monitor_common.Return);
+    // Gets the virtual parameter groups.
+    rpc GetVirtualParameterGroups (google.protobuf.Empty) returns (VirtualGroupsReply);
+    // Gets a virtual parameter group.
+    rpc GetVirtualParameterGroup (VirtualGroupRequest) returns (VirtualGroupReply);
+    // Gets the virtual parameters within a group.
+    rpc GetVirtualParametersInGroup (VirtualGroupRequest) returns (VirtualGroupsReply);
+    // Exports virtual parameters.
+    rpc VirtualParametersExport (VirtualExportRequest) returns (system_monitor_common.Return);
+    // Imports virtual parameters.
+    rpc VirtualParametersImport (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+    // Adds a virtual parameter group.
+    rpc AddVirtualParameterGroup (AddGroupRequest) returns (system_monitor_common.Return);
+    // Removes a virtual parameter group.
+    rpc RemoveVirtualParameterGroup (VirtualGroupRequest) returns (system_monitor_common.Return);
+    // Removes all virtual parameters from a group.
+    rpc RemoveAllVirtualParametersFromGroup (VirtualGroupRequest) returns (system_monitor_common.Return);
+    // Sets the data type of a virtual parameter.
+    rpc SetVirtualParameterDataType (VirtualParameterDataTypeRequest) returns (system_monitor_common.Return);
 }
 
 message VirtualParameterRequest {
+    // The unique identifier of the virtual parameter.
     string id = 1;
+    // The display name for the virtual parameter.
     string name = 2;
+    // Description of the virtual parameter.
     string description = 3;
-	double min_display = 4;
-	double max_display = 5;							
-	int32  Min_logging_rate = 6;
-	int32  scaling_factor = 7;
-	bool   is_min_not_def = 8;
-	string expression = 9;
-	string conversion_id = 10;
-	bool overwrite = 11;
-	string units = 12;
-	string format_override = 13;
-	string group = 14;
-	system_monitor_common.DataType data_type = 15;
-	double lower_warning = 16;
-	double upper_warning = 17;
+    // Minimum value for display range.
+    double min_display = 4;
+    // Maximum value for display range.
+    double max_display = 5;
+    // Minimum logging rate.
+    int32  Min_logging_rate = 6;
+    // Scaling factor. See EScalingUnit in Enumeration Definitions
+    int32  scaling_factor = 7;
+    // If set to true, the virtual parameter will be marked as a Prime Parameter.
+    bool   is_min_not_def = 8;
+    // The expression to evaluate in the virtual parameter.
+    string expression = 9;
+    // The conversion rule identifier for converting the output value to appropriate unit values.
+    string conversion_id = 10;
+    // Overwrites existing data
+    bool overwrite = 11;
+    // Sets the overriding units in which to display the virtual parameter’s value.
+    string units = 12;
+    // Sets the overriding format in which to display the virtual parameter’s value.
+    string format_override = 13;
+    // The path of the group in which to add the virtual parameter, e.g. \\TopLevelGroup\\SubGroup
+    string group = 14;
+    // The data type.
+    system_monitor_common.DataType data_type = 15;
+    // Lower warning limit value.
+    double lower_warning = 16;
+    // Upper warning limit value.
+    double upper_warning = 17;
 }
 
 message VirtualParameterProperties {
-	string Id = 1;
+    // Parameter identifier.
+    string Id = 1;
+    // Parameter display names.
     string name = 2;
-	string description = 3;
-	double lower_display_limit = 4;
-	double upper_display_limit = 5;
-	uint32 min_logging_rate = 6;
-	uint32 scaling_factor = 7;
-	bool   min_not_defined = 8;
+    // Parameter description.
+    string description = 3;
+    // Lower display limit.
+    double lower_display_limit = 4;
+    // Upper display limit.
+    double upper_display_limit = 5;
+    // Minimum logging rate.
+    uint32 min_logging_rate = 6;
+    // Parameter scaling factor (see EScalingUnit).
+    uint32 scaling_factor = 7;
+    // State of min/max values.
+    bool   min_not_defined = 8;
+    // Expression used to evaluate the virtual parameter.
     string expression = 9;
-	string units = 10;
-	string format = 11;
-	string group = 12;
-	string conversion_id = 13;
-	system_monitor_common.DataType data_type = 14;
-	system_monitor_common.ErrorCode return_code = 15;
+    // Parameter units.
+    string units = 10;
+    // Parameter display format.
+    string format = 11;
+    // Parameter group name.
+    string group = 12;
+    // Unique identifier of the parameter conversion rule.
+    string conversion_id = 13;
+    // Parameter data type.
+    system_monitor_common.DataType data_type = 14;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 15;
 }
 
 message VirtualParameterPropertiesReply {
-	repeated VirtualParameterProperties parameters = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // The properties of the virtual parameters
+    repeated VirtualParameterProperties parameters = 1;
+    // Return code
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message VirtualsRequest {
-	repeated string ids = 1;
+    // Identifiers of the virtual parameters.
+    repeated string ids = 1;
 }
 
 message VirtualParameter {
-	string id = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // Identifier of the virtual parameter.
+    string id = 1;
+    // Return code
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message VirtualReply {
-	repeated VirtualParameter ids = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // Identifiers of the virtual parameters.
+    repeated VirtualParameter ids = 1;
+    // Return code
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message VirtualGroupsReply {
-	repeated string ids = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // Identifiers of the virtual parameters.
+    repeated string ids = 1;
+    // Return code
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message VirtualGroupRequest {
-	string group = 1;
+    // Identifier of the group.
+    string group = 1;
 }
 
 message VirtualGroupReply {
-	string name = 1;
-	string description = 2;
-	bool read_only = 3;
-	system_monitor_common.ErrorCode return_code = 4;
+    // Name of the virtual parameter group.
+    string name = 1;
+    // Description of the virtual parameter group.
+    string description = 2;
+    // Whether the virtual parameter group is Read Only
+    bool read_only = 3;
+    // Return code
+    system_monitor_common.ErrorCode return_code = 4;
 }
 
 message VirtualExportRequest {
-	string file_path = 1;
-	string group = 2;
+    // Fiile path to export parameters into.
+    string file_path = 1;
+    // Group name to export. NULL for all virtual parameters.
+    string group = 2;
 }
 
 message AddGroupRequest {
-	string group_path = 1;
-	string name = 2;
-	string description = 3;
-	bool read_only = 4;
+    // The path where the groups is to be added, e.g. \\TopLevelGroup\\SubGroup
+    string group_path = 1;
+    // The display name for the virtual parameter group.
+    string name = 2;
+    // Description of the virtual parameter group.
+    string description = 3;
+    // If set to true, the virtual parameter group will be marked as a Read Only.
+    bool read_only = 4;
 }
 
 message VirtualParameterDataTypeRequest {
-	string Id = 1;
-	system_monitor_common.DataType data_type = 2;
+    // The unique identification of the virtual parameter.
+    string Id = 1;
+    // The data type.
+    system_monitor_common.DataType data_type = 2;
 }
