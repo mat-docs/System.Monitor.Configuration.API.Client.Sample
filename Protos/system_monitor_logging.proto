@@ -12,191 +12,297 @@ import "google/protobuf/duration.proto";
 import "Protos/system_monitor_common.proto";
 
 service SystemMonitorLogging {
-  rpc GetLoggingChannelProperties (google.protobuf.Empty) returns (ChannelPropertiesReply);
-  rpc SetLoggingChannelProperties (ChannelRequest) returns (system_monitor_common.Return);
-  rpc GetLoggingTriggers (google.protobuf.Empty) returns (TriggersReply);
-  rpc SetLoggingTrigger (TriggerRequest) returns (system_monitor_common.Return);
-  rpc GetLoggingWrap (google.protobuf.Empty) returns (WrapReply);
-  rpc SetLoggingWrap (WrapRequest) returns (system_monitor_common.Return);
-  rpc GetLoggingOffset (google.protobuf.Empty) returns (LoggingOffsetReply);
-  rpc SetLoggingOffset (LoggingOffsetRequest) returns (system_monitor_common.Return);
-  rpc GetLoggingSessionDetails (GetSessionDetailRequest) returns (GetSessionDetailReply);
-  rpc SetLoggingSessionDetails (SetSessionDetailRequest) returns (system_monitor_common.Return);
-  rpc GetLoggingDuration (google.protobuf.Empty) returns (LoggingDurationReply);
-  rpc GetLoggingParameterDetails (google.protobuf.Empty) returns (LoggingParametersReply);
-  rpc LoggingConfigDownloadInProgress (google.protobuf.Empty) returns (DownloadProgressReply);
-  rpc LoggingConfigDownload (DownloadRequest) returns (DownloadReply);
-  rpc LoggingConfigUpload (google.protobuf.Empty) returns (system_monitor_common.Return);
-  rpc RemoveLoggingParameter (system_monitor_common.ParameterRequest) returns (system_monitor_common.Return);
-  rpc ClearAllLoggingParameters (ClearRequest) returns (system_monitor_common.Return);
-  rpc GetLoggingSlotsUsed (google.protobuf.Empty) returns (SlotCountReply);
-  rpc GetLoggingSlotPercentage (system_monitor_common.ParameterRequest) returns (SlotPercentageReply);
-  rpc GetECULoggingConfig (google.protobuf.Empty) returns (ConfigReply);
-  rpc AddLoggingParameter (AddParameterRequest) returns (system_monitor_common.Return);
-  rpc AddVirtualLoggingParameter (AddVirtualParameterRequest) returns (system_monitor_common.Return);
+    // Gets the properties of the available logging channels
+    rpc GetLoggingChannelProperties (google.protobuf.Empty) returns (ChannelPropertiesReply);
+    // Alters the properties of any given Remote Logging channel. (COM: SetRemoteChannelProperties)
+    rpc SetLoggingChannelProperties (ChannelRequest) returns (system_monitor_common.Return);
+    // Retrieves the properties of all channel trigger settings
+    rpc GetLoggingTriggers (google.protobuf.Empty) returns (TriggersReply);
+    // Modify or create a given channel's trigger condition
+    rpc SetLoggingTrigger (TriggerRequest) returns (system_monitor_common.Return);
+    // Gets the remote logging config memory wrapping strategy
+    rpc GetLoggingWrap (google.protobuf.Empty) returns (WrapReply);
+    // Sets the remote logging config memory wrapping strategy
+    rpc SetLoggingWrap (WrapRequest) returns (system_monitor_common.Return);
+    // Gets the remote logging config offset
+    rpc GetLoggingOffset (google.protobuf.Empty) returns (LoggingOffsetReply);
+    // Sets the remote logging config offset
+    rpc SetLoggingOffset (LoggingOffsetRequest) returns (system_monitor_common.Return);
+    // Returns the current value of a specified session detail from the remote logging configuration
+    rpc GetLoggingSessionDetails (GetSessionDetailRequest) returns (GetSessionDetailReply);
+    // Sets a specified session detail in the remote logging configuration
+    rpc SetLoggingSessionDetails (SetSessionDetailRequest) returns (system_monitor_common.Return);
+    //Get the estimated length in time and number of laps available for recording in the remote logging config
+    rpc GetLoggingDuration (google.protobuf.Empty) returns (LoggingDurationReply);
+    // Gets the remote logging parameter details from the config
+    rpc GetLoggingParameterDetails (google.protobuf.Empty) returns (LoggingParametersReply);
+    // Gets whether a logging config download is in progress
+    rpc LoggingConfigDownloadInProgress (google.protobuf.Empty) returns (DownloadProgressReply);
+    // Downloads the remote logging configuration to the ECU then reads the given measurement value to ensure configuration write is complete
+    rpc LoggingConfigDownload (DownloadRequest) returns (DownloadReply);
+    // Uploads the remote logging configuration from the ECU
+    rpc LoggingConfigUpload (google.protobuf.Empty) returns (system_monitor_common.Return);
+    // Remove a parameter from the Remote Logging Configuration
+    rpc RemoveLoggingParameter (system_monitor_common.ParameterRequest) returns (system_monitor_common.Return);
+    // Removes all the parameters from the remote logging config except those used by triggers
+    // If the caller specifies a forceful removal all parameters will be removed and any >On Data= trigger conditions will be reset
+    rpc ClearAllLoggingParameters (ClearRequest) returns (system_monitor_common.Return);
+    // Gets the number of logging slots
+    rpc GetLoggingSlotsUsed (google.protobuf.Empty) returns (SlotCountReply);
+    // Gets the percentage of a logging slot used by a parameter
+    rpc GetLoggingSlotPercentage (system_monitor_common.ParameterRequest) returns (SlotPercentageReply);
+    // Gets the logging configuration from the ECU
+    rpc GetECULoggingConfig (google.protobuf.Empty) returns (ConfigReply);
+    // Adds a parameter to the Remote Logging Configuration
+    rpc AddLoggingParameter (AddParameterRequest) returns (system_monitor_common.Return);
+    // Adds a virtual parameter to the Remote Logging Configuration
+    rpc AddVirtualLoggingParameter (AddVirtualParameterRequest) returns (system_monitor_common.Return);
 }
-
 message ChannelProperties {
+    // The __1__ based channel index to modify
     uint32 index = 1;
+    // Name of the channel
     string name = 2;
+    // Retrieves the Log to Unit flag
     bool log_logging = 3;
+    // Retrieves the telemetry flag
     bool log_telemetry = 4;
+    // The channel logging rate
     double logging_rate = 5;
+    // The telemetry logging rate
     double telemetry_rate = 6;
+    // Trigger re-arms after stop condition
     bool trigger_rearm = 7;
+    // Retrieves the slot position of the configuration defining the channel
     uint32 slot = 8;
 }
 
 message ChannelRequest {
+    // The 0 based channel index to modify
     uint32 index = 1;
+    // Name of the channel
     string name = 2;
+    // Retrieves the Log to Unit flag
     bool log_to_unit = 3;
+    // Retrieves the telemetry flag
     bool log_telemetry = 4;
+    // Trigger re-arms after stop condition
     bool trigger_rearm = 5;
 }
 
 message TriggerCondition {
+    // Specifies which condition  index (0 <= n < 6), where the first 3 are start conditions, and the later, stop conditions
     uint32 index = 1;
+    // Retrieves the trigger condition type
     system_monitor_common.TriggerType type = 2;
+    // Retrieves the parameter used in > On Data = condition type. If any
     string parameter_id = 3;
+    // Retrieves the application ID, that the pszParamName belongs to
     uint32 app_id = 4;
+    // Retrieves the condition operator of the > On Data = type
     system_monitor_common.TriggerOperator operator = 5;
+    // Retrieves the floating point number to compare in condition against specified parameter for type > On Data =
     double threshold = 6;
+    // Retrieves the number of times a condition should occur before it is considered true
     uint32 repeat_count = 7;
 }
 
 message Trigger {
+    // The 0 based channel index to retrieve
     uint32 index = 1;
+    // The trigger start conditions
     repeated TriggerCondition start_conditions = 2;
+    // The trigger start conditions
     repeated TriggerCondition stop_conditions = 3;
+    // Retrieves the delay for the start trigger
     int32  start_post_trigger = 4;
+    // Retrieves the delay for the stop trigger
     int32  stop_post_trigger = 5;
+    // Retrieves the slot position of the configuration defining the channel
     uint32 slot = 6;
 }
 
 message ChannelPropertiesReply {
+    // The logging channel properties
     repeated ChannelProperties channels = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // Return code
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message TriggersReply {
+    // The available triggers
     repeated Trigger triggers = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // Return code
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message TriggerRequest {
+    // The 0 based channel index to set
     uint32 index = 1;
+    // The trigger start conditions
     repeated TriggerCondition start_conditions = 2;
+    // The trigger end conditions
     repeated TriggerCondition stop_conditions = 3;
+    // The delay for the start trigger
     int32  start_post_trigger = 4;
+    // The delay for the stop trigger
     int32  stop_post_trigger = 5;
 }
 
 message WrapReply {
+    // Required wrapping memory strategy
     bool wrap = 1;
+    // Return code
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message WrapRequest {
+    // Required wrapping memory strategy
     bool wrap = 1;
 }
 
 message LoggingOffsetReply {
+    // The current logging offset
     uint32 offset = 1;
+    // Return code
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message LoggingOffsetRequest {
+    // The logging offset
     uint32 offset = 1;
 }
 
 message GetSessionDetailRequest {
+    // Name of session detail
     string name = 1;
 }
 
 message SetSessionDetailRequest {
+    // Name of session detail
     string name = 1;
+    // New value for session detail
     string value = 2;
 }
 
 message GetSessionDetailReply {
+    // Name of session detail
     string name = 1;
+    // Value of session detail
     string value = 2;
+    // Return code
     system_monitor_common.ErrorCode return_code = 3;
 }
 
 message LoggingDurationReply {
+    // Estimated time available in recording memory
     google.protobuf.Duration estimated_time = 1;
+    // Estimated laps available in recording memory.
     double estimated_laps = 2;
+    // Return code
     system_monitor_common.ErrorCode return_code = 3;
 }
 
 message LoggingChannelValue {
+    // Channel id
     uint32 channel_id = 1;
+    // Logging type
     system_monitor_common.LoggingType type = 2;
+    // Logging channel value
     uint32 value = 3;
 }
 
 message LoggingParameter {
+    // Application id
     uint32 app_id = 1;
+    // Parameter id
     string parameter_id = 2;
+    // Parameter name
     string parameter_name = 3;
-    string parameter_description = 4;  
+    // Parameter description
+    string parameter_description = 4;
+    // Size of data
     uint32 data_size = 5;
+    // Logging channel values
     repeated LoggingChannelValue values = 6;
+    // Slot position of configuration defining the parameter
     uint32 slot = 7;
 }
 
 message LoggingParametersReply {
+    // The logging parameters
     repeated LoggingParameter parameters = 1;
+    // The channel names
     repeated string channel_names = 2;
+    // Return code
     system_monitor_common.ErrorCode return_code = 3;
 }
 
 message DownloadProgressReply {
+    // Indicates whether a download is in progress
     bool in_progress = 1;
+    // Return code
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message DownloadRequest {
+    // Application id
     uint32 optional_app_id = 1;
+    // Unique identifier of logging configuration parameter
     string optional_parameter_id = 2;
+    // Read delay in ms before retrieving parameter value allowing ECU configuration processing time
     uint32 optional_delay_ms = 3;
 }
 
 message DownloadReply {
+    // Indicates whether the logging configuration download is complete
     string optional_value = 1;
+    // Return code
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message ClearRequest {
+    // Request System Monitor removes all parameters, including those used by triggers
     bool remove_triggers = 1;
 }
 
 message SlotCountReply {
+    // Number of available slots
     uint32 slot_count = 1;
+    // Return code
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message SlotPercentageReply {
+    // Application id
     uint32 app_id = 1;
+    // Parameter id
     string parameter_id = 2;
+    // The current percentage
     double slot_percentage = 3;
+    // Return code
     system_monitor_common.ErrorCode return_code = 4;
 }
 
 message ConfigReply {
+    // Name of the ECU logging configuration
     string config_name = 1;
+    // Return code
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message AddParameterRequest {
+    // Application Id
     uint32 app_id = 1;
+    // Unique parameter identifier
     string parameter_id = 2;
+    // Logging channel values
     repeated LoggingChannelValue logging_rate = 3;
 }
 
 message AddVirtualParameterRequest {
+    // Unique parameter identifier
     string parameter_id = 1;
+    // The logging channel value
     repeated LoggingChannelValue logging_rate = 2;
 }

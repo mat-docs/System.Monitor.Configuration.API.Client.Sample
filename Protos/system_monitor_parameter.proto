@@ -11,504 +11,806 @@ import "google/protobuf/empty.proto";
 import "Protos/system_monitor_common.proto";
 
 service SystemMonitorParameter {
-  rpc GetParameters (AppTypeRequest) returns (ParameterListReply);
-  rpc GetConversions (system_monitor_common.AppRequest) returns (ConversionListReply);
-  rpc GetParameterAndGroups (system_monitor_common.AppRequest) returns (ParameterGroupsReply);
-  rpc GetParameterProperties (AppTypeRequest) returns (ParameterPropertiesReply);
-  rpc GetCANParameterProperties (system_monitor_common.ParametersRequest) returns (CANParameterPropertiesReply);
-  rpc GetMapProperties (system_monitor_common.ParameterRequest) returns (MapPropertiesReply);
-  rpc GetRowDetails (system_monitor_common.ParameterRequest) returns (RowDetailsReply);
-  rpc GetParameterBitMask (system_monitor_common.ParameterRequest) returns (BitMaskReply);
-  rpc GetParameterBitShift (system_monitor_common.ParameterRequest) returns (BitShiftReply);
-  rpc GetParameterAddress (ParameterTypeRequest) returns (AddressReply);
-  rpc GetParameterByteOrder (system_monitor_common.ParameterRequest) returns (ByteOrderReply);
-  rpc ParameterLoggable (system_monitor_common.ParameterRequest) returns (LoggableReply);
-  rpc GetExternalInputGainOffset (ExternalParameterRequest) returns (ExternalReply);
-  rpc SetExternalInputGainOffset (ExternalRequest) returns (system_monitor_common.Return);
-  rpc GetModifiedParameters (system_monitor_common.AppRequest) returns (ParameterListReply);
-  rpc GetParameterWarningLimits (system_monitor_common.ParameterRequest) returns (WarningLimitsReply);
-  rpc SetParameterWarningLimits (WarningLimitsRequest) returns (system_monitor_common.Return);
-  rpc DeleteMinMax (google.protobuf.Empty) returns (system_monitor_common.Return);
-  rpc ExportInputSignals (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
-  rpc ImportInputSignals (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
-  rpc RegenerateInputSignalParameters (google.protobuf.Empty) returns (system_monitor_common.Return);
-  rpc UndoDataChanges (UndoRequest) returns (system_monitor_common.Return);
-  rpc RestoreValue (system_monitor_common.ParameterRequest) returns (system_monitor_common.Return);
-  rpc GetAxisParameterFromMap (system_monitor_common.ParameterRequest) returns (AxisParametersReply);
-  rpc GetConversionUse (system_monitor_common.ConversionRequest) returns (ParametersReply);
-  rpc GetConversionType (ConversionNoAppRequest) returns (ConversionTypeReply);
-  rpc GetRationalConversion (ConversionNoAppRequest) returns (RationalConversionReply);
-  rpc GetTableConversion (ConversionNoAppRequest) returns (TableConversionReply);
-  rpc GetTextConversion (ConversionNoAppRequest) returns (TextConversionReply);
-  rpc GetFormulaConversion (ConversionNoAppRequest) returns (FormulaConversionReply);
-  rpc GetAppRationalConversion (system_monitor_common.ConversionRequest) returns (RationalConversionReply);
-  rpc GetAppTableConversion (system_monitor_common.ConversionRequest) returns (TableConversionReply);
-  rpc SetRationalConversion (RationalConversionRequest) returns (system_monitor_common.Return);
-  rpc SetTableConversion (TableConversionRequest) returns (system_monitor_common.Return);
-  rpc SetTextConversion (TextConversionRequest) returns (system_monitor_common.Return);
-  rpc SetFormulaConversion (FormulaConversionRequest) returns (system_monitor_common.Return);
-  rpc GetValueOffset (system_monitor_common.ParameterRequest) returns (OffsetReply);
-  rpc SetValueOffset (OffsetRequest) returns (system_monitor_common.Return);
-  rpc ZeroLiveValue (system_monitor_common.ParameterRequest) returns (system_monitor_common.Return);
-  rpc GetValueMeasurement (system_monitor_common.AppParametersRequest) returns (ValueReply);
-  rpc GetValueScalar (system_monitor_common.AppParametersRequest) returns (ValueReply);
-  rpc GetValue1AxisMap (system_monitor_common.AppParametersRequest) returns (Array1dValueReply);
-  rpc GetValue2AxisMap (system_monitor_common.AppParametersRequest) returns (Array2dValueReply);
-  rpc GetValueAxis (system_monitor_common.AppParametersRequest) returns (Array1dValueReply);
-  rpc GetValueArray (system_monitor_common.AppParametersRequest) returns (Array1dValueReply);
-  rpc GetValueString (system_monitor_common.AppParametersRequest) returns (StringValueReply);
-  rpc GetValueCAN (system_monitor_common.ParametersRequest) returns (ValueReply);
-  rpc GetValueVirtual (system_monitor_common.ParametersRequest) returns (ValueReply);
-  rpc GetDTVValueScalar (system_monitor_common.ParametersFileRequest) returns (ValueReply);
-  rpc GetDTVValue1AxisMap (system_monitor_common.ParametersFileRequest) returns (Array1dValueReply);
-  rpc GetDTVValue2AxisMap (system_monitor_common.ParametersFileRequest) returns (Array2dValueReply);
-  rpc GetDTVValueAxis (system_monitor_common.ParametersFileRequest) returns (Array1dValueReply);
-  rpc GetDTVValueArray (system_monitor_common.ParametersFileRequest) returns (Array1dValueReply);
-  rpc GetDTVValueString (system_monitor_common.ParametersFileRequest) returns (StringValueReply);
-  rpc SetValueScalar (AppParameterValuesRequest) returns (ParameterErrorsReply);
-  rpc SetValue1AxisMap (AppArray1dParameterValuesRequest) returns (Array1dParameterErrorsReply);
-  rpc SetValue2AxisMap (AppArray2dParameterValuesRequest) returns (Array2dParameterErrorsReply);
-  rpc SetValueAxis (AppArray1dParameterValuesRequest) returns (Array1dParameterErrorsReply);
-  rpc SetValueArray (AppArray1dParameterValuesRequest) returns (Array1dParameterErrorsReply);
-  rpc SetValueString (AppStringParameterValuesRequest) returns (StringParameterErrorsReply);
+    // Gets parameters. AppId not required for CAN and Virtual parameters
+    rpc GetParameters (AppTypeRequest) returns (ParameterListReply);
+    // Gets parameter conversion rules.
+    rpc GetConversions (system_monitor_common.AppRequest) returns (ConversionListReply);
+    // Gets parameters and groups
+    rpc GetParameterAndGroups (system_monitor_common.AppRequest) returns (ParameterGroupsReply);
+    // Gets parameter properties
+    rpc GetParameterProperties (AppTypeRequest) returns (ParameterPropertiesReply);
+    // Gets CAN Parameter properties.
+    rpc GetCANParameterProperties (system_monitor_common.ParametersRequest) returns (CANParameterPropertiesReply);
+    // Gets map properties.
+    rpc GetMapProperties (system_monitor_common.ParameterRequest) returns (MapPropertiesReply);
+    // Gets row details.
+    rpc GetRowDetails (system_monitor_common.ParameterRequest) returns (RowDetailsReply);
+    // Gets a parameter bit mask.
+    rpc GetParameterBitMask (system_monitor_common.ParameterRequest) returns (BitMaskReply);
+    // Gets a parameter bit shift.
+    rpc GetParameterBitShift (system_monitor_common.ParameterRequest) returns (BitShiftReply);
+    // Gets a parameter address.
+    rpc GetParameterAddress (ParameterTypeRequest) returns (AddressReply);
+    // Gets a parameter byte order value.
+    rpc GetParameterByteOrder (system_monitor_common.ParameterRequest) returns (ByteOrderReply);
+    // Gets whether a parameter is loggable.
+    rpc ParameterLoggable (system_monitor_common.ParameterRequest) returns (LoggableReply);
+    // Gets an input gain/offset for an external parameter.
+    rpc GetExternalInputGainOffset (ExternalParameterRequest) returns (ExternalReply);
+    // Sets an input gain/offset for an external parameter.
+    rpc SetExternalInputGainOffset (ExternalRequest) returns (system_monitor_common.Return);
+    // Gets the modified parameters in a selected application
+    rpc GetModifiedParameters (system_monitor_common.AppRequest) returns (ParameterListReply);
+    // Gets the warning limits from a parameter.
+    rpc GetParameterWarningLimits (system_monitor_common.ParameterRequest) returns (WarningLimitsReply);
+    // Sets the warning limits for a parameter.
+    rpc SetParameterWarningLimits (WarningLimitsRequest) returns (system_monitor_common.Return);
+    // Deletes min/max values.
+    rpc DeleteMinMax (google.protobuf.Empty) returns (system_monitor_common.Return);
+    // Exports input signals to a file.
+    rpc ExportInputSignals (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+    // Imports input signals from a file.
+    rpc ImportInputSignals (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+    // Regenerate Input Signal parameters from RAW values.
+    rpc RegenerateInputSignalParameters (google.protobuf.Empty) returns (system_monitor_common.Return);
+    // Reset all tune buffers on the unit and/or in the edit buffer.
+    rpc UndoDataChanges (UndoRequest) returns (system_monitor_common.Return);
+    // Restore a parameter value its to original saved value.
+    rpc RestoreValue (system_monitor_common.ParameterRequest) returns (system_monitor_common.Return);
+    // Retrieves a list of axis parameter(s) used by the map parameter in the application.
+    rpc GetAxisParameterFromMap (system_monitor_common.ParameterRequest) returns (AxisParametersReply);
+    // Returns a list of all parameters using the specified conversion in the application.
+    rpc GetConversionUse (system_monitor_common.ConversionRequest) returns (ParametersReply);
+    // Returns the type of the specified conversion rule.
+    rpc GetConversionType (ConversionNoAppRequest) returns (ConversionTypeReply);
+    // Retrieves a selected Rational Conversion
+    rpc GetRationalConversion (ConversionNoAppRequest) returns (RationalConversionReply);
+    // Retrieve a specified Table Conversion rule.
+    rpc GetTableConversion (ConversionNoAppRequest) returns (TableConversionReply);
+    // Retrieves enumeration values and text from conversion parameters.
+    rpc GetTextConversion (ConversionNoAppRequest) returns (TextConversionReply);
+    // Retrieves a selected Formula (Free) Conversion
+    rpc GetFormulaConversion (ConversionNoAppRequest) returns (FormulaConversionReply);
+    // Retrieves the details from a Rational Conversion Rule.
+    rpc GetAppRationalConversion (system_monitor_common.ConversionRequest) returns (RationalConversionReply);
+    // Retrieve the details from a Table Conversion rule.
+    rpc GetAppTableConversion (system_monitor_common.ConversionRequest) returns (TableConversionReply);
+    // Create or modify a Rational Conversion rule.
+    rpc SetRationalConversion (RationalConversionRequest) returns (system_monitor_common.Return);
+    // Create or modify a Table Conversion rule.
+    rpc SetTableConversion (TableConversionRequest) returns (system_monitor_common.Return);
+    // Create or modify a text conversion rule.
+    rpc SetTextConversion (TextConversionRequest) returns (system_monitor_common.Return);
+    // Create or modify a Formula (Free) Conversion rule.
+    rpc SetFormulaConversion (FormulaConversionRequest) returns (system_monitor_common.Return);
+    // Retrieve the live value offset for a parameter.
+    rpc GetValueOffset (system_monitor_common.ParameterRequest) returns (OffsetReply);
+    // Sets the live value offset for a parameter.
+    rpc SetValueOffset (OffsetRequest) returns (system_monitor_common.Return);
+    // Zero's the live value by applying an offset to a measurement parameter.
+    rpc ZeroLiveValue (system_monitor_common.ParameterRequest) returns (system_monitor_common.Return);
+    // Returns the current value of a specified measurement parameter.
+    rpc GetValueMeasurement (system_monitor_common.AppParametersRequest) returns (ValueReply);
+    // Returns the current value of a specified scalar (VALUE) editable parameter.
+    rpc GetValueScalar (system_monitor_common.AppParametersRequest) returns (ValueReply);
+    // Returns the current values of a specified 1-axis map (CURVE) editable parameter at all axis points.
+    rpc GetValue1AxisMap (system_monitor_common.AppParametersRequest) returns (Array1dValueReply);
+    // Returns the current values of a specified 2-axis map (MAP) editable parameter at all axis points.
+    rpc GetValue2AxisMap (system_monitor_common.AppParametersRequest) returns (Array2dValueReply);
+    // Returns the current values of a specified axis (AXIS_PTS) editable parameter at all axis points.
+    rpc GetValueAxis (system_monitor_common.AppParametersRequest) returns (Array1dValueReply);
+    // Returns the current values of a specified array (VAL_BLK) editable (characteristic) parameter at all index positions.
+    rpc GetValueArray (system_monitor_common.AppParametersRequest) returns (Array1dValueReply);
+    // Returns the current value of a specified string editable parameter
+    rpc GetValueString (system_monitor_common.AppParametersRequest) returns (StringValueReply);
+    // Retrieves the value of the specified can parameter.
+    rpc GetValueCAN (system_monitor_common.ParametersRequest) returns (ValueReply);
+    // Retrieve a selected Virtual Parameter.
+    rpc GetValueVirtual (system_monitor_common.ParametersRequest) returns (ValueReply);
+    // Returns the value of a specified scalar (VALUE) editable parameter from the supplied DTV.
+    rpc GetDTVValueScalar (system_monitor_common.ParametersFileRequest) returns (ValueReply);
+    // Returns the values of a specified 1-axis map (CURVE) editable parameter at all axis points from the supplied DTV.
+    rpc GetDTVValue1AxisMap (system_monitor_common.ParametersFileRequest) returns (Array1dValueReply);
+    // Returns the values of a specified 2-axis map (MAP) editable parameter at all axis points from the supplied DTV.
+    rpc GetDTVValue2AxisMap (system_monitor_common.ParametersFileRequest) returns (Array2dValueReply);
+    // Returns the values of a specified axis (AXIS_PTS) editable parameter at all axis points from the supplied DTV.
+    rpc GetDTVValueAxis (system_monitor_common.ParametersFileRequest) returns (Array1dValueReply);
+    // Returns the values of a specified array (VAL_BLK) editable (characteristic) parameter at all index positions from the supplied DTV.
+    rpc GetDTVValueArray (system_monitor_common.ParametersFileRequest) returns (Array1dValueReply);
+    // Returns the value of a specified string editable parameter from the supplied DTV.
+    rpc GetDTVValueString (system_monitor_common.ParametersFileRequest) returns (StringValueReply);
+    // Sets the current value of a specified scalar (VALUE) editable parameter.
+    rpc SetValueScalar (AppParameterValuesRequest) returns (ParameterErrorsReply);
+    // Sets the current value of a specified 1-axis map (CURVE) editable parameter at one or more axis points.
+    rpc SetValue1AxisMap (AppArray1dParameterValuesRequest) returns (Array1dParameterErrorsReply);
+    // Sets the current value of a specified 2-axis map (MAP) editable parameter at one or more axis points.
+    rpc SetValue2AxisMap (AppArray2dParameterValuesRequest) returns (Array2dParameterErrorsReply);
+    // Sets the current value of a specified axis (AXIS_PTS) editable parameter at one or more axis points.
+    rpc SetValueAxis (AppArray1dParameterValuesRequest) returns (Array1dParameterErrorsReply);
+    // Sets the current value of a specified array (VAL_BLK) parameter at one or more index positions.
+    rpc SetValueArray (AppArray1dParameterValuesRequest) returns (Array1dParameterErrorsReply);
+    // Sets the current value of a specified string editable parameter.
+    rpc SetValueString (AppStringParameterValuesRequest) returns (StringParameterErrorsReply);
 }
 
 message Parameter {
-	string id = 1;
-	string name = 2;
+    // Id of the parameter.
+    string id = 1;
+    // Name of the parameter.
+    string name = 2;
 }
 
 message Conversion {
-	string id = 1;
-	system_monitor_common.ConversionType type = 2;
+    // Id of the conversion.
+    string id = 1;
+    // Type of the conversion.
+    system_monitor_common.ConversionType type = 2;
 }
 
 message ConversionNoAppRequest {
-	string conversion_id = 1;
+    // Id of the conversion.
+    string conversion_id = 1;
 }
 
 message ParameterProperties {
-	string Id = 1;
+    // Id of the parameter
+    string Id = 1;
+    // Name of the parameter.
     string name = 2;
-	string description = 3;
-	system_monitor_common.ParameterType type = 4;
-	string units = 5;
-	string format = 6;
-	string conversion_id = 7;
-	repeated string groups = 8;
-	system_monitor_common.DataType data_type = 9;
+    // Description of the parameter.
+    string description = 3;
+    // Type of the parameter.
+    system_monitor_common.ParameterType type = 4;
+    // Units of the parameter.
+    string units = 5;
+    // Format used to display the parameter's values.
+    string format = 6;
+    // Id of the conversion rule for the parameter.
+    string conversion_id = 7;
+    // Names of the groups the parameter belongs to.
+    repeated string groups = 8;
+    // Data type of the parameter.
+    system_monitor_common.DataType data_type = 9;
+    // Size of the parameter data.
     uint32 data_size = 10;
-	double lower_engineering_limit = 11;
-	double upper_engineering_limit = 12;
-	uint32 max_logging_rate = 13;
-	bool   prime = 14;
-	bool   read_only = 15;
-	bool   tuneable = 16;
-	repeated string multiplexed_ids = 17;
+    // Lower engineering limit.
+    double lower_engineering_limit = 11;
+    // Upper engineering limit.
+    double upper_engineering_limit = 12;
+    // Maximum logging rate.
+    uint32 max_logging_rate = 13;
+    // Whether the parameter is marked as a Prime parameter.
+    bool   prime = 14;
+    // Whether the parameter is readonly.
+    bool   read_only = 15;
+    // Whether the parameter is tuneable.
+    bool   tuneable = 16;
+    // Array of parameter multiplexer ids. Blank if parameter is not in a multiplexed message
+    repeated string multiplexed_ids = 17;
 }
 
 message CANParameterProperties {
-	string Id = 1;
+    // The unique identifier of the CAN Parameter
+    string Id = 1;
+    // The display name of the parameter
     string name = 2;
-	string description = 3;
-	double lower_display_limit = 4;
-	double upper_display_limit = 5;
-	uint32 min_logging_rate = 6;
-	uint32 scaling_factor = 7;
-	bool   min_not_defined = 8;
-	string conversion_id = 9;
-	bool   rx = 10;
-	system_monitor_common.DataType data_type = 11;
-	string can_bus = 12;
-	string can_message = 13;
-	uint32 can_start_bit = 14;
-	uint32 can_bit_length = 15;
-	double can_gain = 16;
-	double can_offset = 17;
-	string can_mux_id = 18;
-	system_monitor_common.ByteOrder can_byte_order = 19;
-	system_monitor_common.ErrorCode return_code = 20;
+    // The description of the parameter
+    string description = 3;
+    // The minimum display value
+    double lower_display_limit = 4;
+    // The maximum display value
+    double upper_display_limit = 5;
+    // The minimum logging rate
+    uint32 min_logging_rate = 6;
+    // The parameter scaling factor (see see EScalingUnit).
+    uint32 scaling_factor = 7;
+    // State of the min/max values.
+    bool   min_not_defined = 8;
+    // Unique identifier of the conversion rule used in this parameter.
+    string conversion_id = 9;
+    // Flag to indicate Rx / Tx status of the parameter
+    bool   rx = 10;
+    // Parameter data type
+    system_monitor_common.DataType data_type = 11;
+    // CAN Bus name.
+    string can_bus = 12;
+    // CAN Message name.
+    string can_message = 13;
+    // CAN parameter start bit.
+    uint32 can_start_bit = 14;
+    // CAN parameter bit length.
+    uint32 can_bit_length = 15;
+    // CAN parameter gain value.
+    double can_gain = 16;
+    // CAN parameter offset value.
+    double can_offset = 17;
+    // CAN parameter multiplexer id. Blank if parameter is not in a multiplexed message.
+    string can_mux_id = 18;
+    // CAN parameter byte order.
+    system_monitor_common.ByteOrder can_byte_order = 19;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 20;
 }
 
 message ParameterPropertiesReply {
-	repeated ParameterProperties parameters = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // The parameter properties.
+    repeated ParameterProperties parameters = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message CANParameterPropertiesReply {
-	repeated CANParameterProperties parameters = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // The CAN parameter properties.
+    repeated CANParameterProperties parameters = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message ParameterListReply {
-	repeated Parameter parameters = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // The parameters.
+    repeated Parameter parameters = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message ParametersReply {
-	repeated string parameter_ids = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // Ids of the parameters.
+    repeated string parameter_ids = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message ConversionListReply {
-	repeated Conversion conversions = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // The conversions.
+    repeated Conversion conversions = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message TypeRequest {
+    // Parameter data type.
     system_monitor_common.ParameterType data_type = 1;
 }
 
 message AppTypeRequest {
-    uint32 app_id = 1;								
-    system_monitor_common.ParameterType data_type = 2;   // Optional: Use ParameterType.Undefined for ALL
+    // Id of the application
+    uint32 app_id = 1;
+    // Optional: Use ParameterType.Undefined for ALL
+    system_monitor_common.ParameterType data_type = 2;
 }
 
 message ParameterTypeRequest {
-	uint32 app_id = 1;
-	string parameter_id = 2;
-	system_monitor_common.ParameterType data_type = 3;
+    // Id of the application
+    uint32 app_id = 1;
+    // Id of the parameter.
+    string parameter_id = 2;
+    // Data type of the parameter.
+    system_monitor_common.ParameterType data_type = 3;
 }
 
 
 message ParameterGroup {
-	string id = 1;
-	string group = 2;
+    // Id of the parameter group.
+    string id = 1;
+    // Name of the parameter group.
+    string group = 2;
 }
 
 message ParameterGroupsReply {
-	repeated ParameterGroup parameters = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // The parameter groups.
+    repeated ParameterGroup parameters = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message OffsetRequest {
-	uint32 app_id = 1;
-	string parameter_id = 2;
-	double offset = 3;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Id of the parameter.
+    string parameter_id = 2;
+    // Parameter offset.
+    double offset = 3;
 }
 
 message OffsetReply {
-	uint32 app_id = 1;
-	string parameter_id = 2;
-	double offset = 3;
-	system_monitor_common.ErrorCode return_code = 4;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Id of the parameter.
+    string parameter_id = 2;
+    // Parameter offset.
+    double offset = 3;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 4;
 }
 
 message MapPropertiesReply {
-	uint32 app_id = 1;
-	string parameter_id = 2;
-	string x_axis_id = 3;
-	string y_axis_id = 4;
-	uint32 x_points = 5;
-	uint32 y_points = 6;
-	system_monitor_common.ErrorCode return_code = 7;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Id of the parameter.
+    string parameter_id = 2;
+    // Identifier of the x axis parameter
+    string x_axis_id = 3;
+    // Identifier of the y axis parameter
+    string y_axis_id = 4;
+    // Number on breakpoints in the x axis.
+    uint32 x_points = 5;
+    // Number on breakpoints in the y axis.
+    uint32 y_points = 6;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 7;
 }
 
 message RowDetailsReply {
-	uint32 row_id = 1;
-	int32  ident_offset = 2;
-	system_monitor_common.ErrorCode return_code = 3;
+    // Row identifier
+    uint32 row_id = 1;
+    // Parameter ident offset
+    int32  ident_offset = 2;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 3;
 }
 
 message BitMaskReply {
-	uint32 app_id = 1;
-	string parameter_id = 2;
-	int32 mask = 3;
-	system_monitor_common.ErrorCode return_code = 4;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Id of the parameter.
+    string parameter_id = 2;
+    // Parameter bit mask.
+    int32 mask = 3;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 4;
 }
 
 message BitShiftReply {
-	uint32 app_id = 1;
-	string parameter_id = 2;
-	int32 shift = 3;
-	system_monitor_common.ErrorCode return_code = 4;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Id of the parameter.
+    string parameter_id = 2;
+    // Parameter bit shift.
+    int32 shift = 3;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 4;
 }
 
 message AddressReply {
-	uint32 app_id = 1;
-	string parameter_id = 2;
-	uint32 address = 3;
-	uint32 ident = 4;
-	system_monitor_common.ErrorCode return_code = 5;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Id of the parameter.
+    string parameter_id = 2;
+    // Parameter address.
+    uint32 address = 3;
+    // Ident returned.
+    uint32 ident = 4;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 5;
 }
 
 message ByteOrderReply {
-	uint32 app_id = 1;
-	string parameter_id = 2;
-	system_monitor_common.ByteOrder byte_order = 3;
-	system_monitor_common.ErrorCode return_code = 4;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Id of the parameter.
+    string parameter_id = 2;
+    // Byte order.
+    system_monitor_common.ByteOrder byte_order = 3;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 4;
 }
 
 message LoggableReply {
-	uint32 app_id = 1;
-	string parameter_id = 2;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Id of the parameter.
+    string parameter_id = 2;
+    // Whether the parameter is loggable.
     bool loggable = 3;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 4;
 }
 
 message ExternalParameterRequest {
-	string parameter_id = 1;
+    // Id of the parameter.
+    string parameter_id = 1;
 }
 
 message ExternalRequest {
+    // Id of the parameter.
     string parameter_id = 1;
+    // Gain.
     double gain = 2;
-	double offset = 3;
+    // Offset.
+    double offset = 3;
 }
 
 message ExternalReply {
-	string parameter_id = 1;
+    // Id of the parameter.
+    string parameter_id = 1;
+    // Gain.
     double gain = 2;
-	double offset = 3;
-	system_monitor_common.ErrorCode return_code = 4;
+    // Offset.
+    double offset = 3;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 4;
 }
 
 message WarningLimitsRequest {
-	uint32 app_id = 1;
-	string parameter_id = 2;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Id of the parameter.
+    string parameter_id = 2;
+    // Lower limit.
     double low = 3;
-	double high = 4;
+    // Upper limit.
+    double high = 4;
 }
 
 message WarningLimitsReply {
-	uint32 app_id = 1;
-	string parameter_id = 2;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Id of the parameter.
+    string parameter_id = 2;
+    // Lower limit.
     double low = 3;
-	double high = 4;
-	system_monitor_common.ErrorCode return_code = 5;
+    // Upper limit.
+    double high = 4;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 5;
 }
 
 message UndoRequest {
-	system_monitor_common.BufferType buffer_type = 1;
+    // Buffer type.
+    system_monitor_common.BufferType buffer_type = 1;
 }
 
 message AxisParametersReply {
-	repeated string parameter_ids = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // Parameter identifiers.
+    repeated string parameter_ids = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message ConversionTypeReply {
-	string conversion_id = 1;
-	system_monitor_common.ConversionType type = 2;
-	system_monitor_common.ErrorCode return_code = 3;
+    // Id of the conversion.
+    string conversion_id = 1;
+    system_monitor_common.ConversionType type = 2;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 3;
 }
 
 message RationalConversionReply {
-	string conversion_id = 1;
-	double coefficient1 = 2;
-	double coefficient2 = 3;
-	double coefficient3 = 4;
-	double coefficient4 = 5;
-	double coefficient5 = 6;
-	double coefficient6 = 7;
-	string comment = 8;
-	string format = 9;
-	string units = 10;
-	string default = 11;
-	system_monitor_common.ErrorCode return_code = 12;
+    // Unique identifier of conversion.
+    string conversion_id = 1;
+    // Coefficient value 1.
+    double coefficient1 = 2;
+    // Coefficient value 2.
+    double coefficient2 = 3;
+    // Coefficient value 3.
+    double coefficient3 = 4;
+    // Coefficient value 4.
+    double coefficient4 = 5;
+    // Coefficient value 5.
+    double coefficient5 = 6;
+    // Coefficient value 6.
+    double coefficient6 = 7;
+    // Human readable description.
+    string comment = 8;
+    // Format string (e.g. %1.3f).
+    string format = 9;
+    // Unit value for output.
+    string units = 10;
+    // Default value.
+    string default = 11;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 12;
 }
 
 message TextConversion {
-	double raw = 1;
-	string mapped = 2;
+    // Raw numeric value.
+    double raw = 1;
+    // Mapped text value.
+    string mapped = 2;
 }
 
 message TableConversion {
-	double raw = 1;
-	double mapped = 2;
+    // Raw numeric value.
+    double raw = 1;
+    // Mapped numeric value.
+    double mapped = 2;
 }
 
 message TextConversionReply {
-	string conversion_id = 1;
-	string format = 2;
-	string units = 3;
-	string default = 4;
-	repeated TextConversion values = 5;
-	system_monitor_common.ErrorCode return_code = 6;
+    // Unique identifier of conversion.
+    string conversion_id = 1;
+    // Format string (e.g. %1.3f).
+    string format = 2;
+    // Unit value for output.
+    string units = 3;
+    // Default value.
+    string default = 4;
+    // Text conversion values.
+    repeated TextConversion values = 5;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 6;
 }
 
 message TableConversionReply {
-	string conversion_id = 1;
-	string comment = 2;
-	string format = 3;
-	string units = 4;
-	string default = 5;
-	bool interpolate = 6;
-	repeated TableConversion values = 7; 
-	system_monitor_common.ErrorCode return_code = 8;
+    // Unique identifier of conversion.
+    string conversion_id = 1;
+    // Human readable description.
+    string comment = 2;
+    // Format string (e.g. %1.3f).
+    string format = 3;
+    // Unit value for output.
+    string units = 4;
+    // Default value.
+    string default = 5;
+    // Specifies interpolation on or off.
+    bool interpolate = 6;
+    // Table conversion values.
+    repeated TableConversion values = 7;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 8;
 }
 
 message FormulaConversionReply {
-	string conversion_id = 1;
-	string comment = 2;
-	string format = 3;
-	string units = 4;
-	string formula = 5;
-	string inverse = 6;
-	system_monitor_common.ErrorCode return_code = 7;
+    // Unique identifier of conversion.
+    string conversion_id = 1;
+    // Human readable description.
+    string comment = 2;
+    // Format string (e.g. %1.3f).
+    string format = 3;
+    // Unit value for output.
+    string units = 4;
+    // Formula value.
+    string formula = 5;
+    // Inverse value.
+    string inverse = 6;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 7;
 }
 
 message RationalConversionRequest {
-	string conversion_id = 1;
-	double coefficient1 = 2;
-	double coefficient2 = 3;
-	double coefficient3 = 4;
-	double coefficient4 = 5;
-	double coefficient5 = 6;
-	double coefficient6 = 7;
-	string comment = 8;
-	string format = 9;
-	string units = 10;
-	string default = 11;
-	bool overwrite = 12;
+    // Unique identifier of conversion.
+    string conversion_id = 1;
+    // Coefficient value 1.
+    double coefficient1 = 2;
+    // Coefficient value 2.
+    double coefficient2 = 3;
+    // Coefficient value 3.
+    double coefficient3 = 4;
+    // Coefficient value 4.
+    double coefficient4 = 5;
+    // Coefficient value 5.
+    double coefficient5 = 6;
+    // Coefficient value 6.
+    double coefficient6 = 7;
+    // Human readable description.
+    string comment = 8;
+    // Format string (e.g. %1.3f).
+    string format = 9;
+    // Unit value for output.
+    string units = 10;
+    // Default value.
+    string default = 11;
+    // Specifies to overwrite existing values.
+    bool overwrite = 12;
 }
 
 message TextConversionRequest {
-	string conversion_id = 1;
-	string format = 2;
-	string units = 3;
-	string default = 4;
-	repeated TextConversion values = 5;
-	bool overwrite = 6;
+    // Unique identifier of conversion.
+    string conversion_id = 1;
+    // Format string (e.g. %1.3f).
+    string format = 2;
+    // Unit value for output.
+    string units = 3;
+    // Default value.
+    string default = 4;
+    // Text conversion values.
+    repeated TextConversion values = 5;
+    // Specifies to overwrite existing values.
+    bool overwrite = 6;
 }
 
 message TableConversionRequest {
-	string conversion_id = 1;
-	string comment = 2;
-	string format = 3;
-	string units = 4;
-	string default = 5;
-	bool interpolate = 6;
-	repeated TableConversion values = 7; 
-	bool overwrite = 8;
+    // Unique identifier of conversion.
+    string conversion_id = 1;
+    // Human readable description.
+    string comment = 2;
+    // Format string (e.g. %1.3f).
+    string format = 3;
+    // Unit value for output.
+    string units = 4;
+    // Default value.
+    string default = 5;
+    // Specifies interpolation on or off.
+    bool interpolate = 6;
+    repeated TableConversion values = 7;
+    // Specifies to overwrite existing values.
+    bool overwrite = 8;
 }
 
 message FormulaConversionRequest {
-	string conversion_id = 1;
-	string comment = 2;
-	string format = 3;
-	string units = 4;
-	string formula = 5;
-	string inverse = 6;
-	bool overwrite = 7;
+    // Unique identifier of conversion.
+    string conversion_id = 1;
+    // Human readable description.
+    string comment = 2;
+    // Format string (e.g. %1.3f).
+    string format = 3;
+    // Unit value for output.
+    string units = 4;
+    // Formula value.
+    string formula = 5;
+    // Inverse value.
+    string inverse = 6;
+    // Specifies to overwrite existing values.
+    bool overwrite = 7;
 }
 
 message ParameterValue {
-	string parameter_id = 1;
-	double value = 2;
-	system_monitor_common.ErrorCode return_code = 3;
-} 
+    // Id of the parameter.
+    string parameter_id = 1;
+    // Value of the parameter.
+    double value = 2;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 3;
+}
 
 message ParameterSetValue {
-	string parameter_id = 1;
-	double value = 2;
+    // Id of the parameter.
+    string parameter_id = 1;
+    // Value of the parameter.
+    double value = 2;
 }
 
 message StringParameterSetValue {
-	string parameter_id = 1;
-	string value = 2;
+    // Id of the parameter.
+    string parameter_id = 1;
+    // Value of the parameter.
+    string value = 2;
 }
 
 message StringParameterValue {
-	string parameter_id = 1;
-	string value = 2;
-	system_monitor_common.ErrorCode return_code = 3;
-} 
+    // Id of the parameter.
+    string parameter_id = 1;
+    // Value of the parameter.
+    string value = 2;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 3;
+}
 
 message Array1dParameterSetValue {
-	string parameter_id = 1;
-	repeated double values = 2;
+    // Id of the parameter.
+    string parameter_id = 1;
+    // Values for the parameter array.
+    repeated double values = 2;
 }
 
 message Array1dParameterValue {
-	string parameter_id = 1;
-	repeated double values = 2;
-	system_monitor_common.ErrorCode return_code= 3;
-} 
+    // Id of the parameter.
+    string parameter_id = 1;
+    // Values for the parameter array.
+    repeated double values = 2;
+    // Return code.
+    system_monitor_common.ErrorCode return_code= 3;
+}
 
 message Array2dParameterSetValue {
-	string parameter_id = 1;
-	repeated RowValues rows = 2;
+    // Id of the parameter.
+    string parameter_id = 1;
+    // Values for the parameter array.
+    repeated RowValues rows = 2;
 }
 
 message Array2dParameterValue {
-	string parameter_id = 1;
-	repeated RowValues rows = 2;
-	system_monitor_common.ErrorCode return_code = 3;
-} 
+    // Id of the parameter.
+    string parameter_id = 1;
+    // Values for the parameter array.
+    repeated RowValues rows = 2;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 3;
+}
 
 message Array1dValues {
-	string parameter_id = 1;
-	repeated double values = 2;
-	system_monitor_common.ErrorCode return_code = 3;
-} 
+    // Id of the parameter.
+    string parameter_id = 1;
+    // Values for the parameter array.
+    repeated double values = 2;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 3;
+}
 
 message RowValues {
-	repeated double values = 1;
+    // Values for the row.
+    repeated double values = 1;
 }
 
 message Array2dValues {
-	string parameter_id = 1;
-	repeated RowValues rows = 2;
-	system_monitor_common.ErrorCode return_code = 3;
+    // Id of the parameter.
+    string parameter_id = 1;
+    // Values for the row.
+    repeated RowValues rows = 2;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 3;
 }
 
 message ValueReply {
-	repeated ParameterValue values = 1; 
-	system_monitor_common.ErrorCode return_code = 2;
+    // Numeric parameter values.
+    repeated ParameterValue values = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message StringValueReply {
-	repeated StringParameterValue values = 1; 
-	system_monitor_common.ErrorCode return_code = 2;
+    // String parameter values.
+    repeated StringParameterValue values = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message Array1dValueReply {
-	repeated Array1dValues values = 1; 
-	system_monitor_common.ErrorCode return_code = 2;
+    // 1d Array parameter values.
+    repeated Array1dValues values = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message Array2dValueReply {
-	repeated Array2dValues values = 1; 
-	system_monitor_common.ErrorCode return_code = 2;
+    // 2d Array parameter values.
+    repeated Array2dValues values = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message AppParameterValuesRequest {
-	uint32 app_id = 1;
-	repeated ParameterSetValue parameters = 2;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Parameter values to set.
+    repeated ParameterSetValue parameters = 2;
 }
 
 message AppStringParameterValuesRequest {
-	uint32 app_id = 1;
-	repeated StringParameterSetValue parameters = 2;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Parameter values to set.
+    repeated StringParameterSetValue parameters = 2;
 }
 
 message AppArray1dParameterValuesRequest {
-	uint32 app_id = 1;
-	repeated Array1dParameterSetValue parameters = 2;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Parameter values to set.
+    repeated Array1dParameterSetValue parameters = 2;
 }
 
 message AppArray2dParameterValuesRequest {
-	uint32 app_id = 1;
-	repeated Array2dParameterSetValue parameters = 2;
+    // Id of the application.
+    uint32 app_id = 1;
+    // Parameter values to set.
+    repeated Array2dParameterSetValue parameters = 2;
 }
 
 message ParameterErrorsReply {
-	repeated ParameterValue parameters = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // Parameter values
+    repeated ParameterValue parameters = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message StringParameterErrorsReply {
-	repeated StringParameterValue parameters = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // Parameter values.
+    repeated StringParameterValue parameters = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message Array1dParameterErrorsReply {
-	repeated Array1dParameterValue parameters = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // Parameter values.
+    repeated Array1dParameterValue parameters = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }
 
 message Array2dParameterErrorsReply {
-	repeated Array2dParameterValue parameters = 1;
-	system_monitor_common.ErrorCode return_code = 2;
+    // Parameter values.
+    repeated Array2dParameterValue parameters = 1;
+    // Return code.
+    system_monitor_common.ErrorCode return_code = 2;
 }

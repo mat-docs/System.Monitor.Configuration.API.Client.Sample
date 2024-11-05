@@ -7,228 +7,410 @@ option csharp_namespace = "SystemMonitorProtobuf";
 
 package system_monitor_common;
 
+// System Monitor Error Codes
 enum ErrorCode {
+    // No error, function successful
     no_error = 0;
+    // No project loaded in SM-V7
     no_project = -1;
+    // No licence for requested function
     no_licence = -2;
+    // Non-specific error
     non_specific = -3;
+    // Data version mismatch
     data_version_mismatch = -4;
+    // No data version loaded
     no_data_version = -5;
+    // No program version loaded
     no_program_version = -6;
+    // No ECU connected
     no_ECU = -7;
+    // Invalid file specified
     invalid_file = -8;
-    no_appliction = -9;
+    // The open project does not cover the specified application
+    no_application = -9;
+    // Application must be active in order to support this operation
     application_inactive = -10;
+    // Operation not allowed while live updates are on
     live_updates_on = -11;
+    // This command only valid for TAGtronic systems.
     TAGtronic_onlu = -12;
+    // SM cannot accept API calls at the moment (might be in critical operation).
     SM_busy = -13;
+    // Type mismatch in argument of SendMessage , expected array of WORDs passed by reference
     message_argument_mismatch = -20;
+    // Array dimension mismatch in argument of SendMessage, expected a 1-dimensional array
     message_dimension_mismatch = -21;
+    // Lower bound of argument of SendMessage call was not 0
     message_lower_bound_non_zero = -22;
+    // Unexpected error getting bounds of SendMessage argument
     bounds_error = -23;
+    // Error in ReplyMessage argument
     message_argument_error = -24;
+    // Error in SendMessage argument
     message_argument_invalid = -25;
+    // Virtual Parameter contains invalid FDL.
     fdl_not_parsed = -26;
+    // Conversion for Parameter does not exist/is invalid.
     conversion_invalid = -27;
+    // Parameter name does not exist/is invalid.
     parameter_invalid = -28;
+    // Parameter exists and not allowed to override.
     parameter_override_not_allowed = -29;
+    // Request cannot be actioned as incorrect SM state.
     bad_state = -30;
+    // Command passed to SM is not valid.
     invalid_command = -31;
+    // Missing document or similar
     no_data_present = -32;
+    // Memory allocation failed
     bad_memory_allocation = -33;
+    // Operation only partially complete. Example: ClearRemoteParams left Parameters used in trigger conditions.
     partially_complete = -34;
+    // Indicates the current document (config) is full.
     document_full = -35;
+    // Parameter Identifier already exists in another application.
     parameter_identifier_already_exists = -36;
+    // Parameter is read-only - write access denied.
     parameter_read_only = -37;
+    // Parameter is non-live tuneable - write access denied.
     parameter_non_live_tuneable = -38;
+    // Requested group is not found
     group_not_found = -39;
+    // Previous virtual parameters file has been modified and not saved
     file_requires_saving = -40;
+    // No customer base found for the project being opened
     frequency_overridden = -41;
+    // Requested parameter not found
     no_customer_base = -42;
+    // Specified parameter does not exist in current program version
     parameter_not_found = -100;
-	error_read_only = -101;
-	error_limits = -102;
-	error_monotony = -103;
-	error_axis_pt = -104;
-	error_address = -105;
-	error_non_num = -106;
-	error_size = -107;
-	error_live_tune = -108;
-	error_intp = -109;
-	error_activelayer = -110;
-	error_tolerance = -111;
-	error_axis_change = -112;
-	error_no_live_tune = -113;
-	error_validation = -114;
-	error_live_tune_data_invalid = -115;
-	error_serial_not_found = -116;
-	error_unknown = -117;
-	error_cancel = -118;
-	error_locked_param = -119;
-	error_value_not_matching_entry = -120;
+    // Tried to set a read only parameter
+    error_read_only = -101;
+    // Tried to set a parameter outside its limits
+    error_limits = -102;
+    // Axis monotony restrictions not adhered to
+    error_monotony = -103;
+    // Tried to get or set parameter or axis value at invalid breakpoint
+    error_axis_pt = -104;
+    // Parameter had invalid address
+    error_address = -105;
+    // String containing non numeric characters supplied to set function
+    error_non_num = -106;
+    // Exceeded specified size or array or string parameter
+    error_size = -107;
+    // Live tune enabled, failed to update value in ECU
+    error_live_tune = -108;
+    // Tried to get interpolated value but no input quantity or axis points
+    error_intp = -109;
+    // No active live auto tune "layer" (group)
+    error_activelayer = -110;
+    // Operating point is outside breakpoint tolerances (e.g. for live auto tune)
+    error_tolerance = -111;
+    // Number of axis breakpoints has changed between program versions
+    error_axis_change = -112;
+    // Parameter is not modifiable in live tune area (warning only, not error)
+    error_no_live_tune = -113;
+    // The attempt to validate the value in the unit failed (not the same as the value being invalid)
+    error_validation = -114;
+    // The live tune data is invalid
+    error_live_tune_data_invalid = -115;
+    // Serial number not found for sensor channel
+    error_serial_not_found = -116;
+    // An unknown error
+    error_unknown = -117;
+    // Attempt to set value cancelled (by user or because of invalid input)
+    error_cancel = -118;
+    // Access denied, parameter locked by RDA
+    error_locked_param = -119;
+    // Value set does not match value in the unit
+    error_value_not_matching_entry = -120;
+    // Session detail does not exist
     detail_unknown = -200;
+    // Failed to dump row data
     dump_row_data_failed = -201;
+    // Failed to enter live tune
     live_update_failed = -300;
+    // Failed to go online
     online_failed = -301;
+    // Failed to download data
     download_data_failed = -302;
-    system_not_runnning = -303;
+    // System monitor is only running in OLE mode, hence can't perform requested action
+    system_not_running = -303;
+    // Attempt to access a locked parameter
     parameter_locked = -304;
+    // Communications base error
     comms_base = -1000;
 }
 
+// System Monitor File Types
 enum FileType {
+    // Project file
     Project       = 0;
+    // Program version file
     PGV           = 1;
+    // Data version file
     DTV           = 2;
+    // Desktop file
     desktop       = 3;
-    logging_cofig = 4;
+    // Logging config file
+    logging_config = 4;
+    // Virtual parameter file
     virtuals      = 5;
+    // Can parameter file
     CAN           = 6;
+    // Live logging configuration file
     live_logging  = 7;
+    // Pot board file
     pot_board     = 8;
 }
 
+// System Monitor Parameter Types
 enum ParameterType {
+    // Undefined parameter type
     undefined   = 0;
+    // Scalar parameter
     scalar      = 0x00000001;
+    // Axis 1 parameter
     axis_1      = 0x00000002;
+    // Axis 2 parameter
     axis_2      = 0x00000004;
+    // Array parameter
     array       = 0x00000010;
+    // String parameter
     string      = 0x00000020;
+    // Ecu parameter
     ecu         = 0x00000080;
+    // Can parameter
     can         = 0x00000100;
+    // TAG Sensor Bus parameter
     tsb         = 0x00000200;
+    // Virtual parameter
     virtual     = 0x00000400;
+    // Axis parameter
     axis        = 0x00030000;
+    // Input parameter
     input       = 0x10000000;
+    // Measurement parameter
     measurement = 0x10000780;
 }
 
+// System Monitor Conversion Types
 enum ConversionType {
+    // Rational conversion
     rational = 0;
+    // Table conversion
     table    = 1;
+    // Text conversion
     text     = 2;
+    // Formula conversion
     formula  = 3;
 }
 
-enum DataType { 
-    ubyte   = 0; 
+// System Monitor Data Types
+enum DataType {
+    // Unsigned byte
+    ubyte   = 0;
+    // Signed Byte
     byte    = 1;
+    // Unsigned word
     uword   = 2;
+    // Signed word
     word    = 3;
+    // Unsigned long
     ulong   = 4;
+    // Signed long
     long    = 5;
-	float   = 6;
-	unknown = 7; 
-	qword   = 8;
-	sqword  = 9; 
-	double = 10; 
+    // Float
+    float   = 6;
+    // Unknown
+    unknown = 7;
+    // Quad word
+    qword   = 8;
+    // Signed quad word
+    sqword  = 9;
+    // Double
+    double = 10;
 }
 
+// System Monitor Byte Orders
 enum ByteOrder {
+    // Most significant bit first
     msb_first = 0;
+    // Most significant bit last
     msb_last = 1;
 }
 
+// System Monitor Buffer Types
 enum BufferType {
+    // Data Changes in Unit.
     unit_buffer = 0;
+    // Data Changes in Edit Buffer.
     edit_buffer = 1;
+    // Data Changes in Unit & Edit Buffer.
     unit_and_edit_buffer = 2;
 }
 
+// System Monitor Reasons
 enum Reason {
+    // No difference.
     none                = 0x00000000;
+    // Not present in program version of the candidate.
     absent              = 0x00000001;
+    // Major difference that prevents merge.
     different           = 0x00000002;
+    // Same data type, size and value.
     equal               = 0x00000004;
+    // Same data type, size, units, diff value.
     different_value     = 0x00000008;
+    // Same data type, different size (maps only).
     different_size      = 0x00000010;
+    // Different display format conversion.
     different_conv      = 0x00000020;
+    // Different units.
     different_units     = 0x00000040;
+    // Different data type.
     different_type      = 0x00000080;
+    // Different comment.
     different_comment   = 0x00000100;
+    // Different default value.
     different_def_value = 0x00000200;
-    absent_master	    = 0x00000400;
-    locked		        = 0x10000000;
+    // Not present in program version of the edit buffer.
+    absent_master       = 0x00000400;
+    // Locked.
+    locked              = 0x10000000;
 }
 
+// System Monitor Event Priority
 enum EventPriority {
+    // High priority event.
     event_high   = 0;
+    // Medium priority event.
     event_medium = 1;
+    // Low priority event.
     event_low    = 2;
+    // Debug event.
     event_debug  = 3;
 }
 
+// System Monitor Error Statuses
 enum ErrorStatus {
+    // Unknown error status.
     status_unknown = 0;
-    status_curent = 1;
+    // Current error status.
+    status_current = 1;
+    // Logged error status.
     status_logged = 2;
 }
 
+// System Monitor Trigger Types
 enum TriggerType {
+    // On Data (with parameter)
     on_data          = 0;
+    // Driver push (not supported)
     driver_push      = 1;
+    // Ignition On
     ignition_on      = 2;
+    // Lap trigger
     lap_trigger      = 3;
+    // No condition
     no_condition     = 4;
+    // External trigger
     external_trigger = 5;
 }
 
+// System Monitor Trigger Operators
 enum TriggerOperator {
+    // Equals.
     equals                = 0;
+    // Less than.
     less_than             = 1;
+    // Greater than.
     greater_than          = 2;
+    // Not equal to.
     not_equal_to          = 3;
-    greater_than_or_equal = 4; 
+    // Greater than or equal to.
+    greater_than_or_equal = 4;
+    // Less than or equal to.
     less_than_or_equal    = 5;
 }
 
+// System Monitor Logging Types
 enum LoggingType {
-	frequency       = 0;
-	cylinder        = 1;
-	cycle           = 2;
-	unknown_logging = 3;
-	edge            = 4;
+    // Frequency value
+    frequency       = 0;
+    // Engine segment (cylinder)
+    cylinder        = 1;
+    // Cycle (wValue not used).
+    cycle           = 2;
+    // Unknown
+    unknown_logging = 3;
+    // Edge
+    edge            = 4;
 }
 
+// System Monitor Return Message
 message Return {
+    // Return code.
     ErrorCode return_code = 1;
 }
 
+// System Monitor App Request
 message AppRequest {
+    // Application id.
     uint32 app_id = 1;
 }
 
+// System Monitor Parameter Request
 message ParameterRequest {
-	uint32 app_id = 1;
-	string parameter_id = 2;
+    // Application id.
+    uint32 app_id = 1;
+    // Parameter id.
+    string parameter_id = 2;
 }
 
+// System Monitor Conversion Request
 message ConversionRequest {
-	uint32 app_id = 1;
-	string conversion_id = 2;
+    // Application id.
+    uint32 app_id = 1;
+    // Conversion id.
+    string conversion_id = 2;
 }
 
+// System Monitor Parameters Request
 message ParametersRequest {
-	repeated string parameter_ids = 1;
-}
-
-message AppParametersRequest {
-	uint32 app_id = 1;
-	repeated string parameter_ids = 2;
-}
-
-message ParametersFileRequest {
+    // Identifiers of parameters to request
     repeated string parameter_ids = 1;
+}
+
+// System Monitor Application Parameters Request
+message AppParametersRequest {
+    // Application Id. 0 for all applications including Virtual and CAN.
+    uint32 app_id = 1;
+    // Parameter identifiers.
+    repeated string parameter_ids = 2;
+}
+
+// System Monitor Parameters File Request
+message ParametersFileRequest {
+    // Parameter identifiers.
+    repeated string parameter_ids = 1;
+    // File path.
     string file_path = 2;
 }
 
+// System Monitor Application Parameters File Request
 message AppParametersFileRequest {
-	uint32 app_id = 1;
-	repeated string parameter_ids = 2;
-	string file_path = 3;
+    // Application identifier
+    uint32 app_id = 1;
+    // Parameter identifiers.
+    repeated string parameter_ids = 2;
+    // File path.
+    string file_path = 3;
 }
 
+// System Monitor File Request
 message FileRequest {
+    // File path.
     string file_path = 1;
 }

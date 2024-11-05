@@ -11,163 +11,257 @@ import "google/protobuf/empty.proto";
 import "Protos/system_monitor_common.proto";
 
 service SystemMonitorSystem {
-  rpc GetStatus (google.protobuf.Empty) returns (StatusReply);
-  rpc SetOnline (OnlineRequest) returns (system_monitor_common.Return);
-  rpc SetLiveUpdate (LiveUpdateRequest) returns (system_monitor_common.Return);
-  rpc GetUnitList (google.protobuf.Empty) returns (UnitListReply);
-  rpc GetUnitName (google.protobuf.Empty) returns (UnitNameReply);
-  rpc GetUnitByIndex (UnitByIndexRequest) returns (UnitInfo);
-  rpc SetUnitByIndex (UnitByIndexTypeRequest) returns (system_monitor_common.Return);
-  rpc GetMultiApplicationBases (google.protobuf.Empty) returns (MultiApplicationBasesReply);
-  rpc GetMultiApplicationBase (google.protobuf.Empty) returns (MultiApplicationBaseInfo);
-  rpc SetMultiApplicationBase (MultiApplicationBasesRequest) returns (system_monitor_common.Return);
-  rpc GetLicenceDetails (google.protobuf.Empty) returns (LicenceDetailsReply);
-  rpc GetDeviceProperties (google.protobuf.Empty) returns (DevicePropertiesReply);
-  rpc GetLiveLogging (google.protobuf.Empty) returns (LiveLoggingReply);
-  rpc SetLiveLogging (LiveLoggingRequest) returns (system_monitor_common.Return);
-  rpc SetBatchMode (BatchModeRequest) returns (system_monitor_common.Return);
-  rpc SendMessage (SendMessageRequest) returns (SendMessageReply);
-  rpc GetLogFolder (google.protobuf.Empty) returns (FolderReply);
-  rpc GetPPOFileName (google.protobuf.Empty) returns (FolderReply);
-  rpc CreatePGV (CreatePGVRequest) returns (CreatePGVReply);
-  }
+    // Gets the combined current status of online, live updates, link status and active app.
+    rpc GetStatus (google.protobuf.Empty) returns (StatusReply);
+    // Turns the ECU on or off-line.
+    rpc SetOnline (OnlineRequest) returns (system_monitor_common.Return);
+    // Enables or disables the sending of live-updates to the ECU.
+    rpc SetLiveUpdate (LiveUpdateRequest) returns (system_monitor_common.Return);
+    // Returns an array of cars/units defined in the carfile.ini (ie. the connections that appear in the connections dialog)
+    rpc GetUnitList (google.protobuf.Empty) returns (UnitListReply);
+    // Returns the name of the current car/connection.
+    rpc GetUnitName (google.protobuf.Empty) returns (UnitNameReply);
+    // Returns the index of the car/unit entry within the car/unit list (as returned by GetCarList()). Obtains connection name, type and IP address.
+    rpc GetUnitByIndex (UnitByIndexRequest) returns (UnitInfo);
+    // Sets the car/unit connection based on the car/unit list (as returned by GetCarList())
+    rpc SetUnitByIndex (UnitByIndexTypeRequest) returns (system_monitor_common.Return);
+    // Gets details of all defined Multi-Application Bases.
+    rpc GetMultiApplicationBases (google.protobuf.Empty) returns (MultiApplicationBasesReply);
+    // Gets details of a specific Multi-Application Base.
+    rpc GetMultiApplicationBase (google.protobuf.Empty) returns (MultiApplicationBaseInfo);
+    // Sets details of a specific Multi-Application Base.
+    rpc SetMultiApplicationBase (MultiApplicationBasesRequest) returns (system_monitor_common.Return);
+    // Get the active consortium name and licence owner.
+    rpc GetLicenceDetails (google.protobuf.Empty) returns (LicenceDetailsReply);
+    // Get the properties of connected devices from the project.
+    rpc GetDeviceProperties (google.protobuf.Empty) returns (DevicePropertiesReply);
+    // Returns whether the Live Logging is currently recording or not.
+    rpc GetLiveLogging (google.protobuf.Empty) returns (LiveLoggingReply);
+    // Starts or stops Live Logging.
+    rpc SetLiveLogging (LiveLoggingRequest) returns (system_monitor_common.Return);
+    // Call this to enter (or leave) batch mode. This is used when creating virtual parameters; entering batch mode before the creation of multiple Virtual Parameters and leaving batch mode afterwards.
+    // Using this method, all created/updated Virtual Parameters will only be available in System Monitor after leaving batch mode.
+    rpc SetBatchMode (BatchModeRequest) returns (system_monitor_common.Return);
+    // Sends a message to the ECU.
+    rpc SendMessage (SendMessageRequest) returns (SendMessageReply);
+    // Get the current log folder location.
+    rpc GetLogFolder (google.protobuf.Empty) returns (FolderReply);
+    // Get the name of the PPO file in the project.
+    rpc GetPPOFileName (google.protobuf.Empty) returns (FolderReply);
+    // Create a new PGV from ASAP2 definitions.
+    rpc CreatePGV (CreatePGVRequest) returns (CreatePGVReply);
+}
 
 enum LinkStatus {
-    Link_OK         = 0;
-    Link_NOK        = 1;
+    // Link OK
+    Link_OK = 0;
+    // Link Not OK
+    Link_NOK = 1;
+    // Controller busy
     Controller_Busy = 2;
-    In_Boot         = 3;
-    Zone_1          = 4;
-    Zone_2          = 5;
-    Zone_3          = 6;
-    Bad_Response    = 7;
-    Invalid_Device  = 8;
-    Unknown         = 0xFFFF; 
+    // Device in boot
+    In_Boot = 3;
+    // Device in zone one
+    Zone_1 = 4;
+    // Device in zone two
+    Zone_2 = 5;
+    // Device in zone three
+    Zone_3 = 6;
+    // Bad response
+    Bad_Response = 7;
+    // Invalid device
+    Invalid_Device = 8;
+    // Unknown status
+    Unknown = 0xFFFF;
 }
 
 message OnlineRequest {
-	bool state = 1;
+    // True to turn the ECU online, false to turn the ECU off-line.
+    bool state = 1;
 }
 
 message StatusReply {
+    // The link status
     LinkStatus link_status = 1;
+    // Whether the unit is online.
     bool online = 2;
+    // Whether live updates are enabled.
     bool live_update = 3;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 4;
 }
 
 message LiveUpdateRequest {
+    //  True to enable live updates, false to disable
     bool state = 1;
+    // Action performed on data mismatch:
+    //   0 - No Action.
+    //   1 - Upload data from unit into edit buffer.
+    //   2 - Download edit buffer into unit. (Live tunes in unit may be lost).
     uint32 action = 2;
 }
 
 message UnitInfo {
+    // Unit name.
     string name = 1;
+    // Unit type
     string type = 2;
+    // Unit IP Address
     string ip_address = 3;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 4;
 }
 
 message UnitListReply {
+    // Unit information.
     repeated UnitInfo info = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message UnitNameReply {
+    // Unit name.
     string name = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message UnitByIndexRequest {
-	uint32 index = 1;
+    // Index of unit based on the car/unit list (as returned by GetUnitList())
+    uint32 index = 1;
 }
 
 message UnitByIndexTypeRequest {
-	uint32 index = 1;
+    // Index of unit based on the car/unit list (as returned by GetUnitList())
+    uint32 index = 1;
+    // Whether the connection is for the main car or spare car
     bool primary = 2;
 }
 
 message MultiApplicationBaseInfo {
+    // Name of the multi-application base.
     string name = 1;
+    // Path of the multi-application base.
     string path = 2;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 3;
 }
 
 message MultiApplicationBasesReply {
+    // Multi-application base information.
     repeated MultiApplicationBaseInfo info = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message MultiApplicationBasesRequest {
+    // Name of the multi-application base.
     string base_name = 1;
 }
 
 message LicenceDetailsReply {
+    // Licence Consortium.
     string consortium = 1;
+    // Licence Owner.
     string owner = 2;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 3;
 }
 
 message DeviceProperties {
+    // Device communications path.
     string comms_path = 1;
+    // Device name.
     string device_name = 2;
+    // Device ip address.
     string ip_address = 3;
+    // Device serial number.
     int32 serial_number = 4;
 }
 
 message DevicePropertiesReply {
+    // Device information.
     repeated DeviceProperties devices = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message LiveLoggingReply {
+    // Whether Live Logging is enabled or disabled.
     bool live_logging_state = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message LiveLoggingRequest {
-	bool state = 1;
+    // True to turn Live Logging on, false to turn Live Logging off.
+    bool state = 1;
 }
 
 message BatchModeRequest {
-	bool mode = 1;
+    // Enter/leave batch mode, true or false respectively.
+    bool mode = 1;
 }
 
 message SendMessageRequest {
+    // Application Id. (indicates ECU in multiple-ECU systems).
     uint32 app_id = 1;
+    // Message time out
     uint32 timeout = 2;
+    // How many times to try before returning an error
     uint32 retries = 3;
+    // Messages to send.
     repeated int32 messages = 4;
 }
 
 message SendMessageReply {
+    // Sent messages.
     repeated int32 messages = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message FolderReply {
+    // File path
     string file_path = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message CreatePGVRequest {
+    // Path to location for output files.
     string location = 1;
+    // Path to base ASAP2 project .a2l file.
     string asap2_file_path = 2;
+    // Path to hex definition .hex file.
     string hex_file_path = 3;
+    // Path to controllers definition .ini file.
     string controllers_file_path = 4;
+    // Optional path to errors definition .ini file.
     string errors_file_path = 5;
+    // Optional path to events definition .ini file.
     string events_file_path = 6;
+    // Optional path to pot board definition .ini file.
     string adjustment_file_path = 7;
+    // Optional path to sensors definition .ini file.
     string sensors_file_path = 8;
+    // Optional path to sensor injector definition .ini file.
     string injector_file_path = 9;
+    // Optional path to sensor enable / disable definition .ini file.
     string sensor_enable_file_path = 10;
+    // Optional path to live auto tune definition .ini file.
     string live_auto_tune_file_path = 11;
+    // PGV Comments
     string comments = 12;
+    // PGV Notes
     string notes = 13;
 }
 
 message CreatePGVReply {
+    // Path to created PGV file.
     string pgv_file_path = 1;
+    // Path to created DT file.
     string dtv_file_path = 2;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 3;
 }
