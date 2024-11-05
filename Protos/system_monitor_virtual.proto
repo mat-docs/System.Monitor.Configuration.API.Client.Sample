@@ -1,4 +1,4 @@
-﻿// <copyright file="System_Monitor_Virtual.cs" company="McLaren Applied Ltd.">
+// <copyright file="System_Monitor_Virtual.cs" company="McLaren Applied Ltd.">
 // Copyright (c) McLaren Applied Ltd.</copyright>
 
 syntax = "proto3";
@@ -163,7 +163,7 @@ message VirtualGroupReply {
 }
 
 message VirtualExportRequest {
-    // Fiile path to export parameters into.
+    // File path to export parameters into.
     string file_path = 1;
     // Group name to export. NULL for all virtual parameters.
     string group = 2;

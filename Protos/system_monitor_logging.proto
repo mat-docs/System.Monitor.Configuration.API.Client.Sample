@@ -91,7 +91,7 @@ message ChannelRequest {
 }
 
 message TriggerCondition {
-    // Specifies which condition index (0 <= n < 6), where the first 3 are start conditions, and the later, stop conditions
+    // Specifies which condition  index (0 <= n < 6), where the first 3 are start conditions, and the later, stop conditions
     uint32 index = 1;
     // Retrieves the trigger condition type
     system_monitor_common.TriggerType type = 2;
@@ -150,14 +150,14 @@ message TriggerRequest {
 }
 
 message WrapReply {
-    // Required wrapping memory stategy
+    // Required wrapping memory strategy
     bool wrap = 1;
     // Return code
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message WrapRequest {
-    // Required wrapping memory stategy
+    // Required wrapping memory strategy
     bool wrap = 1;
 }
 

@@ -1,4 +1,4 @@
-﻿// <copyright file="System_Monitor_Enum.cs" company="McLaren Applied Ltd.">
+// <copyright file="System_Monitor_Enum.cs" company="McLaren Applied Ltd.">
 // Copyright (c) McLaren Applied Ltd.</copyright>
 
 syntax = "proto3";
@@ -73,7 +73,7 @@ enum ErrorCode {
     parameter_identifier_already_exists = -36;
     // Parameter is read-only - write access denied.
     parameter_read_only = -37;
-    // Parameter is non-livetuneable - write access denied.
+    // Parameter is non-live tuneable - write access denied.
     parameter_non_live_tuneable = -38;
     // Requested group is not found
     group_not_found = -39;

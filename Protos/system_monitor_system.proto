@@ -249,7 +249,7 @@ message CreatePGVRequest {
     string injector_file_path = 9;
     // Optional path to sensor enable / disable definition .ini file.
     string sensor_enable_file_path = 10;
-    // Optional path to live auto tunedefinition .ini file.
+    // Optional path to live auto tune definition .ini file.
     string live_auto_tune_file_path = 11;
     // PGV Comments
     string comments = 12;
