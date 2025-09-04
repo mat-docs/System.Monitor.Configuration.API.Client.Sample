@@ -33,7 +33,7 @@ namespace SystemMonitorConfigurationTest.Dialogs
                 dt.Rows.Add(FileType.Desktop, "Desktop");
                 dt.Rows.Add(FileType.Can, "CAN Config");
                 dt.Rows.Add(FileType.Virtuals, "Virtuals");
-                dt.Rows.Add(FileType.LoggingCofig, "Logging Config");
+                dt.Rows.Add(FileType.LoggingConfig, "Logging Config");
 
                 var binding = new Binding
                 {
@@ -50,7 +50,7 @@ namespace SystemMonitorConfigurationTest.Dialogs
         private void Type_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var type = (FileType)((DataRowView)this.typeList.SelectedItem).Row.ItemArray[0];
-            if (type == FileType.LoggingCofig || type == FileType.Can)
+            if (type == FileType.LoggingConfig || type == FileType.Can)
             {
                 this.slot.Visibility = Visibility.Visible;
                 this.slotTxt.Visibility = Visibility.Visible;

@@ -33,16 +33,14 @@ public partial class MainWindow
             this.LinkState = state.LinkStatus;
             this.OnlineState = state.Online;
             this.LiveState = state.LiveUpdate;
-            if (state.ReturnCode == ErrorCode.NoError)
-            {
-                this.results.Items.Add($"Link State: {this.LinkState.ToString()}");
-                this.results.Items.Add($"Online State: {this.OnlineState}");
-                this.results.Items.Add($"Live Update State: {this.LiveState}");
-                this.SetOnline.Content = $"SetOnline: {!this.OnlineState}";
-                this.SetLiveUpdate.Content = $"SetLiveUpdate: {!this.LiveState}";
-                this.SetOnline.IsEnabled = true;
-                this.SetLiveUpdate.IsEnabled = true;
-            }
+
+            this.results.Items.Add($"Link State: {this.LinkState.ToString()}");
+            this.results.Items.Add($"Online State: {this.OnlineState}");
+            this.results.Items.Add($"Live Update State: {this.LiveState}");
+            this.SetOnline.Content = $"SetOnline: {!this.OnlineState}";
+            this.SetLiveUpdate.Content = $"SetLiveUpdate: {!this.LiveState}";
+            this.SetOnline.IsEnabled = true;
+            this.SetLiveUpdate.IsEnabled = true;
 
             this.SetErrorCode(state.ReturnCode);
             this.executeTime.Content = $"{stopwatch.ElapsedMilliseconds}ms";

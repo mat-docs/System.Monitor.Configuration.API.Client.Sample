@@ -265,7 +265,7 @@ namespace SystemMonitorConfigurationTest
                 {
                     var stopwatch = Stopwatch.StartNew();
 
-                    var reply = this.virtualClient.RemoveAllVirtualConvertions(new Empty(), this.header);
+                    var reply = this.virtualClient.RemoveAllVirtualConversions(new Empty(), this.header);
                     this.SetErrorCode(reply.ReturnCode);
                     this.executeTime.Content = $"{stopwatch.ElapsedMilliseconds}ms";
                     this.results.Items.Add($"Remove All Virtual Conversions Requested: Error: {reply.ReturnCode}");
