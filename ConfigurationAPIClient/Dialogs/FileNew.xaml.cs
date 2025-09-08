@@ -26,7 +26,7 @@ namespace SystemMonitorConfigurationTest.Dialogs
 
                 dt.Rows.Add(FileType.Can, "CAN Config");
                 dt.Rows.Add(FileType.Virtuals, "Virtuals");
-                dt.Rows.Add(FileType.LoggingCofig, "Logging Config");
+                dt.Rows.Add(FileType.LoggingConfig, "Logging Config");
 
                 var binding = new Binding
                 {
@@ -46,7 +46,7 @@ namespace SystemMonitorConfigurationTest.Dialogs
             var type = (FileType)((DataRowView)this.typeList.SelectedItem).Row.ItemArray[0];
             switch (type)
             {
-                case FileType.LoggingCofig:
+                case FileType.LoggingConfig:
                     ext = ".rlc";
                     filter = "Logging Config Files (.rlc)|*.rlc";
                     break;
