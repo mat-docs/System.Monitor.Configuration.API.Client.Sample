@@ -12,414 +12,666 @@ import "google/protobuf/timestamp.proto";
 import "Protos/system_monitor_common.proto";
 
 service SystemMonitorProject {
-  rpc ProjectOpen (system_monitor_common.FileRequest) returns (system_monitor_common.Return); 
-  rpc ProjectClose (ProjectCloseRequest) returns (system_monitor_common.Return); 
-  rpc ProjectCreate (ProjectCreateRequest) returns (system_monitor_common.Return); 
-  rpc ProjectSave (ProjectSaveRequest) returns (system_monitor_common.Return);
-  rpc ProjectSaveAs (ProjectSaveAsRequest) returns (system_monitor_common.Return);
-  rpc ProjectImport (ProjectImportRequest) returns (system_monitor_common.Return);
-  rpc ProjectExport (ProjectExportRequest) returns (system_monitor_common.Return);
-  rpc Reprogram (ReprogramRequest) returns (system_monitor_common.Return);
-  rpc DownloadDataChanges (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
-  rpc EditBufferSynced (system_monitor_common.AppRequest) returns (SyncedReply);
-  rpc UploadDataVersion (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
-  rpc GetVersionNumber (google.protobuf.Empty) returns (GetVersionNumberReply);
-  rpc GetPGVVersion (system_monitor_common.AppRequest) returns (AppReply);
-  rpc GetPGVID (system_monitor_common.AppRequest) returns (PGVIDReply);
-  rpc GetDTVVersion (system_monitor_common.AppRequest) returns (AppReply);
-  rpc GetEcuDTVVersion (system_monitor_common.AppRequest) returns (AppReply);
-  rpc GetNextDTVVersion (system_monitor_common.AppRequest) returns (AppReply);
-  rpc GetDTVModified (system_monitor_common.AppRequest) returns (DTVModifiedReply);
-  rpc GetDTVSavedOn (system_monitor_common.AppRequest) returns (DTVSavedOnReply);
-  rpc GetDTVNotes (system_monitor_common.AppRequest) returns (AppReply);
-  rpc SetDTVNotes (DetailsRequest) returns (system_monitor_common.Return);
-  rpc ClearDTVNotes (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
-  rpc GetDTVComment (system_monitor_common.AppRequest) returns (AppReply);
-  rpc SetDTVComment (DetailsRequest) returns (system_monitor_common.Return);
-  rpc EnableDTVBackup (EnableRequest) returns (system_monitor_common.Return);
-  rpc DTVOpen (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
-  rpc DTVSave (DTVSaveRequest) returns (system_monitor_common.Return);
-  rpc DTVSaveCopy (DTVSaveCopyRequest) returns (system_monitor_common.Return);
-  rpc DTVSaveIncrement (DTVSaveIncrementRequest) returns (system_monitor_common.Return);
-  rpc GetBuildNumber (google.protobuf.Empty) returns (GetBuildNumberReply);
-  rpc GetAppDetails (google.protobuf.Empty) returns (GetAppDetailsReply);
-  rpc GetActiveApps (google.protobuf.Empty) returns (ActiveAppReply);
-  rpc SetActiveApps (MultiAppRequest) returns (system_monitor_common.Return);
-  rpc AddApp (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
-  rpc RemoveApp (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
-  rpc CompareApp (CompareAppRequest) returns (CompareAppReply);
-  rpc GetAppPULFile (system_monitor_common.AppRequest) returns (FileReply);
-  rpc SetAppPULFile (AppFileRequest) returns (system_monitor_common.Return);
-  rpc GenerateParamSet (system_monitor_common.ParametersFileRequest) returns (system_monitor_common.Return);
-  rpc GeneratePULFile (system_monitor_common.AppParametersFileRequest) returns (system_monitor_common.Return);
-  rpc GeneratePULFileFromParamSet (AppFileRequest) returns (FileReply);
-  rpc ChangeSensorSerialNumber (SensorRequest) returns (system_monitor_common.Return);
-  rpc FileOpen(FileOpenRequest) returns (system_monitor_common.Return);
-  rpc FileSave(FileSaveRequest) returns (system_monitor_common.Return);
-  rpc FileNew(FileNewRequest) returns (system_monitor_common.Return);
-  rpc GetFileName(FileNameRequest) returns (FileReply);
-  rpc GetFileDetails(system_monitor_common.FileRequest) returns (FileDetailsReply);
-  rpc CreateFFCFromPGV (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
-  rpc ExportToHexFile (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
-  rpc GetActiveCANConfig (SlotRequest) returns (SlotReply);
-  rpc SetActiveCANConfig (SlotActiveRequest) returns (system_monitor_common.Return);
-  rpc GetFIACANConfig (SlotRequest) returns (SlotReply);
-  rpc SetFIACANConfig (SlotActiveRequest) returns (system_monitor_common.Return);
-  rpc CANBuffersExport (CANRequest) returns (system_monitor_common.Return);
-  rpc CANBuffersImport (CANRequest) returns (system_monitor_common.Return);
-  rpc CANMessagesExport (CANRequest) returns (system_monitor_common.Return);
-  rpc CANMessagesImport (CANMergeRequest) returns (system_monitor_common.Return);
-  rpc CANConfigUnload (SlotRequest) returns (system_monitor_common.Return);
-  rpc GetActiveLoggingConfig (SlotRequest) returns (SlotReply);
-  rpc SetActiveLoggingConfig (SlotActiveRequest) returns (system_monitor_common.Return);
-  rpc LoggingConfigUnload (SlotRequest) returns (system_monitor_common.Return);
-  rpc MatlabImport (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
-  rpc MatlabExport (MatlabRequest) returns (system_monitor_common.Return);
-  rpc MatlabExportDTV (MatlabDTVRequest) returns (system_monitor_common.Return);
-  rpc MatlabExportSelected (MatlabSelectedRequest) returns (system_monitor_common.Return);
-  rpc AddParametersToUnlockList (system_monitor_common.AppParametersFileRequest) returns (FileReply);
-  rpc RemoveParametersFromUnlockList (system_monitor_common.AppParametersFileRequest) returns (FileReply);
-  rpc GetAppsHoldingParam (ParameterIdRequest) returns (MultiAppReply);
-  rpc GetAppsHoldingMeasurementParam (ParameterIdRequest) returns (MultiAppReply);
-  rpc GetAppsHoldingControlParam (ParameterIdRequest) returns (MultiAppReply);
-  rpc ParameterExists (ExistsRequest) returns (ExistsReply);
-  rpc RegisterEnhancedRowParameters (system_monitor_common.AppParametersRequest) returns (system_monitor_common.Return);
-  rpc ClearEnhancedRowParameters (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
-  rpc RegisterCANEnhancedRowParameters (system_monitor_common.ParametersRequest) returns (system_monitor_common.Return);
-  rpc RegisterVirtualEnhancedRowParameters (system_monitor_common.ParametersRequest) returns (system_monitor_common.Return);
-  rpc ActivateEnhancedRowParameters (google.protobuf.Empty) returns (system_monitor_common.Return);
-  rpc DumpEvents (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
-  rpc DumpErrors (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
-  rpc DumpRowData (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
-  rpc ClearEvents (google.protobuf.Empty) returns (system_monitor_common.Return);
-  rpc GetEvents (system_monitor_common.AppRequest) returns (EventsReply);
-  rpc GetEventDetails (EventRequest) returns (EventReply);
-  rpc GetErrorDefinitions (system_monitor_common.AppRequest) returns (ErrorDefinitionsReply);
-  rpc GetErrors (google.protobuf.Empty) returns (ErrorReply);
-  rpc DeleteErrors (google.protobuf.Empty) returns (system_monitor_common.Return);
+    // Opens a Project.
+    rpc ProjectOpen (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+    // Closes a Project.
+    rpc ProjectClose (ProjectCloseRequest) returns (system_monitor_common.Return);
+    // Create a new project. If full path names are used, the path must lie within the current multi-application base.
+    rpc ProjectCreate (ProjectCreateRequest) returns (system_monitor_common.Return);
+    // Saves the current project.
+    rpc ProjectSave (ProjectSaveRequest) returns (system_monitor_common.Return);
+    // Saves the current project as a new project.
+    rpc ProjectSaveAs (ProjectSaveAsRequest) returns (system_monitor_common.Return);
+    // Imports the project from a .smx file.
+    rpc ProjectImport (ProjectImportRequest) returns (system_monitor_common.Return);
+    // Exports the project to a .smx file.
+    rpc ProjectExport (ProjectExportRequest) returns (system_monitor_common.Return);
+    // Reprograms the ECU.
+    rpc Reprogram (ReprogramRequest) returns (system_monitor_common.Return);
+    // Causes any modifications made to the System Monitor edit buffer to be downloaded to the ECU.
+    rpc DownloadDataChanges (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
+    // Identifies whether the edit buffer is in sync with the ECU.
+    rpc EditBufferSynced (system_monitor_common.AppRequest) returns (SyncedReply);
+    // Uploads specified data version to the edit buffer.
+    rpc UploadDataVersion (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
+    // Gets the version information contained within the System Monitor executable.
+    rpc GetVersionNumber (google.protobuf.Empty) returns (GetVersionNumberReply);
+    // Gets the filepath for the .pgv of an application by Application Id.
+    rpc GetPGVVersion (system_monitor_common.AppRequest) returns (AppReply);
+    // Gets the program version ID of the currently loaded program version.
+    rpc GetPGVID (system_monitor_common.AppRequest) returns (PGVIDReply);
+    // Returns the filename of the data version in the edit buffer.
+    rpc GetDTVVersion (system_monitor_common.AppRequest) returns (AppReply);
+    // Returns the filename of the data version on the ECU.
+    rpc GetEcuDTVVersion (system_monitor_common.AppRequest) returns (AppReply);
+    // Returns the filename of the next data version that will be saved if the user selects, File, Save. If the edit buffer is unmodified, this will be the name of the current data version in the edit buffer.
+    rpc GetNextDTVVersion (system_monitor_common.AppRequest) returns (AppReply);
+    // Gets the modified state associated with the DTV.
+    rpc GetDTVModified (system_monitor_common.AppRequest) returns (DTVModifiedReply);
+    // Gets the contents of the saved on attribute associated with the DTV.
+    rpc GetDTVSavedOn (system_monitor_common.AppRequest) returns (DTVSavedOnReply);
+    // Returns the contents of the notes attribute associated with the DTV.
+    rpc GetDTVNotes (system_monitor_common.AppRequest) returns (AppReply);
+    // Sets the Data Version notes for the specified application.
+    rpc SetDTVNotes (DetailsRequest) returns (system_monitor_common.Return);
+    // Clears the contents of the notes attribute associated with the DTV.
+    rpc ClearDTVNotes (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
+    // Gets the contents of the comments attribute associated with the DTV.
+    rpc GetDTVComment (system_monitor_common.AppRequest) returns (AppReply);
+    // Sets the Data Version comment for the specified application.
+    rpc SetDTVComment (DetailsRequest) returns (system_monitor_common.Return);
+    // Enables/Disables the data version backup during parameter value changes. Adds a message to the log file to indicate when changed. NOTE: Any changes to the data version whilst backups are suspended are not flushed to the backup file when the backups are re- enabled.
+    rpc EnableDTVBackup (EnableRequest) returns (system_monitor_common.Return);
+    // Opens the specified data version file.
+    rpc DTVOpen (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+    // Saves the current data version to the specified file.
+    rpc DTVSave (DTVSaveRequest) returns (system_monitor_common.Return);
+    // Saves the current data version to the specified file, without modifying the data version in the edit buffer.
+    rpc DTVSaveCopy (DTVSaveCopyRequest) returns (system_monitor_common.Return);
+    // Increments the version number of the data version and then performs a save.
+    rpc DTVSaveIncrement (DTVSaveIncrementRequest) returns (system_monitor_common.Return);
+    // Gets the build number of System Monitor (SM-V7). Client code may be branched on the basis of build number, thereby providing a way by which a single client script can be written which works with releases of SM-V7 which have different ActiveX interfaces.
+    rpc GetBuildNumber (google.protobuf.Empty) returns (GetBuildNumberReply);
+    // Gets details of the applications in the current project.
+    rpc GetAppDetails (google.protobuf.Empty) returns (GetAppDetailsReply);
+    // Gets details of all the active applications.
+    rpc GetActiveApps (google.protobuf.Empty) returns (ActiveAppReply);
+    // Sets the active application when provided with an application ID.
+    rpc SetActiveApps (MultiAppRequest) returns (system_monitor_common.Return);
+    // Adds the application defined by the given DTV and it's associated PGV into the project.
+    // If the application already exists in the project the error: SMAPI_ERR_INVALID_CMD (-31) will be returned.
+    rpc AddApp (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+    // Removes the given application from the project. The requested application cannot be the BIOS.
+    rpc RemoveApp (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
+    // Perform a compare between an application loaded in memory and up to two DTV's. When two DTV's are used both must have the same PGV version.
+    // Returns a list of parameters that contain differences along with the parameter data type and a reason code identifying the difference.
+    rpc CompareApp (CompareAppRequest) returns (CompareAppReply);
+    // Get the name of the unlock list PUL file for the given application id.
+    rpc GetAppPULFile (system_monitor_common.AppRequest) returns (FileReply);
+    // Set the unlock list PUL file on the given application id. Licence ownership restrictions apply
+    rpc SetAppPULFile (AppFileRequest) returns (system_monitor_common.Return);
+    // Generate a parameter set file.
+    rpc GenerateParamSet (system_monitor_common.ParametersFileRequest) returns (system_monitor_common.Return);
+    // Generate a PUL file for an application for use with Reduced Data Access.
+    // NOTE: On creation of PUL file the name will be adjusted from the requested name by including the checksum. This is required to reduce file lookup times.
+    rpc GeneratePULFile (system_monitor_common.AppParametersFileRequest) returns (system_monitor_common.Return);
+    // Generate a PUL file for an application for use with Reduced Data Access from a saved Parameter Set file.
+    // NOTE: On creation of PUL file the name will be adjusted from the requested name by including the checksum. This is required to reduce file lookup times. The adjusted file name will be returned in pszFileName.
+    rpc GeneratePULFileFromParamSet (AppFileRequest) returns (FileReply);
+    // Changes the serial number of the specified sensor.
+    rpc ChangeSensorSerialNumber (SensorRequest) returns (system_monitor_common.Return);
+    // Opens a file within System Monitor. Supports FileType.Desktop, FileType.LoggingConfig, FileType.Virtuals, FileType.Can.
+    rpc FileOpen(FileOpenRequest) returns (system_monitor_common.Return);
+    // Saves a file within System Monitor. Supports FileType.Desktop, FileType.LoggingConfig, FileType.Virtuals, FileType.Can.
+    rpc FileSave(FileSaveRequest) returns (system_monitor_common.Return);
+    // Creates a file within System Monitor. Supports FileType.LoggingConfig, FileType.Virtuals, FileType.Can.
+    rpc FileNew(FileNewRequest) returns (system_monitor_common.Return);
+    // Gets the name of a file from System Monitor. Supports FileType.Project, FileType.Desktop, FileType.LoggingConfig, FileType.Virtuals, FileType.Can
+    rpc GetFileName(FileNameRequest) returns (FileReply);
+    // Gets the file details for any file type supported by System Monitor.
+    rpc GetFileDetails(system_monitor_common.FileRequest) returns (FileDetailsReply);
+    // Create an FFC File from the given PGV.
+    // Enable FFC advanced option must be set to 'Y' and full path name of PGV is required. FFC file will be created in same location as original PGV.
+    rpc CreateFFCFromPGV (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+    // Exports the selected applications PGV and DTV to a hexfile.
+    rpc ExportToHexFile (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
+    // Gets the active status of the CAN configuration in the given slot.
+    rpc GetActiveCANConfig (SlotRequest) returns (SlotReply);
+    // Set the active status of the CAN configuration in the given slot.
+    rpc SetActiveCANConfig (SlotActiveRequest) returns (system_monitor_common.Return);
+    // Gets the FIA status of the CAN configuration into the given slot.
+    rpc GetFIACANConfig (SlotRequest) returns (SlotReply);
+    // Set the FIA status of the CAN configuration into the given slot.
+    rpc SetFIACANConfig (SlotActiveRequest) returns (system_monitor_common.Return);
+    // Exports the CAN Buffer configuration csv from the given CAN Bus index.
+    rpc CANBuffersExport (CANRequest) returns (system_monitor_common.Return);
+    // Imports the CAN Buffer configuration csv into the given CAN Bus index.
+    rpc CANBuffersImport (CANRequest) returns (system_monitor_common.Return);
+    // Exports the CAN Message configuration csv from the given CAN Bus index.
+    rpc CANMessagesExport (CANRequest) returns (system_monitor_common.Return);
+    // Imports the CAN Message configuration csv into the given CAN Bus index.
+    rpc CANMessagesImport (CANMergeRequest) returns (system_monitor_common.Return);
+    // Unloads the CAN configuration from the given slot. (Slot index should be 2-8).
+    rpc CANConfigUnload (SlotRequest) returns (system_monitor_common.Return);
+    // Get the active status of the remote logging configuration in the given slot.
+    rpc GetActiveLoggingConfig (SlotRequest) returns (SlotReply);
+    // Set the active status of the remote logging configuration in the given slot.
+    rpc SetActiveLoggingConfig (SlotActiveRequest) returns (system_monitor_common.Return);
+    // Unloads the remote logging configuration from the given slot.
+    rpc LoggingConfigUnload (SlotRequest) returns (system_monitor_common.Return);
+    // Imports the specified MatLab-M file into System Monitor.
+    rpc MatlabImport (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+    // Exports the currently loaded data version to the specified file in MatLab-M format.
+    rpc MatlabExport (MatlabRequest) returns (system_monitor_common.Return);
+    // Exports the specified data version to the specified file in MatLab-M format.
+    rpc MatlabExportDTV (MatlabDTVRequest) returns (system_monitor_common.Return);
+    // Exports the specified list of editable parameters in Matlab format.
+    rpc MatlabExportSelected (MatlabSelectedRequest) returns (system_monitor_common.Return);
+    // Update a PUL file for an application for use with Reduced Data Access by adding the requested parameter identifiers.
+    // NOTE: The PUL file name will be adjusted by including the new checksum and returned.
+    rpc AddParametersToUnlockList (system_monitor_common.AppParametersFileRequest) returns (FileReply);
+    // Update a PUL file for an application for use with Reduced Data Access by removing the requested parameter identifiers.
+    // NOTE: The PUL file the name will be adjusted by including the new checksum and returned.
+    rpc RemoveParametersFromUnlockList (system_monitor_common.AppParametersFileRequest) returns (FileReply);
+    // Gets the applications which contain the specified parameter.
+    rpc GetAppsHoldingParam (ParameterIdRequest) returns (MultiAppReply);
+    // Gets the applications which contain the specified measurement parameter.
+    rpc GetAppsHoldingMeasurementParam (ParameterIdRequest) returns (MultiAppReply);
+    // Returns the applications which contain the specified non measurement parameter.
+    rpc GetAppsHoldingControlParam (ParameterIdRequest) returns (MultiAppReply);
+    // Identifies if a parameter of the given type exists.
+    rpc ParameterExists (ExistsRequest) returns (ExistsReply);
+    // Add parameters from application to the enhanced speed row data list.
+    rpc RegisterEnhancedRowParameters (system_monitor_common.AppParametersRequest) returns (system_monitor_common.Return);
+    // Clear all parameters for given application from enhanced speed slow row data list.
+    rpc ClearEnhancedRowParameters (system_monitor_common.AppRequest) returns (system_monitor_common.Return);
+    // Add CAN parameters to the enhanced speed row data list.
+    rpc RegisterCANEnhancedRowParameters (system_monitor_common.ParametersRequest) returns (system_monitor_common.Return);
+    // Add virtual parameters to the enhanced speed row data list. All parameters referenced by each virtual will be added to the list.
+    rpc RegisterVirtualEnhancedRowParameters (system_monitor_common.ParametersRequest) returns (system_monitor_common.Return);
+    // Activate current enhanced speed row data list.
+    rpc ActivateEnhancedRowParameters (google.protobuf.Empty) returns (system_monitor_common.Return);
+    // Dumps the contents of the Event window to a specified file.
+    rpc DumpEvents (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+    // Any errors that are currently occurring are dumped to disk.
+    rpc DumpErrors (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+    // Dumps the current values of all acquired measurement parameters to disk.
+    rpc DumpRowData (system_monitor_common.FileRequest) returns (system_monitor_common.Return);
+    // Clears the event window in SM-V7.
+    rpc ClearEvents (google.protobuf.Empty) returns (system_monitor_common.Return);
+    // Gets the events defined for a given application.
+    rpc GetEvents (system_monitor_common.AppRequest) returns (EventsReply);
+    // Gets the details for a given event defined in an application.
+    rpc GetEventDetails (EventRequest) returns (EventReply);
+    // Gets the error definitions for a given application.
+    rpc GetErrorDefinitions (system_monitor_common.AppRequest) returns (ErrorDefinitionsReply);
+    // Returns list of active errors.
+    rpc GetErrors (google.protobuf.Empty) returns (ErrorReply);
+    // Clears the active errors.
+    rpc DeleteErrors (google.protobuf.Empty) returns (system_monitor_common.Return);
  }
 
 message FileReply {
+    // File path including folder.
     string file_path = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message ParameterIdRequest {
+    // Parameter identifier.
     string parameter_id = 1;
 }
 
 message MultiAppRequest {
+    // Application identifiers.
     repeated uint32 app_ids = 1;
 }
 
 message MultiAppReply {
+    // Applications containing the specified parameter.
     repeated uint32 app_ids = 1;
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message AppFileRequest {
+    // Application id.
     uint32 app_id = 1;
+    // File path.
     string file_path = 2;
 }
 
 message ProjectCloseRequest {
+    // Action to perform when unsaved documents encountered on closing project.
+    // 0 - Cancel Save.
+    // 1 - Save All.
+    // 2 - Save None.
     int32 action = 1;
 }
 
 message ProjectCreateRequest {
-    string project_path = 1; 
+    // Project name to be created within the current multi-application base.
+    string project_path = 1;
+    // Array of PGV files to be included.
     repeated string app_paths = 2;
+    // Name of desktop document to be created or included if file already exists.
     string desktop_path = 3;
+    // Optional name of virtual parameters document to be created or included if file already exists.
     string virtuals_path = 4;
-    string can_path = 5; 
+    // Optional name of CAN configuration document to be created or included if file already exists.
+    string can_path = 5;
+    // Optional name of remote logging configuration document to be created or included if file already exists.
     string logging_config_path = 6;
 }
 
 message ProjectSaveRequest {
+    // If TRUE then all modified files are saved. If FALSE then only the project file is saved.
     bool save_all = 1;
 }
 
 message ProjectSaveAsRequest {
+    // Name of renamed project file.
     string project_name = 1;
+    // If TRUE then all modified files are saved. If FALSE then only the project file is saved.
     bool save_all = 2;
+    // New project comments.
     string comments = 3;
+    // New project notes.
     string notes = 4;
 }
 
 message ProjectImportRequest {
+    // SMX file containing project to be imported.
     string project_path = 1;
+    // Optional Multi-Application base name for import. If blank, the current default base is used.
     string base = 2;
 }
 
 message ProjectExportRequest {
+    // Flag to indicate if any unsaved files in the project should be saved before exporting.
     bool save_modified = 1;
 }
 
 message MatlabRequest {
+    // Application Id.
     uint32 app_id = 1;
+    // Filename and full path.
     string export_path = 2;
+    // True if only data is to be exported, false to export data and definitions.
     bool data_only = 3;
+    // Data types included in export.
     repeated system_monitor_common.ParameterType data_types = 4;
 }
 
 message MatlabDTVRequest {
+    // Filename and full path of DTV file.
     string dtv_path = 1;
+    // Filename and full path of exported file.
     string export_path = 2;
+    // True if only data is to be exported, false to export data and definitions.
     bool data_only = 3;
+    // Data types included in export.
     repeated system_monitor_common.ParameterType data_types = 4;
 }
 
 message MatlabSelectedRequest {
+    // Application Id.
     uint32 app_id = 1;
+    // Filename and full path.
     string export_path = 2;
+    // True if only data is to be exported, false to export data and definitions.
     bool data_only = 3;
+    // Identifiers of the parameters to be exported
     repeated string parameter_ids = 4;
 }
 
 message GetBuildNumberReply {
+    // System Monitor build number.
     uint32 build_number = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message GetVersionNumberReply {
+    // Major revision.
     uint32 major_version = 1;
+    // Minor revision.
     uint32 minor_version = 2;
+    // Build number.
     uint32 build_version = 3;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 4;
 }
 
 message PGVIDReply {
+    // Result program version ID.
     uint32 pgv_id = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message DetailsRequest {
+    // Application Id.
     uint32 app_id = 1;
+    // Data Version Notes or Comments
     string text = 2;
 }
 
 message AppReply {
+    // Return text value.
     string text = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message DTVModifiedReply {
+    // Whether the DTV is modified.
     bool modified = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message DTVSavedOnReply {
+    // Timestamp the DTV was saved at.
     string saved_on = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message EnableRequest {
+    // True to enable, false to disable.
     bool enable = 1;
 }
 
 message DTVSaveRequest {
+    // Application Id.
     uint32 app_id = 1;
+    // Filename and full path.
     string save_path = 2;
+    // Prefix to existing comment.
     string comment = 3;
+    // Prefix to existing notes.
     string notes = 4;
 }
 
 message DTVSaveCopyRequest {
+    // Application Id.
     uint32 app_id = 1;
+    // Filename and full path.
     string save_path = 2;
+    // Prefix to existing comment.
     string comment = 3;
+    // Prefix to existing notes.
     string notes = 4;
+    // Consortium name to save data version to.
+    // Consortium Id in the DTV will be saved with the supplied value if licence permissions allow, otherwise error code -2 is returned.
+    // Set to "Disabled" to remove team security and unlock file.
     string consortium = 5;
 }
 
 message DTVSaveIncrementRequest {
+    // Application Id.
     uint32 app_id = 1;
+    // Prefix to existing comment.
     string comment = 2;
+    // Prefix to existing notes.
     string notes = 3;
 }
 
 message Application {
+    // Application Id.
     uint32 app_id = 1;
+    // Application name.
     string app_name = 2;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 3;
 }
 
 message GetAppDetailsReply {
+    // Application details.
     repeated Application apps = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
-
 message ActiveAppReply {
+    // Application ids
     repeated uint32 app_ids = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message CompareAppRequest {
+    // Application id.
     uint32 app_id = 1;
+    // Filename and full path of the first DTV to compare against (.dtv).
     string dtv1_path = 2;
+    // Filename and full path of the second DTV to compare against (.dtv).
     string dtv2_path = 3;
 }
 
 message ReasonCode {
+    // Reason codes.
     repeated system_monitor_common.Reason reasons = 3;
 }
 
 message CompareParameter
 {
+    // Parameter id.
     string parameter_id = 1;
+    // Parameter type.
     system_monitor_common.ParameterType type = 2;
+    // Reason codes for difference between the parameter in the application in memory and the first DTV supplied.
     ReasonCode reason1 = 3;
+    // Reason codes for difference between the parameter in the application in memory and the second DTV supplied.
     ReasonCode reason2 = 4;
 }
 
 message CompareAppReply
 {
+    // The compared parameter information.
     repeated CompareParameter parameters = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message FileOpenRequest {
+    // The type of file to open.
     system_monitor_common.FileType file_type = 1;
+    // The path of the file to open.
     string file_path = 2;
+    // Slot index. Only required when loading Logging and CAN configuration (1-8).
     uint32 slot = 3;
+    // True to set active. Only required when loading Logging and CAN configuration (1-8).
     bool activate = 4;
 }
 
 message FileSaveRequest {
+    // Type of file to save.
     system_monitor_common.FileType file_type = 1;
+    // The path of the file to save.
     string file_path = 2;
+    // File comments.
     string comment = 3;
+    // File notes.
     string notes = 4;
-    string consortium =5;
+    // Name of the licence consortium used to save the file. Set for supported file types only ( .dtv, .rlc & .dtp ).
+    string consortium = 5;
+    // Whether to save a copy without affecting SM modified status.
     bool save_copy_as = 6;
 }
 
 message FileNewRequest {
+    // Type of file to create.
     system_monitor_common.FileType file_type = 1;
+    // The path of the file to create.
     string file_path = 2;
+    // Whether to save the existing file.
     bool save_existing = 3;
+    // Whether to overwrite an existing file with the same path.
     bool overwrite = 4;
 }
 
 message FileNameRequest {
+    // File type.
     system_monitor_common.FileType file_type = 1;
+    // Slot index (1-8). Only required for FileType.LoggingConfig and FileType.Can
     uint32 slot = 2;
 }
 
 message FileDetailsReply {
+    // Name of the last user to save the file.
     string saved_by = 1;
+    // Date time of last file save.
     google.protobuf.Timestamp saved_on = 2;
+    // File comments.
     string comment = 3;
+    // File notes.
     string notes = 4;
+    // Build number of System Monitor used when saving file.
     uint32 build = 5;
+    // Name of the licence consortium used to save the file. Set for supported file types only ( .dtv, .rlc & .dtp ).
     string consortium = 6;
+    // Name of the licence owner used to create the file. Set for supported file types only ( .dtv, .rlc & .dtp ).
     string owner = 7;
+    // RDA unlock list checksum for locked DTV's.Set for supported file types only ( .dtv ).
     string rda = 8;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 9;
 }
 
 message SlotRequest {
+    // Slot index (1-8).
     uint32 slot = 1;
 }
 
 message SlotActiveRequest {
+    // Slot index (1-8).
     uint32 slot = 1;
+    // TRUE to activate the slot.
     bool active = 2;
 }
 
 message SlotReply {
+    // Slot is active.
     bool active = 1;
+    // return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message ReprogramRequest {
+    // An array of all app ids to reprogram.
     repeated uint32 app_ids = 1;
+    // Whether to force a reprogram.
     bool force = 2;
 }
 
 message SyncedReply {
+    // TRUE if the edit buffer is in sync with the ECU.
     bool synced = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message SensorRequest {
+    // Application Id.
     uint32 app_id = 1;
+    // Sensor identifier.
     string sensor = 2;
+    // Serial number.
     int32 serial_number = 3;
 }
 
 message ExistsRequest {
-	uint32 app_id = 1;
-	string parameter_id = 2;
+    // Application Id.
+    uint32 app_id = 1;
+    // Parameter Id.
+    string parameter_id = 2;
+    // Parameter data type.
     system_monitor_common.ParameterType data_type = 3;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 4;
 }
 
 message ExistsReply {
+    // True if exists, False if not
     bool exists = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message CANRequest {
+    // Bus Index
     uint32 index = 1;
+    // Name and path of CAN .csv file.
     string file_path = 2;
 }
 
 message CANMergeRequest {
+    // Bus Index.
     uint32 index = 1;
+    // Name and path of .csv.
     string file_path = 2;
+    // Merge with existing messages.
     bool merge = 3;
 }
 
 message EventRequest {
+    // Application id.
     uint32 app_id = 1;
+    // Event id.
     uint32 event_id = 2;
 }
 
 message Event {
+    // Event id.
     uint32 id = 1;
+    // Event name.
     string name = 2;
+    // Event priority.
     system_monitor_common.EventPriority priority = 3;
 }
 
 message EventsReply {
+    // The events.
     repeated Event events = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message EventReply {
+    // Event Id.
     uint32 event_id = 1;
+    // Event description.
     string description = 2;
+    // Id of first event conversion.
     string conversion_id1 = 3;
+    // Id of second event conversion.
     string conversion_id2 = 4;
+    // Id of third event conversion.
     string conversion_id3 = 5;
+    // Event level. ( 0 - High, 1 - Medium, 2 - Low, 3 - Debug )
     system_monitor_common.EventPriority priority = 6;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 7;
 }
 
 message ErrorDefinition {
+    // Error definition id.
     string id = 1;
+    // Error definition name.
     string name = 2;
+    // Error definition description.
     string description = 3;
+    // Error definition group.
     string group = 4;
+    // Error definition bit number.
     uint32 bit_number = 5;
+    // Error definition current parameter identifier.
     string current = 6;
+    // Error definition logged parameter identifier.
     string logged = 7;
 }
 
 message ErrorInstance {
+    // Error identifier.
     string name = 1;
+    // Error description.
     string description = 2;
+    // Error status level.
     system_monitor_common.ErrorStatus status = 3;
 }
 
 message ErrorDefinitionsReply {
+    // The error definitions.
     repeated ErrorDefinition error_definitions = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
 
 message ErrorReply {
+    // The active errors
     repeated ErrorInstance error_instances = 1;
+    // Return code.
     system_monitor_common.ErrorCode return_code = 2;
 }
