@@ -157,7 +157,7 @@ namespace SystemMonitorConfigurationTest
 
                     var request = new TriggerRequest
                     {
-                        Index = trigger.Index,
+                        Index = (uint)index,
                         StartPostTrigger = Convert.ToInt32(dialog.start.Text),
                         StopPostTrigger = Convert.ToInt32(dialog.stop.Text)
                     };

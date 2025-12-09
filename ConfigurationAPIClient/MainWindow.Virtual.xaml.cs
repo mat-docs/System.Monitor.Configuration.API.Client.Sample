@@ -1,10 +1,11 @@
-﻿// <copyright file="MainWindow.Virtual.xaml.cs" company="McLaren Applied Ltd.">
-// Copyright (c) McLaren Applied Ltd.</copyright>
+﻿// <copyright file="MainWindow.Virtual.xaml.cs" company="Motion Applied Ltd.">
+// Copyright (c) Motion Applied Ltd.</copyright>
 
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Windows;
@@ -89,31 +90,52 @@ namespace SystemMonitorConfigurationTest
             try
             {
                 this.ClearResults();
-                Mouse.OverrideCursor = Cursors.Wait;
-                var stopwatch = Stopwatch.StartNew();
 
                 var request = new ParametersRequest();
+                var parameters = new Dictionary<string, string>();
                 foreach (var item in this.virt.Items)
                 {
-                    request.ParameterIds.Add(((DataRowView)item).Row.ItemArray[0]?.ToString());
+                    parameters.Add(((DataRowView)item).Row.ItemArray[0]?.ToString()!,((DataRowView)item).Row.ItemArray[1]?.ToString());
                 }
-
-                var reply = this.virtualClient.GetVirtualParameterProperties(request, this.header);
-                this.SetErrorCode(reply.ReturnCode);
-
-                this.results.Items.Add($"Count: {reply.Parameters.Count}");
-                foreach (var param in reply.Parameters)
+                
+                var dialog = new SelectParameters(parameters);
+                if (dialog.ShowDialog() == true)
                 {
-                    var data = $"'{param.Id}' - '{param.Name}':\tDesc: '{param.Description}' - Lower: '{param.LowerDisplayLimit}' - Upper: '{param.UpperDisplayLimit}'";
-                    data += $" - MinRate: '{param.MinLoggingRate}' - Conv: '{param.ConversionId}' - DataType: {param.DataType}";
-                    data += $" - Scaling: {param.ScalingFactor} - MinNotDef: {param.MinNotDefined} - Units: '{param.Units}'";
-                    data += $" - Format: {param.Format} - Group: {param.Group} - Expression: '{param.Expression}'";
-                    data += $" - Error: '{param.ReturnCode}'";
+                    var stopwatch = Stopwatch.StartNew();
+                    Mouse.OverrideCursor = Cursors.Wait;
 
-                    this.results.Items.Add(data);
+                    if (dialog.SelectAll.IsChecked == false)
+                    {
+                        foreach (DataRowView item in dialog.Parameters.SelectedItems)
+                        {
+                            request.ParameterIds.Add((string)item.Row.ItemArray[0]);
+                        }
+                    }
+                    else
+                    {
+                        // Send Empty list if SelectAll checked
+                    }
+
+                    var reply = this.virtualClient.GetVirtualParameterProperties(request, this.header);
+                    this.SetErrorCode(reply.ReturnCode);
+
+                    this.results.Items.Add($"Count: {reply.Parameters.Count}");
+                    foreach (var param in reply.Parameters)
+                    {
+                        var data =
+                            $"'{param.Id}' - '{param.Name}':\tDesc: '{param.Description}' - Lower: '{param.LowerDisplayLimit}' - Upper: '{param.UpperDisplayLimit}'";
+                        data +=
+                            $" - MinRate: '{param.MinLoggingRate}' - Conv: '{param.ConversionId}' - DataType: {param.DataType}";
+                        data +=
+                            $" - Scaling: {param.ScalingFactor} - MinNotDef: {param.MinNotDefined} - Units: '{param.Units}'";
+                        data += $" - Format: {param.Format} - Group: {param.Group} - Expression: '{param.Expression}'";
+                        data += $" - Error: '{param.ReturnCode}'";
+
+                        this.results.Items.Add(data);
+                    }
+
+                    this.executeTime.Content = $"{stopwatch.ElapsedMilliseconds}ms";
                 }
-
-                this.executeTime.Content = $"{stopwatch.ElapsedMilliseconds}ms";
             }
             catch (RpcException)
             {

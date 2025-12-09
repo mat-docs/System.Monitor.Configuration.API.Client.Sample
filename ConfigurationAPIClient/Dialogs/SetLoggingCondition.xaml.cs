@@ -51,7 +51,7 @@ namespace SystemMonitorConfigurationTest.Dialogs
                 dt2.Rows.Add(TriggerOperator.GreaterThan, $"{TriggerOperator.GreaterThan}");
                 dt2.Rows.Add(TriggerOperator.NotEqualTo, $"{TriggerOperator.NotEqualTo}");
                 dt2.Rows.Add(TriggerOperator.GreaterThanOrEqual, $"{TriggerOperator.GreaterThanOrEqual}");
-                dt2.Rows.Add(TriggerOperator.LessThanOrEqual, $"{TriggerOperator.GreaterThanOrEqual}");
+                dt2.Rows.Add(TriggerOperator.LessThanOrEqual, $"{TriggerOperator.LessThanOrEqual}");
 
                 var binding2 = new Binding
                 {

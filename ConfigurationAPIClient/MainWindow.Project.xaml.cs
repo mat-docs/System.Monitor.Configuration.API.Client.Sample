@@ -1,5 +1,5 @@
-﻿// <copyright file="MainWindow.Project.xaml.cs" company="McLaren Applied Ltd.">
-// Copyright (c) McLaren Applied Ltd.</copyright>
+﻿// <copyright file="MainWindow.Project.xaml.cs" company="Motion Applied Ltd.">
+// Copyright (c) Motion Applied Ltd.</copyright>
 
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
@@ -1732,7 +1732,7 @@ namespace SystemMonitorConfigurationTest
                         FilePath = dialog.filePath.Text,
                         Activate = dialog.activate.IsChecked != null && (bool)dialog.activate.IsChecked,
                         FileType = (FileType)((DataRowView)dialog.typeList.SelectedItem).Row.ItemArray[0]!,
-                        Slot = Convert.ToUInt32(dialog.slot.Text) - 1
+                        Slot = Convert.ToUInt32(dialog.slot.Text)
                     };
 
                     this.results.Items.Add($"File Open: {open.FilePath}");

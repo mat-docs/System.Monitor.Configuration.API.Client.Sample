@@ -279,7 +279,18 @@ message MatlabRequest {
     string export_path = 2;
     // True if only data is to be exported, false to export data and definitions.
     bool data_only = 3;
-    // Data types included in export.
+    // Parameter data types included in export.
+    // - One or more of 
+    // ParameterType.scalar,
+    // ParameterType.axis_1,
+    // ParameterType.axis_2,
+    // ParameterType.array,
+    // ParameterType.string,
+    // ParameterType.Can,
+    // ParameterType.Virtual,
+    // ParameterType.Axis,
+    // ParameterType.Input or
+    // ParameterType.Measurement.
     repeated system_monitor_common.ParameterType data_types = 4;
 }
 
@@ -290,7 +301,18 @@ message MatlabDTVRequest {
     string export_path = 2;
     // True if only data is to be exported, false to export data and definitions.
     bool data_only = 3;
-    // Data types included in export.
+    // Parameter data types included in export.
+    // - One or more of 
+    // ParameterType.scalar,
+    // ParameterType.axis_1,
+    // ParameterType.axis_2,
+    // ParameterType.array,
+    // ParameterType.string,
+    // ParameterType.Can,
+    // ParameterType.Virtual,
+    // ParameterType.Axis,
+    // ParameterType.Input or
+    // ParameterType.Measurement.
     repeated system_monitor_common.ParameterType data_types = 4;
 }
 
@@ -414,6 +436,7 @@ message GetAppDetailsReply {
     system_monitor_common.ErrorCode return_code = 2;
 }
 
+
 message ActiveAppReply {
     // Application ids
     repeated uint32 app_ids = 1;
@@ -439,7 +462,18 @@ message CompareParameter
 {
     // Parameter id.
     string parameter_id = 1;
-    // Parameter type.
+    // Parameter data type.
+    // - One of
+    // ParameterType.scalar,
+    // ParameterType.axis_1,
+    // ParameterType.axis_2,
+    // ParameterType.array,
+    // ParameterType.string,
+    // ParameterType.Can,
+    // ParameterType.Virtual,
+    // ParameterType.Axis,
+    // ParameterType.Input or
+    // ParameterType.Measurement.
     system_monitor_common.ParameterType type = 2;
     // Reason codes for difference between the parameter in the application in memory and the first DTV supplied.
     ReasonCode reason1 = 3;
@@ -457,6 +491,11 @@ message CompareAppReply
 
 message FileOpenRequest {
     // The type of file to open.
+    // - One of
+    // FileType.Desktop,
+    // FileType.Virtuals,
+    // FileType.LoggingConfig or
+    // FileType.Can.
     system_monitor_common.FileType file_type = 1;
     // The path of the file to open.
     string file_path = 2;
@@ -468,6 +507,11 @@ message FileOpenRequest {
 
 message FileSaveRequest {
     // Type of file to save.
+    // - One of
+    // FileType.Desktop,
+    // FileType.Virtuals,
+    // FileType.LoggingConfig or
+    // FileType.Can.
     system_monitor_common.FileType file_type = 1;
     // The path of the file to save.
     string file_path = 2;
@@ -483,6 +527,10 @@ message FileSaveRequest {
 
 message FileNewRequest {
     // Type of file to create.
+    // - One of
+    // FileType.Virtuals,
+    // FileType.LoggingConfig or
+    // FileType.Can.
     system_monitor_common.FileType file_type = 1;
     // The path of the file to create.
     string file_path = 2;
@@ -493,7 +541,13 @@ message FileNewRequest {
 }
 
 message FileNameRequest {
-    // File type.
+    // File name of requested type.
+    // - One of
+    // FileType.Project,
+    // FileType.Desktop,
+    // FileType.Virtuals,
+    // FileType.LoggingConfig or
+    // FileType.Can.
     system_monitor_common.FileType file_type = 1;
     // Slot index (1-8). Only required for FileType.LoggingConfig and FileType.Can
     uint32 slot = 2;
@@ -568,6 +622,17 @@ message ExistsRequest {
     // Parameter Id.
     string parameter_id = 2;
     // Parameter data type.
+    // - One of
+    // ParameterType.scalar,
+    // ParameterType.axis_1,
+    // ParameterType.axis_2,
+    // ParameterType.array,
+    // ParameterType.string,
+    // ParameterType.Can,
+    // ParameterType.Virtual,
+    // ParameterType.Axis,
+    // ParameterType.Input or
+    // ParameterType.Measurement.
     system_monitor_common.ParameterType data_type = 3;
     // Return code.
     system_monitor_common.ErrorCode return_code = 4;
