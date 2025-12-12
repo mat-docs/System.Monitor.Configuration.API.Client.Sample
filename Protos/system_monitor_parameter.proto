@@ -144,6 +144,11 @@ message Conversion {
     // Id of the conversion.
     string id = 1;
     // Type of the conversion.
+    // - One of 
+    // ConversionType.Rational, 
+    // ConversionType.Table, 
+    // ConversionType.Text or 
+    // ConversionType.Formula.
     system_monitor_common.ConversionType type = 2;
 }
 
@@ -159,7 +164,15 @@ message ParameterProperties {
     string name = 2;
     // Description of the parameter.
     string description = 3;
-    // Type of the parameter.
+    // Parameter data type.
+    // - One of
+    // ParameterType.scalar,
+    // ParameterType.axis_1,
+    // ParameterType.axis_2,
+    // ParameterType.array,
+    // ParameterType.string,
+    // ParameterType.Axis or
+    // ParameterType.Measurement.
     system_monitor_common.ParameterType type = 4;
     // Units of the parameter.
     string units = 5;
@@ -267,15 +280,22 @@ message ConversionListReply {
     system_monitor_common.ErrorCode return_code = 2;
 }
 
-message TypeRequest {
-    // Parameter data type.
-    system_monitor_common.ParameterType data_type = 1;
-}
-
 message AppTypeRequest {
     // Id of the application
     uint32 app_id = 1;
-    // Optional: Use ParameterType.Undefined for ALL
+    // Parameter data type.
+    // - One of  
+    // ParameterType.Undefined,
+    // ParameterType.scalar,
+    // ParameterType.axis_1,
+    // ParameterType.axis_2,
+    // ParameterType.array,
+    // ParameterType.string,
+    // ParameterType.Can,
+    // ParameterType.Virtual,
+    // ParameterType.Axis,
+    // ParameterType.Input or
+    // ParameterType.Measurement.
     system_monitor_common.ParameterType data_type = 2;
 }
 
@@ -284,10 +304,20 @@ message ParameterTypeRequest {
     uint32 app_id = 1;
     // Id of the parameter.
     string parameter_id = 2;
-    // Data type of the parameter.
+    // Parameter data type.
+    // - One of  
+    // ParameterType.scalar,
+    // ParameterType.axis_1,
+    // ParameterType.axis_2,
+    // ParameterType.array,
+    // ParameterType.string,
+    // ParameterType.Can,
+    // ParameterType.Virtual,
+    // ParameterType.Axis,
+    // ParameterType.Input or
+    // ParameterType.Measurement.
     system_monitor_common.ParameterType data_type = 3;
 }
-
 
 message ParameterGroup {
     // Id of the parameter group.

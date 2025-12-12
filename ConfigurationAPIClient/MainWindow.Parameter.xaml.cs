@@ -1,10 +1,12 @@
-﻿// <copyright file="MainWindow.Parameter.xaml.cs" company="McLaren Applied Ltd.">
-// Copyright (c) McLaren Applied Ltd.</copyright>
+﻿// <copyright file="MainWindow.Parameter.xaml.cs" company="Motion Applied Ltd.">
+// Copyright (c) Motion Applied Ltd.</copyright>
 
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
@@ -217,32 +219,55 @@ namespace SystemMonitorConfigurationTest
             try
             {
                 this.ClearResults();
-                Mouse.OverrideCursor = Cursors.Wait;
-                var stopwatch = Stopwatch.StartNew();
 
                 var request = new ParametersRequest();
+                var parameters = new Dictionary<string, string>();
                 foreach (var item in this.can.Items)
                 {
-                    request.ParameterIds.Add(((DataRowView)item).Row.ItemArray[0]?.ToString());
+                    parameters.Add(((DataRowView)item).Row.ItemArray[0]?.ToString()!,((DataRowView)item).Row.ItemArray[1]?.ToString());
                 }
-
-                var reply = this.paramClient.GetCANParameterProperties(request, this.header);
-                this.SetErrorCode(reply.ReturnCode);
-
-                this.results.Items.Add($"Count: {reply.Parameters.Count}");
-                foreach (var param in reply.Parameters)
+                
+                var dialog = new SelectParameters(parameters);
+                if (dialog.ShowDialog() == true)
                 {
-                    var data = $"'{param.Id}' - '{param.Name}':\tDesc: '{param.Description}' - Lower: '{param.LowerDisplayLimit}' - Upper: '{param.UpperDisplayLimit}'";
-                    data += $" - MinRate: '{param.MinLoggingRate}' - Conv: '{param.ConversionId}' - DataType: {param.DataType}";
-                    data += $" - Scaling: {param.ScalingFactor} - MinNotDef: {param.MinNotDefined} - Rx: {param.Rx}";
-                    data += $" - Bus: {param.CanBus} - Message: {param.CanMessage} - Start: {param.CanStartBit} - Length: {param.CanBitLength}";
-                    data += $" - Gain: {param.CanGain} - Offset: {param.CanOffset} - Mux: {param.CanMuxId} - Order: {param.CanByteOrder}";
-                    data += $" - Error: '{param.ReturnCode}'";
+                    var stopwatch = Stopwatch.StartNew();
+                    Mouse.OverrideCursor = Cursors.Wait;
 
-                    this.results.Items.Add(data);
+                    if (dialog.SelectAll.IsChecked == false)
+                    {
+                        foreach (DataRowView item in dialog.Parameters.SelectedItems)
+                        {
+                            request.ParameterIds.Add((string)item.Row.ItemArray[0]);
+                        }
+                    }
+                    else
+                    {
+                        // Send Empty list if SelectAll checked
+                    }
+
+                    var reply = this.paramClient.GetCANParameterProperties(request, this.header);
+                    this.SetErrorCode(reply.ReturnCode);
+
+                    this.results.Items.Add($"Count: {reply.Parameters.Count}");
+                    foreach (var param in reply.Parameters)
+                    {
+                        var data =
+                            $"'{param.Id}' - '{param.Name}':\tDesc: '{param.Description}' - Lower: '{param.LowerDisplayLimit}' - Upper: '{param.UpperDisplayLimit}'";
+                        data +=
+                            $" - MinRate: '{param.MinLoggingRate}' - Conv: '{param.ConversionId}' - DataType: {param.DataType}";
+                        data +=
+                            $" - Scaling: {param.ScalingFactor} - MinNotDef: {param.MinNotDefined} - Rx: {param.Rx}";
+                        data +=
+                            $" - Bus: {param.CanBus} - Message: {param.CanMessage} - Start: {param.CanStartBit} - Length: {param.CanBitLength}";
+                        data +=
+                            $" - Gain: {param.CanGain} - Offset: {param.CanOffset} - Mux: {param.CanMuxId} - Order: {param.CanByteOrder}";
+                        data += $" - Error: '{param.ReturnCode}'";
+
+                        this.results.Items.Add(data);
+                    }
+                    
+                    this.executeTime.Content = $"{stopwatch.ElapsedMilliseconds}ms";
                 }
-
-                this.executeTime.Content = $"{stopwatch.ElapsedMilliseconds}ms";
             }
             catch (RpcException)
             {
@@ -1020,15 +1045,15 @@ namespace SystemMonitorConfigurationTest
                 {
                     var type = ConversionType.Rational;
                     var text = (string)((DataRowView)this.conv.SelectedItem).Row.ItemArray[1];
-                    if (text != null && text.EndsWith($"{ConversionType.Text}"))
+                    if (text != null && ( text.EndsWith($"{ConversionType.Text}") || text.EndsWith($"{ConversionType.Text} - VIRTUAL OR CAN") ) )
                     {
                         type = ConversionType.Text;
                     }
-                    else if (text != null && text.EndsWith($"{ConversionType.Table}"))
+                    else if (text != null && ( text.EndsWith($"{ConversionType.Table}")|| text.EndsWith($"{ConversionType.Table} - VIRTUAL OR CAN") ) )
                     {
                         type = ConversionType.Table;
                     }
-                    else if (text != null && text.EndsWith($"{ConversionType.Formula}"))
+                    else if (text != null && ( text.EndsWith($"{ConversionType.Formula}") || text.EndsWith($"{ConversionType.Formula} - VIRTUAL OR CAN") ) )
                     {
                         type = ConversionType.Formula;
                     }
@@ -1133,15 +1158,15 @@ namespace SystemMonitorConfigurationTest
                 {
                     var type = ConversionType.Rational;
                     var text = (string)((DataRowView)this.conv.SelectedItem).Row.ItemArray[1];
-                    if (text != null && text.EndsWith($"{ConversionType.Text}"))
+                    if (text != null && ( text.EndsWith($"{ConversionType.Text}") || text.EndsWith($"{ConversionType.Text} - VIRTUAL OR CAN") ) )
                     {
                         type = ConversionType.Text;
                     }
-                    else if (text != null && text.EndsWith($"{ConversionType.Table}"))
+                    else if (text != null && ( text.EndsWith($"{ConversionType.Table}")|| text.EndsWith($"{ConversionType.Table} - VIRTUAL OR CAN") ) )
                     {
                         type = ConversionType.Table;
                     }
-                    else if (text != null && text.EndsWith($"{ConversionType.Formula}"))
+                    else if (text != null && ( text.EndsWith($"{ConversionType.Formula}") || text.EndsWith($"{ConversionType.Formula} - VIRTUAL OR CAN") ) )
                     {
                         type = ConversionType.Formula;
                     }

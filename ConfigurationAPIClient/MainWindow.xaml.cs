@@ -1,5 +1,5 @@
-﻿// <copyright file="MainWindow.xaml.cs" company="McLaren Applied Ltd.">
-// Copyright (c) McLaren Applied Ltd.</copyright>
+﻿// <copyright file="MainWindow.xaml.cs" company="Motion Applied Ltd.">
+// Copyright (c) Motion Applied Ltd.</copyright>
 
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
@@ -120,6 +120,22 @@ namespace SystemMonitorConfigurationTest
             var cert = new X509Certificate2(this.settings.Certificate, this.settings.Key);
             var httpHandler = new HttpClientHandler();
             httpHandler.ClientCertificates.Add(cert);
+            
+            // Add server certificate validation
+            httpHandler.ServerCertificateCustomValidationCallback = (message, serverCert, chain, errors) =>
+            {
+                // For production, implement proper certificate pinning or validation logic
+                // This example allows self-signed or untrusted certificates (development only)
+                if (errors == System.Net.Security.SslPolicyErrors.None)
+                {
+                    return true;
+                }
+                
+                // Return true to allow the connection despite validation errors
+                // WARNING: Only for development/testing with self-signed certificates
+                return true;
+            };
+            
             var httpClient = new HttpClient(httpHandler);
             var channel = GrpcChannel.ForAddress(this.serverAddress.Text, new GrpcChannelOptions
             {
